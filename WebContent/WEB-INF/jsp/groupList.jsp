@@ -10,14 +10,14 @@
 </head>
 <body>
     <div class="container">
-        <h1>Group List (bootstrap)</h1>
+        <h1>Group List (bootstrap), bug de modification si un groupe a le meme id qu'un nouveau groupe.<br> surement resolu lors de l'implementation de la base de donnée</h1>
         <table class="table table-hover">
-            <c:forEach items="${groups}" var="group">
+            <c:forEach items="${groups}" var="groupList">
                 <tr>
-                    <td><a href="${view}?id=${group.id}">
-                        <c:out value="${group.name}" />
+                    <td><a href="${view}?id=${groupList.id}">
+                        <c:out value="${groupList.name}" />
                     </a></td>
-                     <td><a class="btn btn-info" href="${edit}?id=${group.id}">
+                     <td><a class="btn btn-info" href="${edit}?id=${groupList.id}">
                         modification
                     </a></td>
                 </tr>

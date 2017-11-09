@@ -2,11 +2,21 @@ package directory.beans;
 
 import java.util.Collection;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class Group {
 
-	private int id;
+    @NotNull(message = "Un identifiant est obligatoire")
+    @Min(value = 1, message = "Le prix est trop bas")
+	private Long id;
+    
+    @NotNull(message = "Un nom est obligatoire")
+    @Size(min = 1, max = 100, message = "Entre 1 et 200 caractères")
 	private String name;
-	private Collection<Person> persons;
+	
+    private Collection<Person> persons;
 
 	/**
 	 * faut lire ca (7 ->7.3) 
@@ -27,14 +37,14 @@ public class Group {
 		
 	}
 	
-	public Group(int id, String name, Collection<Person> persons) {
+	public Group(long id, String name, Collection<Person> persons) {
 		this.id = id;
 		this.name = name;
 		this.persons = persons;
 	}
 	
 	public void init() {
-		id = -1;
+		id = -1L;
 		name = "";
 	}
 	
@@ -42,9 +52,8 @@ public class Group {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((persons == null) ? 0 : persons.hashCode());
 		return result;
 	}
 
@@ -57,27 +66,25 @@ public class Group {
 		if (getClass() != obj.getClass())
 			return false;
 		Group other = (Group) obj;
-		if (id != other.id)
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (persons == null) {
-			if (other.persons != null)
-				return false;
-		} else if (!persons.equals(other.persons))
-			return false;
 		return true;
 	}
 
-	public int getId() {
-		return id;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public Long getId() {
+		return id;
 	}
 
 	public String getName() {

@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <title>Bienvenu sur l'annuaire</title>
-<c:url var="groupList"   value="/actions/directory/groupList" />
+<c:url var="groupList"   value="/actions/directory/group/list" />
 </head>
 <body>
 <!-- 	<header> -->

@@ -1,11 +1,14 @@
 package directory.manager.imp;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.exception.DaoException;
@@ -26,16 +29,24 @@ public class Manager implements IDirectoryManager {
 	private LinkedHashMap<User,Boolean> userList = new LinkedHashMap<>();
 	
 	//mumuse sans dao
-	Map<Integer, Group> toto = new HashMap<>();
+	Map<Long, Group> toto = new HashMap<>();
 	Collection<Group> groups;
-	
+	SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
 //	@Autowired
 //	private Dao dao;
 	
 	public Manager() {
+		
+		Date date = null;
+		try {
+			date = sdf.parse("22/03/1991");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
 		userList.put(new User(1, "vtff"),true);
     	HashMap<Integer,Person> persons = new HashMap<>();
-    	Person person = new Person();
+    	Person person = new Person(10,"Masliah", "yann", date, "toto@gmail.com", "", "tata", 1);
     	person.setLastName("toto");
     	persons.put(1,new Person());
     	persons.put(2,person);
@@ -63,6 +74,13 @@ public class Manager implements IDirectoryManager {
 	@Override
 	public Person findPerson(User user, long personId) throws DaoException {
 		Person returnValue = null;
+		Date date = null;
+		try {
+			date = sdf.parse("22/03/1991");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		returnValue = new Person(10,"Masliah", "yann", date, "toto@gmail.com", "", "tata", 1);
 //		if(userList.get(user)){
 //			returnValue = dao.findPerson(personId);
 //		}
@@ -74,7 +92,7 @@ public class Manager implements IDirectoryManager {
 		Group returnValue = null;
 //		if(userList.get(user)){
 //			returnValue = dao.findGroup(groupId);
-			returnValue = toto.get((int)(long)groupId);
+			returnValue = toto.get(groupId);
 //		}
 		return returnValue;
 	}
@@ -91,14 +109,10 @@ public class Manager implements IDirectoryManager {
 	@Override
 	public Collection<Group> findAllGroup(User user) throws DaoException {
 		Collection<Group> returnValue = null;
-		if(userList.get(user)){
+//		if(userList.get(user)){
 //			returnValue = dao.findAllGroups();
-	    	Group g1 = new Group(1, "isl", null);
-	    	toto.put(g1.getId(), g1);
-	    	Group g2 = new Group(2, "fsi", null);
-	    	toto.put(g2.getId(), g2);
-	    	groups = toto.values();
-		}
+	    	returnValue = groups;
+//		}
 		return returnValue;
 	}
 	

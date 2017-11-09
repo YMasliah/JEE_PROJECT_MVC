@@ -1,22 +1,67 @@
 package directory.beans;
 
+import java.util.Date;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import springapp.web.Mail;
+
+/**
+ * il faut faire la verif du groupid et id dans le validator
+ * le validateur d'url marche pas, flemme de check
+ * 
+ * bon la date elle me fait chier, j'ai presque reussi a faire marcher. le mieu c de faire en String je crois
+ * ou pas
+ * @author masliah yann
+ *
+ */
 public class Person {
-	private long id;
+
+    @NotNull(message = "Un identifiant est obligatoire")
+	private Long id;
+    
+    @NotNull(message = "Un identifiant est obligatoire")
+    @Size(min = 1, message = "Le nom est obligatoire")
 	private String lastName;
+    
+    @NotNull(message = "Un identifiant est obligatoire")
+    @Size(min = 1, message = "Le nom est obligatoire")
 	private String firstName;
-	//un string pour debuter mais apres faut changer
-	private String birthDate;
+    
+	// un string pour debuter mais apres faut changer
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+	private Date birthDate;
+    
+    @Override
+	public String toString() {
+		return "Person [id=" + id + ", lastName=" + lastName + ", firstName=" + firstName + ", birthDate=" + birthDate
+				+ ", mail=" + mail + ", webSite=" + webSite + ", password=" + password + ", groupId=" + groupId + "]";
+	}
+
+	@Mail
 	private String mail;
+
+	//@URL
 	private String webSite;
+    
+    @NotNull(message = "Un identifiant est obligatoire")
+    @Size(min = 1, message = "Le nom est obligatoire")
 	private String password;
-	//un int ou un Group ?
-	private long groupId;
+	// un int ou un Group ?
+    
+    @Min(value = 1, message = "Le prix est trop bas")
+	private Long groupId;
 
 	public Person() {
 
 	}
 
-	public Person(long id, String lastName, String firstName, String birthDate, String mail, String webSite, String password, int groupId) {
+	public Person(long id, String lastName, String firstName, Date birthDate, String mail, String webSite,
+			String password, long groupId) {
 		this.id = id;
 		this.lastName = lastName;
 		this.firstName = firstName;
@@ -25,28 +70,23 @@ public class Person {
 		this.webSite = webSite;
 		this.password = password;
 		this.groupId = groupId;
-	}	
-	
+	}
+
 	/**
 	 * renvoi toute les valeurs
+	 * 
 	 * @return
 	 */
 	public Object[] getAll() {
 		return null;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((birthDate == null) ? 0 : birthDate.hashCode());
-		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result + (int) (groupId ^ (groupId >>> 32));
-		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-		result = prime * result + ((mail == null) ? 0 : mail.hashCode());
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((webSite == null) ? 0 : webSite.hashCode());
 		return result;
 	}
 
@@ -59,43 +99,19 @@ public class Person {
 		if (getClass() != obj.getClass())
 			return false;
 		Person other = (Person) obj;
-		if (birthDate == null) {
-			if (other.birthDate != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!birthDate.equals(other.birthDate))
-			return false;
-		if (firstName == null) {
-			if (other.firstName != null)
-				return false;
-		} else if (!firstName.equals(other.firstName))
-			return false;
-		if (groupId != other.groupId)
-			return false;
-		if (id != other.id)
+		} else if (!id.equals(other.id))
 			return false;
 		if (lastName == null) {
 			if (other.lastName != null)
 				return false;
 		} else if (!lastName.equals(other.lastName))
 			return false;
-		if (mail == null) {
-			if (other.mail != null)
-				return false;
-		} else if (!mail.equals(other.mail))
-			return false;
-		if (password == null) {
-			if (other.password != null)
-				return false;
-		} else if (!password.equals(other.password))
-			return false;
-		if (webSite == null) {
-			if (other.webSite != null)
-				return false;
-		} else if (!webSite.equals(other.webSite))
-			return false;
 		return true;
 	}
-	
+
 	public String getWebSite() {
 		return webSite;
 	}
@@ -112,12 +128,12 @@ public class Person {
 		this.password = password;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long l) {
-		this.id = l;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getLastName() {
@@ -136,11 +152,11 @@ public class Person {
 		this.firstName = firstName;
 	}
 
-	public String getBirthDate() {
+	public Date getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(String birthDate) {
+	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
 	}
 
@@ -152,22 +168,22 @@ public class Person {
 		this.mail = mail;
 	}
 
-	public long getGroupId() {
+	public Long getGroupId() {
 		return groupId;
 	}
 
-	public void setGroupId(long groupId) {
+	public void setGroupId(Long groupId) {
 		this.groupId = groupId;
 	}
 
 	public void init() {
-		id = -1;
+		id = -1L;
 		lastName = "";
 		firstName = "";
-		birthDate = "";
+		//birthDate = "";
 		mail = "";
 		webSite = "";
 		password = "";
-		groupId = 0;
+		groupId = -1L;
 	}
 }
