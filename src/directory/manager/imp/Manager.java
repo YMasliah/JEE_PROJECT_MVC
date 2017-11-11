@@ -1,6 +1,5 @@
 package directory.manager.imp;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -16,7 +15,7 @@ import dao.exception.DaoException;
 import directory.IDirectoryManager;
 import directory.beans.Group;
 import directory.beans.Person;
-import directory.manager.User;
+import directory.manager.beans.User;
 import directory.manager.exception.managerException;
 
 @Service
@@ -47,7 +46,6 @@ public class Manager implements IDirectoryManager {
 		userList.put(new User(1, "vtff"),true);
     	HashMap<Integer,Person> persons = new HashMap<>();
     	Person person = new Person(10,"Masliah", "yann", date, "toto@gmail.com", "", "tata", 1);
-    	person.setLastName("toto");
     	persons.put(1,new Person());
     	persons.put(2,person);
     	Group g1 = new Group(1, "isl", persons.values());

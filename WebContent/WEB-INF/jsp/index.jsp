@@ -7,11 +7,11 @@
 <c:url var="groupList"   value="/actions/directory/group/list" />
 </head>
 <body>
-<!-- 	<header> -->
-<%-- 		<c:import url="/WEB-INF/jsp/loginMenu.jsp"> --%>
-<%-- 			<c:param name="page" value="1" /> --%>
-<%-- 		</c:import> --%>
-<!-- 	</header> -->
+	<header>
+		<c:import url="/WEB-INF/jsp/loginMenu.jsp">
+			<c:param name="page" value="1" />
+		</c:import>
+	</header>
 	<section>
 		<article>
 			<h1>Bonjour</h1>
@@ -21,8 +21,8 @@
 		<aside>wola je suis un truc qui servira peut etre</aside>
 	</section>
 	
+	<c:if test="${user.name !='No User' && not empty user.name}"><section><a href="${groupList}">liste des groupes</a></section></c:if>
 	
-	<section><a href="${groupList}">liste des groupes</a></section>
 <section>fonction de recherche a implementer</section>
 	<footer> Annuaire JEE 2017/2018 </footer>
 

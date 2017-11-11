@@ -8,7 +8,12 @@
 <head>
 <title>Hello :: Spring Application</title>
 </head>
-<body>
+<body>	
+<header>
+		<c:import url="/WEB-INF/jsp/loginMenu.jsp">
+			<c:param name="page" value="1" />
+		</c:import>
+	</header>
     <div class="container">
         <h1><c:out value="${group.name}"></c:out> group : bon ici. si l'user est identique a l'etudiant on peut modifier <br> sinon on peu juste afficher les valeurs des etudiants (4 valeurs) <br> et pour finir on peu rajouter un nouvel utilisateur </h1>
         <table class="table table-hover">
@@ -17,9 +22,11 @@
                     <td><a href="${view}?id=${person.id}">
                         <c:out value="${person.lastName}" />
                     </a></td>
+                    <c:if test="${user.name == person.lastName && user.id == person.id}">
                      <td><a class="btn btn-info" href="${edit}?id=${person.id}">
                         modification
                     </a></td>
+                    </c:if>
                 </tr>
             </c:forEach>
         </table>

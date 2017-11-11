@@ -5,7 +5,7 @@ import java.util.Collection;
 import dao.exception.DaoException;
 import directory.beans.Group;
 import directory.beans.Person;
-import directory.manager.User;
+import directory.manager.beans.User;
 import directory.manager.exception.managerException;
 
 public interface IDirectoryManager {

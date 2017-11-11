@@ -15,15 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import directory.manager.User;
+import directory.manager.beans.User;
 import directory.manager.imp.Manager;
 
 /**
- * Servlet implementation class LoginController
+ * de la merde ici, faudra enlever
  */
 
-@Controller()
-@RequestMapping("/header")
 public class HeaderController{
 	
     @Autowired
