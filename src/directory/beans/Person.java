@@ -36,12 +36,6 @@ public class Person {
     @DateTimeFormat(pattern = "dd-MM-yyyy")
 	private Date birthDate;
     
-    @Override
-	public String toString() {
-		return "Person [id=" + id + ", lastName=" + lastName + ", firstName=" + firstName + ", birthDate=" + birthDate
-				+ ", mail=" + mail + ", webSite=" + webSite + ", password=" + password + ", groupId=" + groupId + "]";
-	}
-
 	@Mail
 	private String mail;
 
@@ -72,6 +66,13 @@ public class Person {
 		this.groupId = groupId;
 	}
 
+    @Override
+	public String toString() {
+		return "Person [id=" + id + ", lastName=" + lastName + ", firstName=" + firstName + ", birthDate=" + birthDate
+				+ ", mail=" + mail + ", webSite=" + webSite + ", password=" + password + ", groupId=" + groupId + "]";
+	}
+
+	
 	/**
 	 * renvoi toute les valeurs
 	 * 

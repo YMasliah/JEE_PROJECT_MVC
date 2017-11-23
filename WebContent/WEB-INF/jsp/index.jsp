@@ -1,4 +1,5 @@
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
+
 <!doctype html>
 <html lang="fr">
 <head>
@@ -24,8 +25,8 @@
 	<c:if test="${user.name !='No User' && not empty user.name}"><section><a href="${groupList}">liste des groupes</a></section></c:if>
 	
 <section>fonction de recherche a implementer</section>
-	<footer> Annuaire JEE 2017/2018 </footer>
-
+	
+<footer> Annuaire JEE 2017/2018 </footer>
 
 </body>
 </html>
