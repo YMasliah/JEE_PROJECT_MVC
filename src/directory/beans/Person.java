@@ -32,15 +32,17 @@ public class Person {
     @Size(min = 1, message = "Le nom est obligatoire")
 	private String firstName;
     
-	// un string pour debuter mais apres faut changer
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
-	private Date birthDate;
-    
 	@Mail
-	private String mail;
-
+	private String email;
+ 
 	//@URL
 	private String webSite;
+	
+	// un string pour debuter mais apres faut changer
+	//faut definir un format, soit yyyy-MM-dd soit l'autre
+	//par default sur la base de donnée c'est yyyy-MM-dd
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+	private Date birthDate;
     
     @NotNull(message = "Un identifiant est obligatoire")
     @Size(min = 1, message = "Le nom est obligatoire")
@@ -55,31 +57,97 @@ public class Person {
 	}
 
 	public Person(long id, String lastName, String firstName, Date birthDate, String mail, String webSite,
-			String password, long groupId) {
+			String password, Long groupId) {
 		this.id = id;
 		this.lastName = lastName;
 		this.firstName = firstName;
 		this.birthDate = birthDate;
-		this.mail = mail;
+		this.email = mail;
 		this.webSite = webSite;
 		this.password = password;
 		this.groupId = groupId;
 	}
 
-    @Override
-	public String toString() {
-		return "Person [id=" + id + ", lastName=" + lastName + ", firstName=" + firstName + ", birthDate=" + birthDate
-				+ ", mail=" + mail + ", webSite=" + webSite + ", password=" + password + ", groupId=" + groupId + "]";
+	public void init() {
+		id = -1L;
+		lastName = "";
+		firstName = "";
+		//birthDate = "";
+		email = "";
+		webSite = "";
+		password = "";
+		groupId = null;
 	}
 
-	
-	/**
-	 * renvoi toute les valeurs
-	 * 
-	 * @return
-	 */
-	public Object[] getAll() {
-		return null;
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getWebSite() {
+		return webSite;
+	}
+
+	public void setWebSite(String webSite) {
+		this.webSite = webSite;
+	}
+
+	public Date getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Long getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(Long groupId) {
+		this.groupId = groupId;
+	}
+
+	@Override
+	public String toString() {
+		return "Person [id=" + id + ", lastName=" + lastName + ", firstName=" + firstName + ", email=" + email
+				+ ", webSite=" + webSite + ", birthDate=" + birthDate + ", password=" + password + ", groupId="
+				+ groupId + "]";
 	}
 
 	@Override
@@ -112,79 +180,7 @@ public class Person {
 			return false;
 		return true;
 	}
-
-	public String getWebSite() {
-		return webSite;
-	}
-
-	public void setWebSite(String webSite) {
-		this.webSite = webSite;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public Date getBirthDate() {
-		return birthDate;
-	}
-
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
-	}
-
-	public String getMail() {
-		return mail;
-	}
-
-	public void setMail(String mail) {
-		this.mail = mail;
-	}
-
-	public Long getGroupId() {
-		return groupId;
-	}
-
-	public void setGroupId(Long groupId) {
-		this.groupId = groupId;
-	}
-
-	public void init() {
-		id = -1L;
-		lastName = "";
-		firstName = "";
-		//birthDate = "";
-		mail = "";
-		webSite = "";
-		password = "";
-		groupId = -1L;
-	}
+	
+	
+	
 }

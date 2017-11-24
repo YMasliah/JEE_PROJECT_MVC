@@ -53,15 +53,9 @@ public class Dao implements IDao {
     }
 	
     //pounis, je defini bien comme il faut le cahier des charges avant.
-    
-    static private Group toBean(ResultSet rs, int rank) throws SQLException {
-    	return new Group(rs.getLong(1), rs.getString(2), new ArrayList<Person>());
-    }
 
-    @Override
-    public Collection<T> findAll() {
-        return this.jdbcTemplate.query("SELECT * FROM MESSAGE",
-            JdbcMessageManager::messageMapper);
+    public <T> Collection<T> findAll() {
+        return this.jdbcTemplate.query("SELECT * FROM MESSAGE", Dao::toBean);
     }
     
 	/**

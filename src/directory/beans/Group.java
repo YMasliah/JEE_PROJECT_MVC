@@ -1,7 +1,5 @@
 package directory.beans;
 
-import java.util.Collection;
-
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -13,10 +11,8 @@ public class Group {
 	private Long id;
     
     @NotNull(message = "Un nom est obligatoire")
-    @Size(min = 1, max = 100, message = "Entre 1 et 200 caractères")
+    @Size(min = 1, max = 100, message = "Entre 1 et 200 caractï¿½res")
 	private String name;
-	
-    private Collection<Person> persons;
 
 	/**
 	 * faut lire ca (7 ->7.3) 
@@ -37,18 +33,38 @@ public class Group {
 		
 	}
 	
-	public Group(long id, String name, Collection<Person> persons) {
+	public Group(long id, String name) {
 		this.id = id;
 		this.name = name;
-		this.persons = persons;
 	}
 	
 	public void init() {
 		id = -1L;
 		name = "";
 	}
-	
-    @Override
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return "Group [id=" + id + ", name=" + name + "]";
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -78,28 +94,5 @@ public class Group {
 			return false;
 		return true;
 	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Collection<Person> getPersons() {
-		return persons;
-	}
-
-	public void setPersons(Collection<Person> persons) {
-		this.persons = persons;
-	}
+    
 }

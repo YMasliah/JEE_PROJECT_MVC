@@ -45,12 +45,13 @@ public class Manager implements IDirectoryManager {
 		
 		userList.put(new User(1, "vtff"),true);
     	HashMap<Integer,Person> persons = new HashMap<>();
-    	Person person = new Person(10,"Masliah", "yann", date, "toto@gmail.com", "", "tata", 1);
+    	
+    	Person person = new Person(10, "MASLIAH", "Yann", date, "toto@gmail.com", "apas", "tata", 0L);
     	persons.put(1,new Person());
     	persons.put(2,person);
-    	Group g1 = new Group(1, "isl", persons.values());
+    	Group g1 = new Group(1, "isl");
     	toto.put(g1.getId(), g1);
-    	Group g2 = new Group(2, "fsi", null);
+    	Group g2 = new Group(2, "fsi");
     	toto.put(g2.getId(), g2);
     	groups = toto.values();
 	}
@@ -78,7 +79,7 @@ public class Manager implements IDirectoryManager {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		returnValue = new Person(10,"Masliah", "yann", date, "toto@gmail.com", "", "tata", 1);
+		returnValue = new Person(10, "MASLIAH", "Yann", date, "toto@gmail.com", "apas", "tata", 0L);
 //		if(userList.get(user)){
 //			returnValue = dao.findPerson(personId);
 //		}
