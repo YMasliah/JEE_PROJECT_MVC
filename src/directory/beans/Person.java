@@ -41,7 +41,7 @@ public class Person {
 	// un string pour debuter mais apres faut changer
 	// faut definir un format, soit yyyy-MM-dd soit l'autre
 	// par default sur la base de donnée c'est yyyy-MM-dd
-	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birthDate;
 
 	@NotNull(message = "Un identifiant est obligatoire")
