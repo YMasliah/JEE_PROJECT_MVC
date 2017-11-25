@@ -9,10 +9,10 @@ import directory.beans.Person;
 public interface IDao {
 
 	// r�cup�rer les groupes
-	public Collection<Group> findAllGroups() throws DaoException;
+	public Collection<Group> findAll() throws DaoException;
 
 	// r�cup�rer les personnes d'un groupe
-	public Collection<Person> findAllPersons(long groupId) throws DaoException;
+	public Collection<Person> findAll(long groupId) throws DaoException;
 
 	// lire une personne
 	public Person findPerson(long id) throws DaoException;
@@ -21,10 +21,10 @@ public interface IDao {
 	public Group findGroup(long id) throws DaoException;
 	
 	// modification ou ajout d'une nouvelle personne
-	public void savePerson(Person p) throws DaoException;
+	public void saveBean(Person p) throws DaoException;
 
 	// modification ou ajout d'un nouveau groupe
-	public void saveGroup(Group g) throws DaoException;
+	public void saveBean(Group g) throws DaoException;
 
 	// supprime une personne
 	public void removePerson(long id) throws DaoException;

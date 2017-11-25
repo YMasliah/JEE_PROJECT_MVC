@@ -31,7 +31,7 @@ import directory.manager.imp.Manager;
 
 @Controller()
 @RequestMapping("/directory")
-public class DirectoryController extends UserController{
+public class DirectoryController{
     protected final Log logger = LogFactory.getLog(getClass());
     
     @Autowired
@@ -78,7 +78,7 @@ public class DirectoryController extends UserController{
     
     @ModelAttribute("groups")
     public Collection<Group> newGroup() throws DaoException{
-    	return manager.findAllGroup(new User());
+    	return manager.findAll(new User());
         //return returnValue.values();
     }
     
@@ -97,7 +97,7 @@ public class DirectoryController extends UserController{
     }
     
     @RequestMapping(value = "/group/edit", method = RequestMethod.POST)
-    public String groupEditReply(@ModelAttribute @Valid Group g, BindingResult result){
+    public String groupEditReply(@ModelAttribute @Valid Group g, BindingResult result) throws DaoException{
         if (result.hasErrors()) {
             return "groupEdit";
         }

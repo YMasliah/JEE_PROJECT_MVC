@@ -6,25 +6,33 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
+/**
+ * 
+ * @author masliah yann
+ *
+ *         on pourra peut etre utiliser les annotation ici aussi, sachant que
+ *         l'user fait partie du manager, il peut acceder aux données de la base
+ *         de donnée avec hybernate. A voir.
+ */
 @Component()
 @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class User implements Serializable{
-	
+public class User implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private Long id;
 	private String password;
 	private String name = "";
-	
-	public User(){
-		
+
+	public User() {
+
 	}
-	
-	public User(long id, String password){
+
+	public User(long id, String password) {
 		this.id = id;
 		this.password = password;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -48,7 +56,7 @@ public class User implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

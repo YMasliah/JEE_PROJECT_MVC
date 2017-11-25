@@ -15,7 +15,7 @@ import dao.IDao;
 import dao.exception.DaoException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "/ressource/springapp-servlet.xml")
+@ContextConfiguration(locations = "/ressources/spring-test.xml")
 public class DaoTest {
 	
 	@Rule
@@ -40,7 +40,7 @@ public class DaoTest {
 	@Test
 	public void testFindAllPersons1() throws DaoException {
 		//System.out.print("bonjours");
-		System.out.println(dao.findAllGroups().toString());
+		System.out.println(dao.findAll().toString());
 	}
 	
 	

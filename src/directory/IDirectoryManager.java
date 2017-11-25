@@ -20,8 +20,11 @@ public interface IDirectoryManager {
     Group findGroup(User user, long groupId) throws DaoException;
 
     // chercher les personnes d'un groupe
-    Collection<Person> findAllPersons(User user, long groupId)throws DaoException;
+    Collection<Person> findAll(User user, long groupId)throws DaoException;
 
+    // chercher tout les groupes
+	Collection<Group> findAll(User user) throws DaoException;
+    
     // identifier un utilisateur
 	boolean login(User user) throws DaoException;
 
@@ -31,5 +34,6 @@ public interface IDirectoryManager {
     // enregistrer une personne
     void savePerson(User user, Person p) throws DaoException;
 
-	Collection<Group> findAllGroup(User user) throws DaoException;
+    // enregistrer un groupe
+	void saveGroup(User user, Group p) throws DaoException;
 }

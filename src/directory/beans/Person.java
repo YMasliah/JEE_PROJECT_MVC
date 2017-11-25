@@ -11,45 +11,45 @@ import org.springframework.format.annotation.DateTimeFormat;
 import springapp.web.Mail;
 
 /**
- * il faut faire la verif du groupid et id dans le validator
- * le validateur d'url marche pas, flemme de check
- * 
- * bon la date elle me fait chier, j'ai presque reussi a faire marcher. le mieu c de faire en String je crois
- * ou pas
  * @author masliah yann
- *
+ * 
+ *         il faut faire la verif du groupid et id dans le validator le
+ *         validateur d'url marche pas, flemme de check
+ * 
+ *         bon la date elle me fait chier, j'ai presque reussi a faire marcher.
+ *         le mieu c de faire en String je crois ou pas
  */
 public class Person {
 
-    @NotNull(message = "Un identifiant est obligatoire")
+	@NotNull(message = "Un identifiant est obligatoire")
 	private Long id;
-    
-    @NotNull(message = "Un identifiant est obligatoire")
-    @Size(min = 1, message = "Le nom est obligatoire")
+
+	@NotNull(message = "Un identifiant est obligatoire")
+	@Size(min = 1, message = "Le nom est obligatoire")
 	private String lastName;
-    
-    @NotNull(message = "Un identifiant est obligatoire")
-    @Size(min = 1, message = "Le nom est obligatoire")
+
+	@NotNull(message = "Un identifiant est obligatoire")
+	@Size(min = 1, message = "Le nom est obligatoire")
 	private String firstName;
-    
+
 	@Mail
 	private String email;
- 
-	//@URL
+
+	// @URL
 	private String webSite;
-	
+
 	// un string pour debuter mais apres faut changer
-	//faut definir un format, soit yyyy-MM-dd soit l'autre
-	//par default sur la base de donnée c'est yyyy-MM-dd
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+	// faut definir un format, soit yyyy-MM-dd soit l'autre
+	// par default sur la base de donnée c'est yyyy-MM-dd
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	private Date birthDate;
-    
-    @NotNull(message = "Un identifiant est obligatoire")
-    @Size(min = 1, message = "Le nom est obligatoire")
+
+	@NotNull(message = "Un identifiant est obligatoire")
+	@Size(min = 1, message = "Le nom est obligatoire")
 	private String password;
 	// un int ou un Group ?
-    
-    @Min(value = 1, message = "Le prix est trop bas")
+
+	@Min(value = 1, message = "Le prix est trop bas")
 	private Long groupId;
 
 	public Person() {
@@ -72,7 +72,7 @@ public class Person {
 		id = -1L;
 		lastName = "";
 		firstName = "";
-		//birthDate = "";
+		// birthDate = "";
 		email = "";
 		webSite = "";
 		password = "";
@@ -180,7 +180,5 @@ public class Person {
 			return false;
 		return true;
 	}
-	
-	
-	
+
 }

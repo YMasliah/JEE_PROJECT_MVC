@@ -58,14 +58,43 @@ public AuthenticationSuccessHandler successHandler() {<br>
 				<button type="submit" class="btn btn-info">Submit</button>
 			</div>
 		</form:form>
-		<p><a href="${newUser}">new User</a></p>
-	</div> 
+	</div> <p><a href="${newUser}">new User</a></p>
 	</c:when>
 	<c:otherwise>
 		<p><a href="${logout}">Logout</a></p>
 	</c:otherwise>
 </c:choose>
+	<div class="container">
+		<form:form method="POST" commandName="user" >
 
+			<form:errors path="*" cssClass="alert alert-danger" element="div" />
+			
+			<div class="form-group">
+				<label for="name">Name :</label>
+				<form:input class="form-control" path="name"/>
+				<form:errors path="name" cssClass="alert alert-warning"
+					element="div" />
+			</div>
+			<div class="form-group">
+				<label for="password">Password:</label>
+				<form:input class="form-control" path="password" />
+				<form:errors path="password" cssClass="alert alert-warning"
+					element="div" />
+			</div>
+			<div class="form-group">
+				<label for="type">Type:</label>
+				<form:select path="type" multiple="false" class="form-control">
+					<form:option value="" label="--- Select ---" />
+					<form:options items="${productTypes}" />
+				</form:select>
+				<form:errors path="type" cssClass="alert alert-warning"
+					element="div" />
+			</div>
+			<div class="form-group">
+				<button type="submit" class="btn btn-info">Submit</button>
+			</div>
+		</form:form>
+	</div>
 <%-- <c:if test="${empty user.name}"> <p><a href="${show}">Login</a></p> </c:if> --%>
 <%-- <c:if test="${not empty user.name && user.name ==''}"> <p>toto</p> </c:if> --%>
 <%-- <c:if test="${not empty user.name && user.name !=''}"> <p><a href="${logout}">Logout</a></p> </c:if> --%>

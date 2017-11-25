@@ -1,15 +1,14 @@
 package directory.manager.imp;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.IDao;
 import dao.exception.DaoException;
-//import dao.imp.Dao;
 import directory.IDirectoryManager;
 import directory.beans.Group;
 import directory.beans.Person;
@@ -19,10 +18,7 @@ import directory.manager.exception.managerException;
 @Service
 public class Manager implements IDirectoryManager {
 
-	/**
-	 * a tout les coups faut sortir les 2 variables
-	 */
-	private LinkedHashMap<User, Boolean> userList = new LinkedHashMap<>();
+	private ArrayList<User> userList = new ArrayList<>();
 
 	@Autowired
 	private IDao dao;
@@ -39,7 +35,7 @@ public class Manager implements IDirectoryManager {
 	@Override
 	public Person findPerson(User user, long personId) throws DaoException {
 		Person returnValue = new Person();
-		if (userList.get(user)) {
+		if (userList.indexOf(user) !=-1) {
 			returnValue = dao.findPerson(personId);
 		}
 		return returnValue;
@@ -48,26 +44,26 @@ public class Manager implements IDirectoryManager {
 	@Override
 	public Group findGroup(User user, long groupId) throws DaoException {
 		Group returnValue = new Group();
-		if (userList.get(user)) {
+		if (userList.indexOf(user) !=-1) {
 			returnValue = dao.findGroup(groupId);
 		}
 		return returnValue;
 	}
 
 	@Override
-	public Collection<Person> findAllPersons(User user, long groupId) throws DaoException {
+	public Collection<Person> findAll(User user, long groupId) throws DaoException {
 		Collection<Person> returnValue = Collections.emptyList();
-		if (userList.get(user)) {
-			returnValue = dao.findAllPersons(groupId);
+		if (userList.indexOf(user) !=-1) {
+			returnValue = dao.findAll(groupId);
 		}
 		return returnValue;
 	}
 
 	@Override
-	public Collection<Group> findAllGroup(User user) throws DaoException {
+	public Collection<Group> findAll(User user) throws DaoException {
 		Collection<Group> returnValue = Collections.emptyList();
-		if (userList.get(user)) {
-			returnValue = dao.findAllGroups();
+		if (userList.indexOf(user) !=-1) {
+			returnValue = dao.findAll();
 		}
 		return returnValue;
 	}
@@ -82,8 +78,8 @@ public class Manager implements IDirectoryManager {
 		boolean returnValue = false;
 		Person toTest = dao.findPerson(user.getId());
 		if (toTest.getPassword() == user.getPassword()) {
-			if (userList.get(user) != true) {
-				userList.put(user, true);
+			if (userList.indexOf(user) ==-1) {
+				userList.add(user);
 				returnValue = true;
 			}
 		}
@@ -95,22 +91,24 @@ public class Manager implements IDirectoryManager {
 	 */
 	@Override
 	public void logout(User user) {
-		if (userList.get(user)) {
-			userList.put(user, false);
+		if (userList.indexOf(user) !=-1) {
+			userList.remove(user);
 			user = new User();
 		}
 	}
 
 	@Override
 	public void savePerson(User user, Person p) throws DaoException {
-		// if(userList.get(user)){
-		// dao.savePerson(p);
-		// }
+		 if(userList.indexOf(user) !=-1){
+			 dao.saveBean(p);
+		 }
 	}
 
-	public void saveGroup(User user, Group p) {
-		// TODO Auto-generated method stub
-
+	@Override
+	public void saveGroup(User user, Group p) throws DaoException {
+		 if(userList.indexOf(user) !=-1){
+			 dao.saveBean(p);
+		 }
 	}
 }
 
