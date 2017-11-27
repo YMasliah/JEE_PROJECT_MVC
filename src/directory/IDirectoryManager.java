@@ -26,10 +26,10 @@ public interface IDirectoryManager {
 	Collection<Group> findAll(User user) throws DaoException;
     
     // identifier un utilisateur
-	boolean login(User user) throws DaoException;
+	User login(User user) throws DaoException, managerException;
 
     // oublier l'utilisateur
-    void logout(User user);
+    void logout(User user) throws managerException;
 
     // enregistrer une personne
     void savePerson(User user, Person p) throws DaoException;

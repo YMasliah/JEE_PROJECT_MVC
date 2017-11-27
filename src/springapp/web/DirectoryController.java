@@ -37,25 +37,35 @@ public class DirectoryController{
     @Autowired
     Manager manager;
     
-    @ModelAttribute
-    public Group newGroup( @RequestParam(value = "id", required = false) Long groupId) throws DaoException {
-    	Group returnValue = new Group();
-    	if (groupId != null) {
-    		returnValue = manager.findGroup(new User(), groupId.longValue());
-        }
-        logger.info("new product = " + returnValue);
-        return returnValue;
-    }
+//    @ModelAttribute("group")
+//    public Group newGroup( @RequestParam(value = "id", required = false) Long groupId) throws DaoException {
+//    	Group returnValue = new Group();
+//    	if (groupId != null) {
+//    		returnValue = manager.findGroup(user, groupId.longValue());
+//        }
+//        logger.info("new product = " + returnValue);
+//        return returnValue;
+//    }
     
-    @ModelAttribute
-    public Person newPerson( @RequestParam(value = "id", required = false) Long personId) throws DaoException {
-    	Person returnValue = new Person();
-    	if (personId != null) {
-    		returnValue = manager.findPerson(new User(), personId.longValue());
-        }
-        logger.info("new product = " + returnValue);
-        return returnValue;
-    }
+//    @ModelAttribute("person")
+//    public Person newPerson( @RequestParam(value = "id", required = false) Long personId) throws DaoException {
+//    	Person returnValue = new Person();
+//    	if (personId != null) {
+//    		returnValue = manager.findPerson(user, personId.longValue());
+//        }
+//        logger.info("new product = " + returnValue);
+//        return returnValue;
+//    }
+    
+//    @ModelAttribute("persons")
+//    public Collection<Person> newPersons( @RequestParam(value = "id", required = false) Long groupId) throws DaoException{
+//    	logger.info("new persons");
+//    	if (groupId != null) {
+//    		return manager.findAll(user,groupId);
+//    	}
+//    	return null;
+//    }
+    
     
     @InitBinder
     public void initBinder(final WebDataBinder binder){
@@ -65,7 +75,7 @@ public class DirectoryController{
     
 //    @ModelAttribute
 //    public User newUser() {
-//        User user = new User();
+//        User user = user;
 //        user.setId(2);
 //        user.setPassword("toto");
 //        logger.info("new product = " + user);
@@ -74,25 +84,23 @@ public class DirectoryController{
     
     /**
      * Group Controller
+     * @throws DaoException 
      */
     
-    @ModelAttribute("groups")
-    public Collection<Group> newGroup() throws DaoException{
-    	return manager.findAll(new User());
-        //return returnValue.values();
-    }
+//    @ModelAttribute("groups")
+//    public Collection<Group> newGroup() throws DaoException{
+//    	return manager.findAll(user);
+//    }
     
     @RequestMapping(value = "/group/list", method = RequestMethod.GET)
-    public String groupListRequest( ){
+    public ModelAndView groupListRequest( ) throws DaoException{
     	logger.info("Returning groupList view " );
-        return "groupList";
+        return new ModelAndView("groupList","groups",manager.findAll(user));
     }
     
     @RequestMapping(value = "/group/edit", method = RequestMethod.GET)
     public String groupEditRequest(@ModelAttribute Group p){
-    	
         logger.info("Returning groupEdit view" );
-
         return "groupEdit";
     }
     
@@ -103,30 +111,40 @@ public class DirectoryController{
         }
         logger.info("Returning groupEdit view " );
         //pas fini
-        manager.saveGroup(new User(), g);
+        manager.saveGroup(user, g);
         return "groupList";
     }
     
     @RequestMapping(value = "/group/view", method = RequestMethod.GET)
-    public String groupViewRequest(){
-    	
+    public ModelAndView groupViewRequest(@RequestParam(value = "id", required = true) Long groupId) throws DaoException{
         logger.info("Returning group view " );
-
-        return "group";
+        ModelAndView mv  = new ModelAndView("group");
+        mv.addObject("group", manager.findGroup(user, groupId));
+        mv.addObject("persons", manager.findAll(user, groupId));
+        return mv;
     }
     
     /**
      * Person Controller
+     * @throws DaoException 
      */  
     
     @RequestMapping(value = "/person/view", method = RequestMethod.GET)
-    public String personViewRequest(){
-        return "person";
+    public ModelAndView personViewRequest(@RequestParam(value = "id", required = true) Long personId) throws DaoException{
+    	ModelAndView mv  = new ModelAndView("person");
+        mv.addObject("person", manager.findPerson(user, personId));
+        return mv;
     }
     
     @RequestMapping(value = "/person/edit", method = RequestMethod.GET)
-    public String personEditRequest(){
-        return "personEdit";
+    public ModelAndView personEditRequest(@RequestParam(value = "id", required = false) Long personId) throws DaoException{
+    	ModelAndView mv  = new ModelAndView("personEdit");
+    	if(personId != null){
+    		mv.addObject("person", manager.findPerson(user, personId));
+    	}else{
+    		mv.addObject("person", new Person());
+    	}
+        return mv;
     }
     
     @RequestMapping(value = "/person/edit", method = RequestMethod.POST)
@@ -136,11 +154,11 @@ public class DirectoryController{
         	return new ModelAndView("personEdit");
         }
     	if(p.getGroupId()!=null) {
-    		returnValue = new ModelAndView("group", "group", newGroup(p.getGroupId()));
+    		returnValue = new ModelAndView("group", "group", manager.findGroup(user, p.getGroupId()));
     	}
         //pas fini
         System.out.println(p);
-        manager.savePerson(new User(), p);
+        manager.savePerson(user, p);
         return returnValue;
     }
     
@@ -168,19 +186,23 @@ public class DirectoryController{
     /**
      * plein de truc a faire ici
      * @return
+     * @throws managerException 
+     * @throws DaoException 
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login() {
-        logger.info("login user " + user);
-        user.setId(10L);
-        user.setName("Masliah");
+    public String login(@ModelAttribute @Valid User u) throws DaoException, managerException {
+        logger.info("pre-login user " + user);
+        user = manager.login(u);
+        System.out.println(user);
+        System.out.println(u);
+        logger.info("post-login user " + user);
         return "index";
     }
 
     @RequestMapping(value = "/logout")
-    public String logout() {
+    public String logout() throws managerException {
         logger.info("logout user " + user);
-        user = new User();
+        user = manager.newUser();
         return "redirect:login";
     }
     
@@ -226,7 +248,7 @@ public class DirectoryController{
         }
         logger.info("Returning groupEdit view " );
         //pas fini
-        manager.saveGroup(new User(), g);
+        manager.saveGroup(user, g);
         return "groupList";
     }*/
     

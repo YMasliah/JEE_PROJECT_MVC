@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +45,8 @@ public class Dao implements IDao {
 
 	protected final Log logger = LogFactory.getLog(getClass());
 
+//	CREATE TABLE IF NOT EXISTS `Person`(Id BIGINT AUTO_INCREMENT PRIMARY KEY, LastName VARCHAR(36),FirstName VARCHAR(32), Email VARCHAR(250), website VARCHAR(250), birthDate DATE, password VARCHAR(30), groupId BIGINT DEFAULT 1,FOREIGN KEY (groupId) REFERENCES `Group`(Id) ON DELETE CASCADE )ENGINE=INNODB;	
+	
 	/**
 	 * Creation des tables
 	 */
@@ -71,7 +74,7 @@ public class Dao implements IDao {
 	}
 
 	/**
-	 * Connection a la base de donnée informations dans le fichier .xml
+	 * Connection a la base de donnï¿½e informations dans le fichier .xml
 	 * 
 	 * @param dataSource
 	 */
@@ -123,7 +126,7 @@ public class Dao implements IDao {
 	 */
 	@Override
 	public Collection<Person> findAll(long groupId) {
-		return this.jdbcTemplate.query("SELECT * FROM `Person` WHERE id = ?", Dao::resultSetToPerson, groupId);
+		return this.jdbcTemplate.query("SELECT * FROM `Person` WHERE GroupId = ?", Dao::resultSetToPerson, groupId);
 	}
 
 	@Override
@@ -139,12 +142,13 @@ public class Dao implements IDao {
 
 	@Override
 	public Person findPerson(long id) throws DaoException {
-		return this.jdbcTemplate.queryForObject("Select * FROM `Person` WHERE id = ?", Person.class, id);
+		logger.info(id);
+		return this.jdbcTemplate.queryForObject("Select * FROM `Person` WHERE id = ?", new BeanPropertyRowMapper<Person>(Person.class), id);
 	}
 
 	@Override
 	public Group findGroup(long id) throws DaoException {
-		return this.jdbcTemplate.queryForObject("Select * FROM `Group` WHERE id = ?", Group.class, id);
+		return this.jdbcTemplate.queryForObject("Select * FROM `Group` WHERE id = ?", new BeanPropertyRowMapper<Group>(Group.class), id);
 	}
 
 	@Override

@@ -29,7 +29,9 @@ public class Manager implements IDirectoryManager {
 
 	@Override
 	public User newUser() throws managerException {
-		return new User();
+		User returnValue = new User();
+		returnValue.setName("No User");
+		return returnValue;
 	}
 
 	@Override
@@ -62,7 +64,11 @@ public class Manager implements IDirectoryManager {
 	@Override
 	public Collection<Group> findAll(User user) throws DaoException {
 		Collection<Group> returnValue = Collections.emptyList();
+		System.out.println("ici");
+		System.out.println(user);
+		System.out.println(userList.indexOf(user));
 		if (userList.indexOf(user) !=-1) {
+			System.out.println("la bas");
 			returnValue = dao.findAll();
 		}
 		return returnValue;
@@ -72,15 +78,19 @@ public class Manager implements IDirectoryManager {
 	 * faut check la base de donnée si la perssonne existe
 	 * 
 	 * @throws DaoException
+	 * @throws managerException 
 	 */
 	@Override
-	public boolean login(User user) throws DaoException {
-		boolean returnValue = false;
-		Person toTest = dao.findPerson(user.getId());
-		if (toTest.getPassword() == user.getPassword()) {
+	public User login(User user) throws DaoException, managerException {
+		User returnValue = newUser();
+		Person person = dao.findPerson(user.getId());
+		if (person.getPassword().equals(user.getPassword())) {
 			if (userList.indexOf(user) ==-1) {
-				userList.add(user);
-				returnValue = true;
+				returnValue.setId(person.getId());
+				returnValue.setPassword(person.getPassword());
+				returnValue.setName(person.getLastName());
+				user.setName(returnValue.getName());
+				userList.add(returnValue);
 			}
 		}
 		return returnValue;
@@ -88,12 +98,13 @@ public class Manager implements IDirectoryManager {
 
 	/**
 	 * faire une petite trace quand meme
+	 * @throws managerException 
 	 */
 	@Override
-	public void logout(User user) {
+	public void logout(User user) throws managerException {
 		if (userList.indexOf(user) !=-1) {
 			userList.remove(user);
-			user = new User();
+			user = newUser();
 		}
 	}
 

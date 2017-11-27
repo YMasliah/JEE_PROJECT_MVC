@@ -47,8 +47,8 @@
 			</div>
 			<div class="form-group">
 				<label for="webSite">Mail:</label>
-				<form:input path="mail" class="form-control" type="email"/>
-				<form:errors path="mail" cssClass="alert alert-warning"
+				<form:input path="email" class="form-control" type="email"/>
+				<form:errors path="email" cssClass="alert alert-warning"
 					element="div" />
 			</div>
 			<div class="form-group">

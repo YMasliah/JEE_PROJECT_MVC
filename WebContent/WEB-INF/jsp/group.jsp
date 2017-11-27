@@ -17,13 +17,13 @@
     <div class="container">
         <h1><c:out value="${group.name}"></c:out> group : bon ici. si l'user est identique a l'etudiant on peut modifier <br> sinon on peu juste afficher les valeurs des etudiants (4 valeurs) <br> et pour finir on peu rajouter un nouvel utilisateur </h1>
         <table class="table table-hover">
-            <c:forEach items="${group.persons}" var="person">
+            <c:forEach items="${persons}" var="persona">
                 <tr>
-                    <td><a href="${view}?id=${person.id}">
-                        <c:out value="${person.lastName}" />
+                    <td><a href="${view}?id=${persona.id}">
+                        <c:out value="${persona.lastName}" />
                     </a></td>
-                    <c:if test="${user.name == person.lastName && user.id == person.id}">
-                     <td><a class="btn btn-info" href="${edit}?id=${person.id}">
+                    <c:if test="${user.name == persona.lastName && user.id == persona.id}">
+                     <td><a class="btn btn-info" href="${edit}?id=${persona.id}">
                         modification
                     </a></td>
                     </c:if>

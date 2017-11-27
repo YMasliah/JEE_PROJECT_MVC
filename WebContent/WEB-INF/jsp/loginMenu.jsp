@@ -42,9 +42,9 @@ public AuthenticationSuccessHandler successHandler() {<br>
 			<form:errors path="*" cssClass="alert alert-danger" element="div" />
 			
 			<div class="form-group">
-				<label for="name">Name :</label>
-				<form:input class="form-control" path="name"/>
-				<form:errors path="name" cssClass="alert alert-warning"
+				<label for="name">Id :</label>
+				<form:input class="form-control" path="id"/>
+				<form:errors path="id" cssClass="alert alert-warning"
 					element="div" />
 			</div>
 			<div class="form-group">
@@ -64,7 +64,7 @@ public AuthenticationSuccessHandler successHandler() {<br>
 		<p><a href="${logout}">Logout</a></p>
 	</c:otherwise>
 </c:choose>
-	
+
 <%-- <c:if test="${empty user.name}"> <p><a href="${show}">Login</a></p> </c:if> --%>
 <%-- <c:if test="${not empty user.name && user.name ==''}"> <p>toto</p> </c:if> --%>
 <%-- <c:if test="${not empty user.name && user.name !=''}"> <p><a href="${logout}">Logout</a></p> </c:if> --%>
