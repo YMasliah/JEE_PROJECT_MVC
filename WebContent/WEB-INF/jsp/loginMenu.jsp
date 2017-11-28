@@ -1,38 +1,10 @@
-Je suis la future barre de menu je me trouve a droite du header html5 je
-possede 2 etats. un etat quand je suis authentifier et un non.
-
-Authentifier j'affiche : le nom de la perssonne connecté et le bouton
-logout. 
-
-Non authentifier j'affiche : une case pour le nom, une case pour
-le mdp, un bouton pour valider, un bouton pour s'incrire et en dessous
-un texte "mot de passe perdu" interactif qui ouvre une nouvelle page
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
 
 <c:url var="login"  value="/actions/directory/login" />
 <c:url var="logout" value="/actions/directory/logout" />
 <c:url var="newUser" value="/actions/directory/newUser" />
 
-<br> on peu faire dans les config une redirection si la perssonne n'est pas log et ajouter include.xml et le menu automatiquement<br>
-<%-- <c:if test="${(user.name =='No User' || empty user.name) && requestScope['javax.servlet.forward.request_uri']!='/JEE_Project_MVC/actions/directory/login'}"> --%>
-<%-- 	<c:redirect url="/login.htm"/> --%>
-<%-- </c:if> --%>
-
-<br>faut utiliser ca <br>
-@Bean<br>
-public AuthenticationSuccessHandler successHandler() {<br>
-    SimpleUrlAuthenticationSuccessHandler handler = new SimpleUrlAuthenticationSuccessHandler();<br>
-    handler.setUseReferer(true);<br>
-    return handler;<br>
-}<br>
-<br>
-    <h1>User</h1>
-
-<!--     <p> -->
-<%--     name : <c:out value="${user.name}" default="no name"/> |  --%>
-<%--     <a href="${show}">Login</a> | <a href="${logout}">Logout</a> --%>
-<!--     </p> -->
-<c:out value="${user.name}" default="no name"/>
+<c:out value="${user.name}" default="please login"/>
 <c:choose>
 	<c:when test="${empty user.name}"> <p><a href="${login}">Login</a></p> </c:when>
 	<c:when test="${user.name =='No User'}"> 

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,8 @@ import directory.manager.exception.managerException;
 @Service
 public class Manager implements IDirectoryManager {
 
+	protected final Log logger = LogFactory.getLog(getClass());
+	
 	private ArrayList<User> userList = new ArrayList<>();
 
 	@Autowired
@@ -64,11 +68,7 @@ public class Manager implements IDirectoryManager {
 	@Override
 	public Collection<Group> findAll(User user) throws DaoException {
 		Collection<Group> returnValue = Collections.emptyList();
-		System.out.println("ici");
-		System.out.println(user);
-		System.out.println(userList.indexOf(user));
 		if (userList.indexOf(user) !=-1) {
-			System.out.println("la bas");
 			returnValue = dao.findAll();
 		}
 		return returnValue;
@@ -86,11 +86,10 @@ public class Manager implements IDirectoryManager {
 		Person person = dao.findPerson(user.getId());
 		if (person.getPassword().equals(user.getPassword())) {
 			if (userList.indexOf(user) ==-1) {
-				returnValue.setId(person.getId());
-				returnValue.setPassword(person.getPassword());
-				returnValue.setName(person.getLastName());
-				user.setName(returnValue.getName());
-				userList.add(returnValue);
+				logger.info("succes login");
+				user.setName(person.getLastName());
+				returnValue = user;
+				userList.add(user);
 			}
 		}
 		return returnValue;

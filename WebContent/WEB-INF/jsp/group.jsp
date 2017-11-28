@@ -30,9 +30,9 @@
                 </tr>
             </c:forEach>
         </table>
-        <p>
-            <a class="btn btn-info" href="${edit}">add new person</a>
-        </p>
+<!--         <p> -->
+<%--             <a class="btn btn-info" href="${edit}">add new person</a> --%>
+<!--         </p> -->
     </div>
 </body>
 </html>

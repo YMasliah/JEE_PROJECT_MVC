@@ -71,6 +71,9 @@ public class Dao implements IDao {
 				"FOREIGN KEY (GroupId) REFERENCES `Group`(Id) ON DELETE CASCADE" + // on ne peut pas mettre default avec
 																					// innodb
 				")ENGINE=INNODB");
+		
+		jdbcTemplate.update("REPLACE INTO `Person` (`Id`,`LastName`,`Password`) VALUES (?,?,?)",10,"toto","vasavoir");
+		jdbcTemplate.update("REPLACE INTO `Person` (`Id`,`LastName`,`Password`) VALUES (?,?,?)",11,"tota","vasavoirbis");
 	}
 
 	/**
@@ -104,8 +107,8 @@ public class Dao implements IDao {
 	 * @throws SQLException
 	 */
 	static private Person resultSetToPerson(ResultSet rs, int rank) throws SQLException {
-		return new Person(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getString(5),
-				rs.getString(6), rs.getString(7), rs.getLong(8));
+		return new Person(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4),
+				rs.getString(5), rs.getDate(6), rs.getString(7), rs.getLong(8));
 	}
 
 	/**

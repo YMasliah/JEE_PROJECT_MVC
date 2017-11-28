@@ -6,12 +6,14 @@
 <meta charset="utf-8">
 <title>Bienvenu sur l'annuaire</title>
 <c:url var="groupList"   value="/actions/directory/group/list" />
+<c:url var="passwordLost" value="/actions/directory/passwordLost" />
 </head>
 <body>
 	<header>
 		<c:import url="/WEB-INF/jsp/loginMenu.jsp">
 			<c:param name="page" value="1" />
 		</c:import>
+		<c:if test="${user.name =='No User' || empty user.name}"><section><a href="${passwordLost}">mot de passe perdu ?</a></section></c:if>
 	</header>
 	<section>
 		<article>

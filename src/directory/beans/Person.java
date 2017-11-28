@@ -41,7 +41,7 @@ public class Person {
 	// un string pour debuter mais apres faut changer
 	// faut definir un format, soit yyyy-MM-dd soit l'autre
 	// par default sur la base de donnée c'est yyyy-MM-dd
-	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birthDate;
 
 	@NotNull(message = "Un identifiant est obligatoire")
@@ -56,14 +56,14 @@ public class Person {
 
 	}
 
-	public Person(long id, String lastName, String firstName, Date birthDate, String mail, String webSite,
+	public Person(long id, String lastName, String firstName, String mail, String webSite, Date birthDate,
 			String password, Long groupId) {
 		this.id = id;
 		this.lastName = lastName;
 		this.firstName = firstName;
-		this.birthDate = birthDate;
 		this.email = mail;
 		this.webSite = webSite;
+		this.birthDate = birthDate;
 		this.password = password;
 		this.groupId = groupId;
 	}
