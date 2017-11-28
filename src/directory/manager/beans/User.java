@@ -2,6 +2,8 @@ package directory.manager.beans;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
@@ -11,16 +13,17 @@ import org.springframework.stereotype.Component;
  * @author masliah yann
  *
  *         on pourra peut etre utiliser les annotation ici aussi, sachant que
- *         l'user fait partie du manager, il peut acceder aux données de la base
- *         de donnée avec hybernate. A voir.
+ *         l'user fait partie du manager, il peut acceder aux donnï¿½es de la base
+ *         de donnï¿½e avec hybernate. A voir.
  */
 @Component()
 @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	@NotNull(message = "Un identifiant est obligatoire")
 	private Long id;
+	@NotNull(message = "un password est obligatoire")
 	private String password;
 	private String name = "";
 

@@ -94,10 +94,7 @@ public class DirectoryController{
     		manager.savePerson(user, p);
     		returnValue = new ModelAndView("group", "group", manager.findGroup(user, p.getGroupId()));
     		returnValue.addObject("persons", manager.findAll(user, p.getGroupId()));
-    	}
-        //pas fini
-        System.out.println(p);
-        
+    	}        
         return returnValue;
     }
     
@@ -132,7 +129,10 @@ public class DirectoryController{
      * @throws DaoException 
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@ModelAttribute @Valid User u) throws DaoException, managerException {
+    public String login(@ModelAttribute @Valid User u, BindingResult result) throws DaoException, managerException {
+    	if (result.hasErrors()) {
+        	return "index";
+        }
         logger.info("pre-login user " + user);
         user = manager.login(u);
         System.out.println(user);
@@ -164,17 +164,19 @@ public class DirectoryController{
         types.put("Person", "Person");
         return types;
     }
-    
-    /*@RequestMapping(value = "/search", method = RequestMethod.POST)
-    public String search(@ModelAttribute @Valid Group g, BindingResult result){
-        if (result.hasErrors()) {
-            return "groupEdit";
-        }
-        logger.info("Returning groupEdit view " );
-        //pas fini
-        manager.saveGroup(user, g);
-        return "groupList";
-    }*/
+ 
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public ModelAndView search(@RequestParam(value = "id") Long id, @RequestParam(value = "type") String type) throws DaoException{
+    	ModelAndView mv  = new ModelAndView("index");
+    	if(type.equals("Group")){
+    		mv  = new ModelAndView("redirect:group/view");
+    		mv.addObject("id", id);
+    	}else if(type.equals("Person")){
+    		mv  = new ModelAndView("redirect:person/view");
+    		mv.addObject("id", id);
+    	}
+        return mv;
+    }
     
 }
 
