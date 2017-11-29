@@ -83,12 +83,15 @@ public class Manager implements IDirectoryManager {
 	@Override
 	public User login(User user) throws DaoException, managerException {
 		User returnValue = newUser();
-		Person person = dao.findPerson(user.getId());
-		if (person.getPassword().equals(user.getPassword())) {
-			if (userList.indexOf(user) ==-1) {
+		returnValue.setId(user.getId());
+		returnValue.setPassword(user.getPassword());
+		Person person = dao.findPerson(returnValue.getId());
+		logger.info(user);
+		if (person.getPassword().equals(returnValue.getPassword())) {
+			returnValue.setName(person.getLastName());
+			if (userList.indexOf(returnValue) ==-1) {
 				logger.info("succes login");
 				user.setName(person.getLastName());
-				returnValue = user;
 				userList.add(user);
 			}
 		}

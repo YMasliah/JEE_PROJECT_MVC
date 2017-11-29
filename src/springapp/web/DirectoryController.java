@@ -26,7 +26,11 @@ import directory.beans.Person;
 import directory.manager.beans.User;
 import directory.manager.exception.managerException;
 import directory.manager.imp.Manager;
-
+/**
+ * jdbc:embedded-database
+ * @author m21002022
+ *
+ */
 @Controller()
 @RequestMapping("/directory")
 public class DirectoryController{

@@ -21,6 +21,9 @@
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>/WEB-INF/jsp/index.jsp</welcome-file>
 	</welcome-file-list>
+	<listener>
+	<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+</listener>
 <!-- 	on peu faire plein de truc avec ce site -->
 <!-- https://docs.oracle.com/cd/E21764_01/web.1111/e13712/web_xml.htm#WBAPP557 -->
 <!-- 	<jsp-config> -->

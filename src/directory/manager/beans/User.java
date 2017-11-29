@@ -21,14 +21,16 @@ import org.springframework.stereotype.Component;
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
 	@NotNull(message = "Un identifiant est obligatoire")
 	private Long id;
+	
 	@NotNull(message = "un password est obligatoire")
 	private String password;
 	private String name = "";
 
 	public User() {
-
+		name ="No User";
 	}
 
 	public User(long id, String password) {
