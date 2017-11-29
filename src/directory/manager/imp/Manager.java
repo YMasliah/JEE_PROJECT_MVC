@@ -57,6 +57,24 @@ public class Manager implements IDirectoryManager {
 	}
 
 	@Override
+	public Person findPerson(User user, String lastName) throws DaoException {
+		Person returnValue = new Person();
+		if (userList.indexOf(user) !=-1) {
+			returnValue = dao.findPerson(lastName);
+		}
+		return returnValue;
+	}
+
+	@Override
+	public Group findGroup(User user, String name) throws DaoException {
+		Group returnValue = new Group();
+		if (userList.indexOf(user) !=-1) {
+			returnValue = dao.findGroup(name);
+		}
+		return returnValue;
+	}
+	
+	@Override
 	public Collection<Person> findAll(User user, long groupId) throws DaoException {
 		Collection<Person> returnValue = Collections.emptyList();
 		if (userList.indexOf(user) !=-1) {
@@ -83,11 +101,11 @@ public class Manager implements IDirectoryManager {
 	@Override
 	public User login(User user) throws DaoException, managerException {
 		User returnValue = newUser();
-		returnValue.setId(user.getId());
-		returnValue.setPassword(user.getPassword());
-		Person person = dao.findPerson(returnValue.getId());
+		Person person = dao.findPerson(user.getId());
 		logger.info(user);
-		if (person.getPassword().equals(returnValue.getPassword())) {
+		if (person.getId() != null && person.getPassword().equals(user.getPassword())) {
+			returnValue.setId(user.getId());
+			returnValue.setPassword(user.getPassword());
 			returnValue.setName(person.getLastName());
 			if (userList.indexOf(returnValue) ==-1) {
 				logger.info("succes login");

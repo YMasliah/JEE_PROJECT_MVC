@@ -11,6 +11,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import dao.exception.DaoException;
+import directory.beans.Group;
 import directory.beans.Person;
 import directory.manager.beans.User;
 import directory.manager.exception.managerException;
@@ -58,10 +61,16 @@ public class DirectoryController{
     
     @RequestMapping(value = "/group/view", method = RequestMethod.GET)
     public ModelAndView groupViewRequest(@RequestParam(value = "id", required = true) Long groupId) throws DaoException{
-        logger.info("Returning group view " );
-        ModelAndView mv  = new ModelAndView("group");
-        mv.addObject("group", manager.findGroup(user, groupId));
-        mv.addObject("persons", manager.findAll(user, groupId));
+    	Group group = manager.findGroup(user, groupId);
+    	logger.info("Returning group view");
+    	ModelAndView mv  = new ModelAndView("index");
+    	if(group.getId() != null){
+    		mv  = new ModelAndView("group");
+            mv.addObject("group", manager.findGroup(user, groupId));
+            mv.addObject("persons", manager.findAll(user, groupId));
+    	}else{
+    		mv.addObject("error", "aucun groupe trouver");
+    	}
         return mv;
     }
     
@@ -72,8 +81,15 @@ public class DirectoryController{
     
     @RequestMapping(value = "/person/view", method = RequestMethod.GET)
     public ModelAndView personViewRequest(@RequestParam(value = "id", required = true) Long personId) throws DaoException{
-    	ModelAndView mv  = new ModelAndView("person");
-        mv.addObject("person", manager.findPerson(user, personId));
+    	Person person = manager.findPerson(user, personId);
+    	logger.info("Returning group view");
+    	ModelAndView mv  = new ModelAndView("index");
+    	if(person.getId() != null){
+    		mv  = new ModelAndView("person");
+    		mv.addObject("person", manager.findPerson(user, personId));
+    	}else{
+    		mv.addObject("error", "aucune personne trouver");
+    	}
         return mv;
     }
     
@@ -139,10 +155,8 @@ public class DirectoryController{
         }
         logger.info("pre-login user " + user);
         user = manager.login(u);
-        System.out.println(user);
-        System.out.println(u);
         logger.info("post-login user " + user);
-        return "index";
+        return "redirect:login";
     }
 
     @RequestMapping(value = "/logout")
@@ -169,14 +183,41 @@ public class DirectoryController{
         return types;
     }
  
+//    @RequestMapping(value = "/search", method = RequestMethod.POST)
+//    public ModelAndView search(@RequestParam(value = "id") Long id, @RequestParam(value = "type") String type) throws DaoException{
+//    	ModelAndView mv  = new ModelAndView("index");
+//    	if(type.equals("Group")){
+//    		mv  = new ModelAndView("redirect:group/view");
+//    		mv.addObject("id", id);
+//    	}else if(type.equals("Person")){
+//    		mv  = new ModelAndView("redirect:person/view");
+//    		mv.addObject("id", id);
+//    	}
+//        return mv;
+//    }
+    
     @RequestMapping(value = "/search", method = RequestMethod.POST)
-    public ModelAndView search(@RequestParam(value = "id") Long id, @RequestParam(value = "type") String type) throws DaoException{
+    public ModelAndView search(@RequestParam(value = "key") String key, @RequestParam(value = "type") String type) throws DaoException{
     	ModelAndView mv  = new ModelAndView("index");
+    	Long id = null;
     	if(type.equals("Group")){
     		mv  = new ModelAndView("redirect:group/view");
-    		mv.addObject("id", id);
+    		try{
+    			id = Long.parseLong(key);
+    			mv.addObject("id", id);
+    		} catch (NumberFormatException e){
+    			id = manager.findGroup(user, key).getId();
+    			mv.addObject("id", id);
+    		}
     	}else if(type.equals("Person")){
     		mv  = new ModelAndView("redirect:person/view");
+    		try{
+    			id = Long.parseLong(key);
+    			mv.addObject("id", id);
+    		} catch (NumberFormatException e){
+    			id = manager.findPerson(user, key).getId();
+    			mv.addObject("id", id);
+    		}
     		mv.addObject("id", id);
     	}
         return mv;

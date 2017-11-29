@@ -40,7 +40,7 @@ public class DaoTest {
 	@Test
 	public void testFindAllPersons1() throws DaoException {
 		//System.out.print("bonjours");
-		System.out.println(dao.findAll().toString());
+		System.out.println(dao.findGroup("bonjour"));
 	}
 	
 	

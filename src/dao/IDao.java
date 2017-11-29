@@ -31,5 +31,9 @@ public interface IDao {
 
 	// supprime une personne
 	public void removeGroup(long id) throws DaoException;
+
+	public Group findGroup(String Name) throws DaoException;
+
+	Person findPerson(String Name) throws DaoException;
 	
 }

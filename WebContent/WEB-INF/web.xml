@@ -22,26 +22,26 @@
 		<welcome-file>/WEB-INF/jsp/index.jsp</welcome-file>
 	</welcome-file-list>
 	<listener>
-	<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
-</listener>
-<!-- 	on peu faire plein de truc avec ce site -->
-<!-- https://docs.oracle.com/cd/E21764_01/web.1111/e13712/web_xml.htm#WBAPP557 -->
-<!-- 	<jsp-config> -->
-<!-- 		<jsp-property-group> -->
-<!-- 			<description>Toutes les pages</description> -->
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+	<!-- on peu faire plein de truc avec ce site -->
+	<!-- https://docs.oracle.com/cd/E21764_01/web.1111/e13712/web_xml.htm#WBAPP557 -->
+	<!-- <jsp-config> -->
+	<!-- <jsp-property-group> -->
+	<!-- <description>Toutes les pages</description> -->
 
-			<!-- pages concernées par ces propriétés -->
-<!-- 			<url-pattern>/WEB-INF/jsp/*.jsp</url-pattern> -->
+	<!-- pages concernées par ces propriétés -->
+	<!-- <url-pattern>/WEB-INF/jsp/*.jsp</url-pattern> -->
 
-			<!-- encodage de sortie de ces pages -->
-<!-- 			<page-encoding>UTF-8</page-encoding> -->
+	<!-- encodage de sortie de ces pages -->
+	<!-- <page-encoding>UTF-8</page-encoding> -->
 
-			<!-- page(s) à inclure avant -->
-<!-- 			<include-prelude>/WEB-INF/jsp/loginMenu.jsp</include-prelude> -->
+	<!-- page(s) à inclure avant -->
+	<!-- <include-prelude>/WEB-INF/jsp/loginMenu.jsp</include-prelude> -->
 
-<!-- 		</jsp-property-group> -->
+	<!-- </jsp-property-group> -->
 
-<!-- 	</jsp-config> -->
+	<!-- </jsp-config> -->
 
 
 </web-app>

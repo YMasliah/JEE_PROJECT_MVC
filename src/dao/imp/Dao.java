@@ -3,6 +3,7 @@ package dao.imp;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.Collections;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
@@ -10,6 +11,7 @@ import javax.sql.DataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -118,7 +120,13 @@ public class Dao implements IDao {
 	 */
 	@Override
 	public Collection<Group> findAll() {
-		return this.jdbcTemplate.query("SELECT * FROM `Group`", Dao::resultSetToGroup);
+		Collection<Group> returnValue = Collections.emptyList();
+		try{
+			returnValue = this.jdbcTemplate.query("SELECT * FROM `Group`", Dao::resultSetToGroup);
+		} catch (EmptyResultDataAccessException e){
+			
+		}
+		return returnValue;
 	}
 
 	/**
@@ -129,7 +137,13 @@ public class Dao implements IDao {
 	 */
 	@Override
 	public Collection<Person> findAll(long groupId) {
-		return this.jdbcTemplate.query("SELECT * FROM `Person` WHERE GroupId = ?", Dao::resultSetToPerson, groupId);
+		Collection<Person> returnValue = Collections.emptyList();
+		try{
+			returnValue = this.jdbcTemplate.query("SELECT * FROM `Person` WHERE GroupId = ?", Dao::resultSetToPerson, groupId);
+		} catch (EmptyResultDataAccessException e){
+			
+		}
+		return returnValue;
 	}
 
 	@Override
@@ -145,15 +159,48 @@ public class Dao implements IDao {
 
 	@Override
 	public Person findPerson(long id) throws DaoException {
-		logger.info(id);
-		return this.jdbcTemplate.queryForObject("Select * FROM `Person` WHERE id = ?", new BeanPropertyRowMapper<Person>(Person.class), id);
+		Person returnValue = new Person();
+		try{
+			returnValue = this.jdbcTemplate.queryForObject("Select * FROM `Person` WHERE id = ?", new BeanPropertyRowMapper<Person>(Person.class), id);
+		} catch (EmptyResultDataAccessException e){
+			
+		}
+		return returnValue;
 	}
 
 	@Override
 	public Group findGroup(long id) throws DaoException {
-		return this.jdbcTemplate.queryForObject("Select * FROM `Group` WHERE id = ?", new BeanPropertyRowMapper<Group>(Group.class), id);
+		Group returnValue = new Group();
+		try{
+			returnValue = this.jdbcTemplate.queryForObject("Select * FROM `Group` WHERE id = ?", new BeanPropertyRowMapper<Group>(Group.class), id);
+		} catch (EmptyResultDataAccessException e){
+			
+		}
+		return returnValue;
 	}
 
+	@Override
+	public Group findGroup(String name) throws DaoException {
+		Group returnValue = new Group();
+		try{
+			returnValue = this.jdbcTemplate.queryForObject("Select * FROM `Group` WHERE Name = ?", new BeanPropertyRowMapper<Group>(Group.class), name);
+		} catch (EmptyResultDataAccessException e){
+			
+		}
+		return returnValue;
+	}
+	
+	@Override
+	public Person findPerson(String lastName) throws DaoException {
+		Person returnValue = new Person();
+		try{
+			returnValue = this.jdbcTemplate.queryForObject("Select * FROM `Person` WHERE LastName = ?", new BeanPropertyRowMapper<Person>(Person.class), lastName);
+		} catch (EmptyResultDataAccessException e){
+			
+		}
+		return returnValue;
+	}
+	
 	@Override
 	public void removePerson(long id) throws DaoException {
 		this.jdbcTemplate.update("DELETE FROM Person WHERE id = ?", id);

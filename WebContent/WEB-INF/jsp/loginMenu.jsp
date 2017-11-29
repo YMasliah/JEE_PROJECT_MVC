@@ -56,7 +56,7 @@
 				</select>
 			</div>
 			<div class="form-group">
-				<input name="id" size="20" type="number" class="form-control" />
+				<input name="key" size="20" class="form-control" />
 			</div>
 			<div class="form-group">
 				<input type="submit" value="recherche"
