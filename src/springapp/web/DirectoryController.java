@@ -63,7 +63,7 @@ public class DirectoryController{
     public ModelAndView groupViewRequest(@RequestParam(value = "id", required = true) Long groupId) throws DaoException{
     	Group group = manager.findGroup(user, groupId);
     	logger.info("Returning group view");
-    	ModelAndView mv  = new ModelAndView("index");
+    	ModelAndView mv  = new ModelAndView("redirect:/actions/directory/login");
     	if(group.getId() != null){
     		mv  = new ModelAndView("group");
             mv.addObject("group", manager.findGroup(user, groupId));
@@ -93,6 +93,13 @@ public class DirectoryController{
         return mv;
     }
     
+    /**
+     * faut modifier et lire la bd pour redirect si c pas lui
+     * 
+     * @param personId
+     * @return
+     * @throws DaoException
+     */
     @RequestMapping(value = "/person/edit", method = RequestMethod.GET)
     public ModelAndView personEditRequest(@RequestParam(value = "id", required = true) Long personId) throws DaoException{
     	ModelAndView mv  = new ModelAndView("personEdit");
@@ -134,9 +141,9 @@ public class DirectoryController{
     public String show() throws managerException, DaoException {
         logger.info("show user " + user);
         if(user.getId()==null) {
-        	user = manager.newUser();
+        	user = manager.newUser(user);
         }else{
-        	manager.login(user);
+        	user = manager.login(user);
         }
         logger.info("show user " + user);
         return "index";
@@ -149,7 +156,7 @@ public class DirectoryController{
      * @throws DaoException 
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@ModelAttribute @Valid User u, BindingResult result) throws DaoException, managerException {
+    public String login(@ModelAttribute("user") User u, BindingResult result) throws DaoException, managerException {
     	if (result.hasErrors()) {
         	return "index";
         }
@@ -162,7 +169,7 @@ public class DirectoryController{
     @RequestMapping(value = "/logout")
     public String logout() throws managerException {
         logger.info("logout user " + user);
-        user = manager.newUser();
+        user = manager.newUser(user);
         return "redirect:login";
     }
    

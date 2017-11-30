@@ -30,7 +30,6 @@ public class User implements Serializable {
 	private String name = "";
 
 	public User() {
-		name ="No User";
 	}
 
 	public User(long id, String password) {

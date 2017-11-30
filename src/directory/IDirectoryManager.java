@@ -11,7 +11,7 @@ import directory.manager.exception.managerException;
 public interface IDirectoryManager {
 
     // créer un utilisateur anonyme
-	User newUser() throws managerException;
+	User newUser(User user) throws managerException;
 
     // chercher une personne
     Person findPerson(User user, long personId) throws DaoException;
@@ -40,4 +40,6 @@ public interface IDirectoryManager {
 	Group findGroup(User user, String name) throws DaoException;
 
 	Person findPerson(User user, String lastName) throws DaoException;
+
+	
 }

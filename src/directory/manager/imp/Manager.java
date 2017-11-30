@@ -21,8 +21,6 @@ import directory.manager.exception.managerException;
 public class Manager implements IDirectoryManager {
 
 	protected final Log logger = LogFactory.getLog(getClass());
-	
-	private ArrayList<User> userList = new ArrayList<>();
 
 	@Autowired
 	private IDao dao;
@@ -32,16 +30,18 @@ public class Manager implements IDirectoryManager {
 	}
 
 	@Override
-	public User newUser() throws managerException {
-		User returnValue = new User();
+	public User newUser(User user) throws managerException {
+		User returnValue = user;
 		returnValue.setName("No User");
+		returnValue.setId(null);
+		returnValue.setPassword(null);
 		return returnValue;
 	}
 
 	@Override
 	public Person findPerson(User user, long personId) throws DaoException {
 		Person returnValue = new Person();
-		if (userList.indexOf(user) !=-1) {
+		if (user.getName()!="No User") {
 			returnValue = dao.findPerson(personId);
 		}
 		return returnValue;
@@ -50,7 +50,8 @@ public class Manager implements IDirectoryManager {
 	@Override
 	public Group findGroup(User user, long groupId) throws DaoException {
 		Group returnValue = new Group();
-		if (userList.indexOf(user) !=-1) {
+		logger.info(user);
+		if (user.getName()!="No User") {
 			returnValue = dao.findGroup(groupId);
 		}
 		return returnValue;
@@ -59,7 +60,7 @@ public class Manager implements IDirectoryManager {
 	@Override
 	public Person findPerson(User user, String lastName) throws DaoException {
 		Person returnValue = new Person();
-		if (userList.indexOf(user) !=-1) {
+		if (user.getName()!="No User") {
 			returnValue = dao.findPerson(lastName);
 		}
 		return returnValue;
@@ -68,16 +69,16 @@ public class Manager implements IDirectoryManager {
 	@Override
 	public Group findGroup(User user, String name) throws DaoException {
 		Group returnValue = new Group();
-		if (userList.indexOf(user) !=-1) {
+		if (user.getName()!="No User") {
 			returnValue = dao.findGroup(name);
 		}
 		return returnValue;
 	}
-	
+
 	@Override
 	public Collection<Person> findAll(User user, long groupId) throws DaoException {
 		Collection<Person> returnValue = Collections.emptyList();
-		if (userList.indexOf(user) !=-1) {
+		if (user.getName()!="No User") {
 			returnValue = dao.findAll(groupId);
 		}
 		return returnValue;
@@ -86,7 +87,7 @@ public class Manager implements IDirectoryManager {
 	@Override
 	public Collection<Group> findAll(User user) throws DaoException {
 		Collection<Group> returnValue = Collections.emptyList();
-		if (userList.indexOf(user) !=-1) {
+		if (user.getName()!="No User") {
 			returnValue = dao.findAll();
 		}
 		return returnValue;
@@ -96,21 +97,20 @@ public class Manager implements IDirectoryManager {
 	 * faut check la base de donnée si la perssonne existe
 	 * 
 	 * @throws DaoException
-	 * @throws managerException 
+	 * @throws managerException
 	 */
 	@Override
 	public User login(User user) throws DaoException, managerException {
-		User returnValue = newUser();
-		Person person = dao.findPerson(user.getId());
-		logger.info(user);
-		if (person.getId() != null && person.getPassword().equals(user.getPassword())) {
-			returnValue.setId(user.getId());
-			returnValue.setPassword(user.getPassword());
-			returnValue.setName(person.getLastName());
-			if (userList.indexOf(returnValue) ==-1) {
-				logger.info("succes login");
-				user.setName(person.getLastName());
-				userList.add(user);
+		User returnValue = user;
+		if (user.getId() != null) {
+			Person person = dao.findPerson(user.getId());
+			logger.info(user);
+			if (person.getPassword().equals(user.getPassword())) {
+				returnValue.setName(person.getLastName());
+				if (user.getName()!="No User") {
+					logger.info("succes login");
+					user.setName(person.getLastName());
+				}
 			}
 		}
 		return returnValue;
@@ -118,28 +118,28 @@ public class Manager implements IDirectoryManager {
 
 	/**
 	 * faire une petite trace quand meme
-	 * @throws managerException 
+	 * 
+	 * @throws managerException
 	 */
 	@Override
 	public void logout(User user) throws managerException {
-		if (userList.indexOf(user) !=-1) {
-			userList.remove(user);
-			user = newUser();
+		if (user.getName()!="No User") {
+			user = newUser(user);
 		}
 	}
 
 	@Override
 	public void savePerson(User user, Person p) throws DaoException {
-		 if(userList.indexOf(user) !=-1){
-			 dao.saveBean(p);
-		 }
+		if (user.getName()!="No User") {
+			dao.saveBean(p);
+		}
 	}
 
 	@Override
 	public void saveGroup(User user, Group p) throws DaoException {
-		 if(userList.indexOf(user) !=-1){
-			 dao.saveBean(p);
-		 }
+		if (user.getName()!="No User") {
+			dao.saveBean(p);
+		}
 	}
 }
 
