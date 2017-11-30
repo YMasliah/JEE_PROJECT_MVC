@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
 
-<c:url var="edit" value="/actions/directory/person/edit" />
+
 <c:url var="view" value="/actions/directory/person/view" />
 
 <html>
@@ -22,11 +22,6 @@
                     <td><a href="${view}?id=${persona.id}">
                         <c:out value="${persona.lastName}" />
                     </a></td>
-                    <c:if test="${user.name == persona.lastName && user.id == persona.id}">
-                     <td><a class="btn btn-info" href="${edit}?id=${persona.id}">
-                        modification
-                    </a></td>
-                    </c:if>
                 </tr>
             </c:forEach>
         </table>

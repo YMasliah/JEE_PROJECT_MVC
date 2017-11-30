@@ -47,7 +47,11 @@ public class Dao implements IDao {
 
 	protected final Log logger = LogFactory.getLog(getClass());
 
+	private static int itemPerPage = 50;
+	
 //	CREATE TABLE IF NOT EXISTS `Person`(Id BIGINT AUTO_INCREMENT PRIMARY KEY, LastName VARCHAR(36),FirstName VARCHAR(32), Email VARCHAR(250), website VARCHAR(250), birthDate DATE, password VARCHAR(30), groupId BIGINT DEFAULT 1,FOREIGN KEY (groupId) REFERENCES `Group`(Id) ON DELETE CASCADE )ENGINE=INNODB;	
+	
+	
 	
 	/**
 	 * Creation des tables
@@ -119,10 +123,10 @@ public class Dao implements IDao {
 	 * @return
 	 */
 	@Override
-	public Collection<Group> findAll() {
+	public Collection<Group> findAll(int page) {
 		Collection<Group> returnValue = Collections.emptyList();
 		try{
-			returnValue = this.jdbcTemplate.query("SELECT * FROM `Group`", Dao::resultSetToGroup);
+			returnValue = this.jdbcTemplate.query("SELECT * FROM `Group` limit ?,?", Dao::resultSetToGroup,(page-1)*itemPerPage,itemPerPage);
 		} catch (EmptyResultDataAccessException e){
 			
 		}
@@ -136,10 +140,10 @@ public class Dao implements IDao {
 	 * @return
 	 */
 	@Override
-	public Collection<Person> findAll(long groupId) {
+	public Collection<Person> findAll(long groupId, int page) {
 		Collection<Person> returnValue = Collections.emptyList();
 		try{
-			returnValue = this.jdbcTemplate.query("SELECT * FROM `Person` WHERE GroupId = ?", Dao::resultSetToPerson, groupId);
+			returnValue = this.jdbcTemplate.query("SELECT * FROM `Person` WHERE GroupId = ? limit ?,?", Dao::resultSetToPerson, groupId,(page-1)*itemPerPage,itemPerPage);
 		} catch (EmptyResultDataAccessException e){
 			
 		}
@@ -209,5 +213,13 @@ public class Dao implements IDao {
 	@Override
 	public void removeGroup(long id) throws DaoException {
 		this.jdbcTemplate.update("DELETE FROM `Group` WHERE id = ?", id);
+	}
+
+	public static int getItemPerPage() {
+		return itemPerPage;
+	}
+
+	public static void setItemPerPage(int itemPerPage) {
+		Dao.itemPerPage = itemPerPage;
 	}
 }

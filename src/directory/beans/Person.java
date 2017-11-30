@@ -9,6 +9,7 @@ import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import springapp.web.Mail;
+import springapp.web.Group;
 
 /**
  * @author masliah yann
@@ -50,6 +51,7 @@ public class Person {
 	// un int ou un Group ?
 
 	@Min(value = 1, message = "Le prix est trop bas")
+	@Group
 	private Long groupId;
 
 	public Person() {

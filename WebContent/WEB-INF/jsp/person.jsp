@@ -5,7 +5,7 @@
 </head>
 
 <body>
-
+<c:url var="edit" value="/actions/directory/person/edit" />
 	<div class="container">
 		<h1>
 			informations de
@@ -18,7 +18,6 @@
 				</td>
 			</tr>
 			<tr>
-
 				<td>LastName = <c:out value="${person.lastName}" />
 				</td>
 			</tr>
@@ -35,7 +34,10 @@
 				</td>
 			</tr>
 		</table>
-
+		<c:if test="${user.name == person.lastName && user.id == person.id}">
+			<td><a class="btn btn-info" href="${edit}?id=${person.id}">
+					modification </a></td>
+		</c:if>
 	</div>
 
 </body>

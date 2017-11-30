@@ -20,10 +20,10 @@ public interface IDirectoryManager {
     Group findGroup(User user, long groupId) throws DaoException;
 
     // chercher les personnes d'un groupe
-    Collection<Person> findAll(User user, long groupId)throws DaoException;
+    Collection<Person> findAll(User user, long groupId, int page)throws DaoException;
 
     // chercher tout les groupes
-	Collection<Group> findAll(User user) throws DaoException;
+	Collection<Group> findAll(User user, int page) throws DaoException;
     
     // identifier un utilisateur
 	User login(User user) throws DaoException, managerException;

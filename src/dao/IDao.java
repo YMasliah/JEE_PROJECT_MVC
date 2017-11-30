@@ -9,10 +9,10 @@ import directory.beans.Person;
 public interface IDao {
 
 	// r�cup�rer les groupes
-	public Collection<Group> findAll() throws DaoException;
+	public Collection<Group> findAll(int page) throws DaoException;
 
 	// r�cup�rer les personnes d'un groupe
-	public Collection<Person> findAll(long groupId) throws DaoException;
+	public Collection<Person> findAll(long groupId, int page) throws DaoException;
 
 	// lire une personne
 	public Person findPerson(long id) throws DaoException;

@@ -1,6 +1,5 @@
 package directory.manager.imp;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import dao.IDao;
 import dao.exception.DaoException;
+import dao.imp.Dao;
 import directory.IDirectoryManager;
 import directory.beans.Group;
 import directory.beans.Person;
@@ -41,7 +41,7 @@ public class Manager implements IDirectoryManager {
 	@Override
 	public Person findPerson(User user, long personId) throws DaoException {
 		Person returnValue = new Person();
-		if (user.getName()!="No User") {
+		if (user.getName() != "No User") {
 			returnValue = dao.findPerson(personId);
 		}
 		return returnValue;
@@ -51,7 +51,7 @@ public class Manager implements IDirectoryManager {
 	public Group findGroup(User user, long groupId) throws DaoException {
 		Group returnValue = new Group();
 		logger.info(user);
-		if (user.getName()!="No User") {
+		if (user.getName() != "No User") {
 			returnValue = dao.findGroup(groupId);
 		}
 		return returnValue;
@@ -60,7 +60,7 @@ public class Manager implements IDirectoryManager {
 	@Override
 	public Person findPerson(User user, String lastName) throws DaoException {
 		Person returnValue = new Person();
-		if (user.getName()!="No User") {
+		if (user.getName() != "No User") {
 			returnValue = dao.findPerson(lastName);
 		}
 		return returnValue;
@@ -69,26 +69,26 @@ public class Manager implements IDirectoryManager {
 	@Override
 	public Group findGroup(User user, String name) throws DaoException {
 		Group returnValue = new Group();
-		if (user.getName()!="No User") {
+		if (user.getName() != "No User") {
 			returnValue = dao.findGroup(name);
 		}
 		return returnValue;
 	}
 
 	@Override
-	public Collection<Person> findAll(User user, long groupId) throws DaoException {
+	public Collection<Person> findAll(User user, long groupId, int page) throws DaoException {
 		Collection<Person> returnValue = Collections.emptyList();
-		if (user.getName()!="No User") {
-			returnValue = dao.findAll(groupId);
+		if (user.getName() != "No User") {
+			returnValue = dao.findAll(groupId, page);
 		}
 		return returnValue;
 	}
 
 	@Override
-	public Collection<Group> findAll(User user) throws DaoException {
+	public Collection<Group> findAll(User user, int page) throws DaoException {
 		Collection<Group> returnValue = Collections.emptyList();
-		if (user.getName()!="No User") {
-			returnValue = dao.findAll();
+		if (user.getName() != "No User") {
+			returnValue = dao.findAll(page);
 		}
 		return returnValue;
 	}
@@ -102,12 +102,12 @@ public class Manager implements IDirectoryManager {
 	@Override
 	public User login(User user) throws DaoException, managerException {
 		User returnValue = user;
-		if (user.getId() != null) {
+		if (user.getId() != null && !user.getPassword().isEmpty()) {
 			Person person = dao.findPerson(user.getId());
 			logger.info(user);
 			if (person.getPassword().equals(user.getPassword())) {
 				returnValue.setName(person.getLastName());
-				if (user.getName()!="No User") {
+				if (user.getName() != "No User") {
 					logger.info("succes login");
 					user.setName(person.getLastName());
 				}
@@ -123,23 +123,27 @@ public class Manager implements IDirectoryManager {
 	 */
 	@Override
 	public void logout(User user) throws managerException {
-		if (user.getName()!="No User") {
+		if (user.getName() != "No User") {
 			user = newUser(user);
 		}
 	}
 
 	@Override
 	public void savePerson(User user, Person p) throws DaoException {
-		if (user.getName()!="No User") {
+		if (user.getName() != "No User") {
 			dao.saveBean(p);
 		}
 	}
 
 	@Override
 	public void saveGroup(User user, Group p) throws DaoException {
-		if (user.getName()!="No User") {
+		if (user.getName() != "No User") {
 			dao.saveBean(p);
 		}
+	}
+	
+	public void itemPerPageEdit(int number){
+		Dao.setItemPerPage(number);
 	}
 }
 
