@@ -1,12 +1,19 @@
-<!DOCTYPE html>
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
-<html>
-<head>
-</head>
 
-<body>
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Personne</title>
 <c:url var="edit" value="/actions/directory/person/edit" />
-	<div class="container">
+</head>
+<body>
+
+	<c:import url="/WEB-INF/jsp/loginMenu.jsp">
+		<c:param name="page" value="1" />
+	</c:import>
+
+	<section style="float: left; width: 60%; margin: 0 1.5% 24px 1.5%;">
 		<h1>
 			informations de
 			<c:out value="${person.lastName}"></c:out>
@@ -38,7 +45,11 @@
 			<td><a class="btn btn-info" href="${edit}?id=${person.id}">
 					modification </a></td>
 		</c:if>
-	</div>
+	</section>
+
+	<c:import url="/WEB-INF/jsp/footer.jsp">
+		<c:param name="page" value="1" />
+	</c:import>
 
 </body>
 </html>
