@@ -5,31 +5,30 @@
 <head>
 <meta charset="utf-8">
 <title>Bienvenu sur l'annuaire</title>
-<c:url var="groupList"   value="/actions/directory/group/list" />
-<c:url var="passwordLost" value="/actions/directory/passwordLost" />
+<c:url var="groupList" value="/actions/directory/group/list" />
+<%-- <c:url var="passwordLost" value="/actions/directory/passwordLost" /> --%>
+<c:url var="search" value="/actions/directory/search" />
 </head>
 <body>
-	<header>
-		<c:import url="/WEB-INF/jsp/loginMenu.jsp">
-			<c:param name="page" value="1" />
-		</c:import>
-		<c:if test="${user.name =='No User' || empty user.name}"><section><a href="${passwordLost}">mot de passe perdu ?</a></section></c:if>
-	</header>
-	<section>
+
+	<c:import url="/WEB-INF/jsp/loginMenu.jsp">
+		<c:param name="page" value="1" />
+	</c:import>
+
+	<section style="float: left; width: 60%; margin: 0 1.5% 24px 1.5%;">
 		<article>
 			<h1>Bonjour</h1>
 			<p>Pour acceder a l'annuaire de Yann MASLIAH et redouane TIGRARA
 				il faut s'authentifier</p>
 		</article>
+
 		<aside>wola je suis un truc qui servira peut etre</aside>
+
 	</section>
-	
-	<c:if test="${user.name !='No User' && not empty user.name}"><section><a href="${groupList}">liste des groupes</a></section></c:if>
-	
-<section>fonction de recherche a implementer</section>
-	
-<footer> Annuaire JEE 2017/2018 </footer>
+
+	<c:import url="/WEB-INF/jsp/footer.jsp">
+		<c:param name="page" value="1" />
+	</c:import>
 
 </body>
 </html>
-<%-- <c:redirect url="/hello.htm"/> --%>

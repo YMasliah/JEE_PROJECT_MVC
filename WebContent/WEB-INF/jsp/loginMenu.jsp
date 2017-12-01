@@ -2,121 +2,53 @@
 
 <c:url var="login" value="/actions/directory/login" />
 <c:url var="logout" value="/actions/directory/logout" />
-<c:url var="search" value="/actions/directory/search" />
+<%-- <c:url var="search" value="/actions/directory/search" /> --%>
+<c:url var="passwordLost" value="/actions/directory/passwordLost" />
 
-<c:out value="${user.name}" default="please login" />
-<c:choose>
-	<c:when test="${empty user.name}">
-		<p>
-			<a href="${login}">Login</a>
-		</p>
-	</c:when>
-	<c:when test="${user.name =='No User'}">
-		<div class="container">
-			<form:form method="POST" commandName="user" class="form-inline">
 
-				<form:errors path="*" cssClass="alert alert-danger" element="div" />
-
-				<div class="form-group">
-					<label for="id">Id :</label>
-					<form:input class="form-control" path="id" type="number" />
-					<form:errors path="id" cssClass="alert alert-warning" element="div" />
-				</div>
-				<div class="form-group">
-					<label for="password">Password:</label>
-					<form:input class="form-control" path="password" type="password" />
-					<form:errors path="password" cssClass="alert alert-warning"
-						element="div" />
-				</div>
-
-				<div class="form-group">
-					<button type="submit" class="btn btn-info">Submit</button>
-				</div>
-			</form:form>
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#">Acceuil</a>
 		</div>
-	</c:when>
-	<c:otherwise>
-		<p>
-			<a href="${logout}">Logout</a>
-		</p>
-	</c:otherwise>
-</c:choose>
-<c:if test="${not empty user.name}">
-	<div class="container">
-		<form:form method="POST" action="${search}" class="form-inline">
 
-			<form:errors path="*" cssClass="alert alert-danger" element="div" />
+		<ul class="nav navbar-nav navbar-right">
 
-			<div class="form-group">
-				<label for="type">Type:</label> 
-				<select id="type" name="type">
-					<c:forEach items="${dataTypes}" var="dataType">
-						<option value="${dataType.key}"> <c:out value="${dataType.value}"></c:out></option>
-					</c:forEach>
-				</select>
-			</div>
-			<div class="form-group">
-				<input name="key" size="20" class="form-control" />
-			</div>
-			<div class="form-group">
-				<input type="submit" value="recherche"
-					class="form-control btn btn-info" />
-			</div>
-		</form:form>
+			<c:choose>
+				<c:when test="${empty user.name}">
+					<li><a href="${login}"><span
+							class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				</c:when>
+				<c:when test="${user.name =='No User'}">
+					<li><form:form method="POST" commandName="user"
+							class="navbar-form navbar-right">
+							<form:errors path="*" cssClass="alert alert-danger" element="div" />
+							<div class="input-group">
+								<span class="input-group-addon"><i
+									class="glyphicon glyphicon-user"></i></span>
+								<form:input class="form-control" path="id" type="number"
+									value="" placeholder="Id" />
+								<%-- 				<form:errors path="id" cssClass="alert alert-warning" element="div" /> --%>
+							</div>
+							<div class="input-group">
+								<span class="input-group-addon"><i
+									class="glyphicon glyphicon-lock"></i></span>
+								<form:input class="form-control" path="password" type="password"
+									value="" placeholder="Password" />
+								<%-- 			   <form:errors path="password" cssClass="alert alert-warning" element="div" /> --%>
+							</div>
+							<div class="form-group">
+								<button type="submit" class="btn btn-primary">Submit</button>
+							</div>
+							<a href="${passwordLost}">mot de passe perdu ?</a>
+						</form:form></li>
+				</c:when>
+				<c:otherwise>
+					<li><a href="${logout}"><span
+							class="glyphicon glyphicon-user"></span> Sign Up</a>
+				</c:otherwise>
+			</c:choose>
+
+		</ul>
 	</div>
-</c:if>
-<%-- <c:if test="${empty user.name}"> <p><a href="${show}">Login</a></p> </c:if> --%>
-<%-- <c:if test="${not empty user.name && user.name ==''}"> <p>toto</p> </c:if> --%>
-<%-- <c:if test="${not empty user.name && user.name !=''}"> <p><a href="${logout}">Logout</a></p> </c:if> --%>
-
-<%-- <form action="${show}" method="post"> --%>
-<!-- 	<button>New User</button> -->
-<!-- </form> -->
-<%-- <jsp:useBean id="user" scope="session" class="directory.manager.User" > --%>
-<!--     <p>Nouveau utilisateur !</p> -->
-<%-- </jsp:useBean> --%>
-
-
-<!-- <form action="edition" method="POST"> -->
-<%-- <jsp:useBean id="person" scope="session" class="myapp.Person" > --%>
-<!--     <p>Nouveau produit !</p> -->
-<%-- </jsp:useBean> --%>
-
-
-<!--   <label>Nom : </label> -->
-<%--     <input type="text" name="nom" size="15" value='<%=person.getNom()%>'/>errourrrrrrr ici PS: je suis en rouge, mais sinon faut juste crée une classe exception mais la flemme<br/> --%>
-
-<!--   <label>Prénom : </label> -->
-<%--     <input type="text" name="prenom" size="15" value='<%=person.getPrenom()%>'/><br/> --%>
-
-<!--   <input type="submit" name="boutonOK" value="Valider"/> -->
-<!-- </form> -->
-
-<!-- <div class="container"> -->
-<!-- 		<h1>Edit Product</h1> -->
-
-<%-- 		<form:form method="POST" commandName="user"> --%>
-
-<%-- 			<form:errors path="*" cssClass="alert alert-danger" element="div" /> --%>
-
-<!-- 			<div class="form-group"> -->
-<!-- 				<label for="id">id:</label> -->
-<%-- 				<form:input class="form-control" path="id" /> --%>
-<%-- 				<form:errors path="id" cssClass="alert alert-warning" --%>
-<%-- 					element="div" /> --%>
-<!-- 			</div> -->
-<!-- 			<div class="form-group"> -->
-<!-- 				<label for="password">password:</label> -->
-<%-- 				<form:input class="form-control" path="password" /> --%>
-<%-- 				<form:errors path="password" cssClass="alert alert-warning" --%>
-<%-- 					element="div" /> --%>
-<!-- 			</div> -->
-<!-- 			<div class="form-group"> -->
-<!-- 				<button type="submit" class="btn btn-info">Submit</button> -->
-<!-- 			</div> -->
-<%-- 		</form:form> --%>
-<!-- 	</div> -->
-
-
-
-<!-- <a href="/actions/user">Nom d'une personne</a> -->
+</nav>
