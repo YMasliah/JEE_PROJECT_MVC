@@ -83,7 +83,7 @@ public class DaoTest2 {
 	
 	/**
 	 * 
-	 * resultat non vide
+	 * resultat non vide et inferieur ou egal a 50
 	 * 
 	 * @throws DaoException
 	 */
@@ -91,8 +91,22 @@ public class DaoTest2 {
 	public void testFindAllPersons2() throws DaoException {
 		Collection<Group> expecteds = Collections.emptyList();
 		Assert.assertNotEquals(expecteds, dao.findAll(1,1));
+		Assert.assertTrue(50>=dao.findAll(1).size());
 	}
 
+	/**
+	 * 
+	 * resultat non vide et egal a 36
+	 * 
+	 * @throws DaoException
+	 */
+	@Test
+	public void testFindAllPersons3() throws DaoException {
+		Collection<Group> expecteds = Collections.emptyList();
+		Assert.assertNotEquals(expecteds, dao.findAll(1,1));
+		Assert.assertTrue(36==dao.findAll(1).size());
+	}
+	
 	/**
 	 * 
 	 * requete invalide
@@ -107,19 +121,33 @@ public class DaoTest2 {
 
 	/**
 	 * 
-	 * resultat vide
+	 * resultat non vide et inferieur ou egal a 50
 	 * 
 	 * @throws DaoException
 	 */
 	@Test
 	public void testFindAllGroup2() throws DaoException {
 		Collection<Group> expecteds = Collections.emptyList();
-		Assert.assertEquals(expecteds, dao.findAll(1));
+		Assert.assertNotEquals(expecteds, dao.findAll(1));
+		Assert.assertTrue(50>=dao.findAll(1).size());
 	}
 	
 	/**
 	 * 
-	 * resultat vide
+	 * resultat non vide et egal a 2
+	 * 
+	 * @throws DaoException
+	 */
+	@Test
+	public void testFindAllGroup3() throws DaoException {
+		Collection<Group> expecteds = Collections.emptyList();
+		Assert.assertNotEquals(expecteds, dao.findAll(1));
+		Assert.assertTrue(2==dao.findAll(1).size());
+	}
+	
+	/**
+	 * 
+	 * resultat non vide
 	 * recherche par id
 	 * 
 	 * @throws DaoException
@@ -127,7 +155,7 @@ public class DaoTest2 {
 	@Test
 	public void testFindGroup1() throws DaoException {
 		Group expected = new Group();
-		Assert.assertEquals(expected, dao.findGroup(1));
+		Assert.assertNotEquals(expected, dao.findGroup(1));
 	}
 	
 	/**
