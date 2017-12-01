@@ -104,7 +104,19 @@ public class DaoTest2 {
 	public void testFindAllPersons3() throws DaoException {
 		Collection<Group> expecteds = Collections.emptyList();
 		Assert.assertNotEquals(expecteds, dao.findAll(1,1));
-		Assert.assertTrue(36==dao.findAll(1).size());
+		Assert.assertTrue(36==dao.findAll(1,1).size());
+	}
+	
+	/**
+	 * 
+	 * resultat vide
+	 * 
+	 * @throws DaoException
+	 */
+	@Test
+	public void testFindAllPersons4() throws DaoException {
+		Collection<Group> expecteds = Collections.emptyList();
+		Assert.assertEquals(expecteds, dao.findAll(10,1));
 	}
 	
 	/**
@@ -147,6 +159,18 @@ public class DaoTest2 {
 	
 	/**
 	 * 
+	 * resultat vide
+	 * 
+	 * @throws DaoException
+	 */
+	@Test
+	public void testFindAllGroup4() throws DaoException {
+		Collection<Group> expecteds = Collections.emptyList();
+		Assert.assertEquals(expecteds, dao.findAll(2));
+	}
+	
+	/**
+	 * 
 	 * resultat non vide
 	 * recherche par id
 	 * 
@@ -154,21 +178,34 @@ public class DaoTest2 {
 	 */
 	@Test
 	public void testFindGroup1() throws DaoException {
-		Group expected = new Group();
-		Assert.assertNotEquals(expected, dao.findGroup(1));
+		Group expected = new Group(1,"No group");
+		Assert.assertEquals(expected, dao.findGroup(1));
 	}
 	
 	/**
 	 * 
-	 * resultat vide
+	 * resultat non vide
 	 * recherche par nom
 	 * 
 	 * @throws DaoException
 	 */
 	@Test
 	public void testFindGroup2() throws DaoException {
+		Group expected = new Group(1,"No group");
+		Assert.assertEquals(expected, dao.findGroup("No group"));
+	}
+	
+	/**
+	 * 
+	 * resultat vide
+	 * recherche par id
+	 * 
+	 * @throws DaoException
+	 */
+	@Test
+	public void testFindGroup3() throws DaoException {
 		Group expected = new Group();
-		Assert.assertEquals(expected, dao.findGroup("toto"));
+		Assert.assertEquals(expected, dao.findGroup(0));
 	}
 	
 	/**
@@ -181,7 +218,54 @@ public class DaoTest2 {
 	@Test
 	public void testFindPerson1() throws DaoException {
 		Person expected = new Person();
-		Assert.assertEquals(expected, dao.findPerson(1));
+		Assert.assertEquals(expected, dao.findPerson(0));
+	}
+	
+	/**
+	 * 
+	 * resultat non vide
+	 * recherche par nom
+	 * 
+	 * @throws DaoException
+	 */
+	@Test
+	public void testFindPerson2() throws DaoException {
+		Person expected = new Person();
+		expected.setId(10L);
+		expected.setPassword("vasavoir");
+		expected.setLastName("toti");
+		expected.setGroupId(1L);
+		Assert.assertEquals(expected, dao.findPerson("toti"));
+	}
+	
+	/**
+	 * 
+	 * resultat trop grand, donc resultat vide
+	 * recherche par nom
+	 * 
+	 * @throws DaoException
+	 */
+	@Test
+	public void testFindPerson3() throws DaoException {
+		Person expected = new Person();
+		Assert.assertEquals(expected, dao.findPerson("toto"));
+	}
+	
+	/**
+	 * 
+	 * resultat non vide
+	 * recherche par id
+	 * 
+	 * @throws DaoException
+	 */
+	@Test
+	public void testFindPerson4() throws DaoException {
+		Person expected = new Person();
+		expected.setId(10L);
+		expected.setPassword("vasavoir");
+		expected.setLastName("toti");
+		expected.setGroupId(1L);
+		Assert.assertEquals(expected, dao.findPerson(10));
 	}
 	
 	/**
@@ -192,9 +276,9 @@ public class DaoTest2 {
 	 * @throws DaoException
 	 */
 	@Test
-	public void testFindPerson2() throws DaoException {
+	public void testFindPerson5() throws DaoException {
 		Person expected = new Person();
-		Assert.assertEquals(expected, dao.findPerson("toto"));
+		Assert.assertEquals(expected, dao.findPerson("rondoudou"));
 	}
 	
 	/**
@@ -205,9 +289,9 @@ public class DaoTest2 {
 	 */
 	@Test
 	public void testSaveBeanGroup1() throws DaoException {
-		Group expected = new Group(10,"toto");
+		Group expected = new Group(1,"toto");
 		dao.saveBean(expected);
-		Assert.assertEquals(expected, dao.findGroup(10));
+		Assert.assertEquals(expected, dao.findGroup(1));
 	}
 	
 	/**
@@ -233,7 +317,9 @@ public class DaoTest2 {
 	public void testSaveBeanPerson1() throws DaoException {
 		Person expected = new Person();
 		expected.setId(10L);
-		expected.setLastName("tata");
+		expected.setPassword("vasavoirarzaerazrararaz");
+		expected.setLastName("ttoatoaotaotaoetzeotaeota");
+		expected.setGroupId(1L);
 		dao.saveBean(expected);
 		Assert.assertEquals(expected, dao.findPerson(10));
 	}

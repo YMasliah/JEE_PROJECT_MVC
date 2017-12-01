@@ -105,7 +105,7 @@ public class Manager implements IDirectoryManager {
 		if (user.getId() != null && !user.getPassword().isEmpty()) {
 			Person person = dao.findPerson(user.getId());
 			logger.info(user);
-			if (person.getPassword().equals(user.getPassword())) {
+			if (person.getId()!=null && person.getPassword().equals(user.getPassword())) {
 				returnValue.setName(person.getLastName());
 				if (user.getName() != "No User") {
 					logger.info("succes login");
