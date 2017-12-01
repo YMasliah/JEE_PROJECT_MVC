@@ -17,9 +17,13 @@ public interface IDao {
 	// lire une personne
 	public Person findPerson(long id) throws DaoException;
 
+	public Person findPerson(String Name) throws DaoException;
+	
 	// lire une personne
 	public Group findGroup(long id) throws DaoException;
 	
+	public Group findGroup(String Name) throws DaoException;
+
 	// modification ou ajout d'une nouvelle personne
 	public void saveBean(Person p) throws DaoException;
 
@@ -31,9 +35,4 @@ public interface IDao {
 
 	// supprime une personne
 	public void removeGroup(long id) throws DaoException;
-
-	public Group findGroup(String Name) throws DaoException;
-
-	Person findPerson(String Name) throws DaoException;
-	
 }

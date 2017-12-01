@@ -48,11 +48,13 @@ public class Dao implements IDao {
 	protected final Log logger = LogFactory.getLog(getClass());
 
 	private static int itemPerPage = 50;
-	
-//	CREATE TABLE IF NOT EXISTS `Person`(Id BIGINT AUTO_INCREMENT PRIMARY KEY, LastName VARCHAR(36),FirstName VARCHAR(32), Email VARCHAR(250), website VARCHAR(250), birthDate DATE, password VARCHAR(30), groupId BIGINT DEFAULT 1,FOREIGN KEY (groupId) REFERENCES `Group`(Id) ON DELETE CASCADE )ENGINE=INNODB;	
-	
-	
-	
+
+	// CREATE TABLE IF NOT EXISTS `Person`(Id BIGINT AUTO_INCREMENT PRIMARY KEY,
+	// LastName VARCHAR(36),FirstName VARCHAR(32), Email VARCHAR(250), website
+	// VARCHAR(250), birthDate DATE, password VARCHAR(30), groupId BIGINT
+	// DEFAULT 1,FOREIGN KEY (groupId) REFERENCES `Group`(Id) ON DELETE CASCADE
+	// )ENGINE=INNODB;
+
 	/**
 	 * Creation des tables
 	 */
@@ -61,12 +63,12 @@ public class Dao implements IDao {
 		logger.info("Create Table");
 		jdbcTemplate.execute("CREATE TABLE IF NOT EXISTS `Group`(" + //
 				"Id BIGINT AUTO_INCREMENT PRIMARY KEY," + //
-				"Name VARCHAR(64) NOT NULL" + //
+				"Name VARCHAR(64) NOT NULL UNIQUE" + //
 				")ENGINE=INNODB");
 		jdbcTemplate.execute("ALTER TABLE `Group` AUTO_INCREMENT = 100");
 		this.jdbcTemplate.update("REPLACE INTO `Group` (`Id`,`Name`) VALUES (?,?)", 1, "No group");
 		jdbcTemplate.execute("CREATE TABLE IF NOT EXISTS `Person`(" + //
-				"Id BIGINT AUTO_INCREMENT PRIMARY KEY," + //
+				"Id BIGINT AUTO_INCREMENT UNIQUE," + //
 				"LastName VARCHAR(36)," + //
 				"FirstName VARCHAR(32)," + //
 				"Email VARCHAR(250)," + //
@@ -74,12 +76,14 @@ public class Dao implements IDao {
 				"BirthDate DATE," + //
 				"Password VARCHAR(30)," + //
 				"GroupId BIGINT DEFAULT 1," + //
-				"FOREIGN KEY (GroupId) REFERENCES `Group`(Id) ON DELETE CASCADE" + // on ne peut pas mettre default avec
-																					// innodb
+				"PRIMARY KEY (Id, LastName),"+
+				"FOREIGN KEY (GroupId) REFERENCES `Group`(Id) ON DELETE CASCADE" + 
 				")ENGINE=INNODB");
-		
-		jdbcTemplate.update("REPLACE INTO `Person` (`Id`,`LastName`,`Password`) VALUES (?,?,?)",10,"toto","vasavoir");
-		jdbcTemplate.update("REPLACE INTO `Person` (`Id`,`LastName`,`Password`) VALUES (?,?,?)",11,"tota","vasavoirbis");
+
+		jdbcTemplate.update("REPLACE INTO `Person` (`Id`,`LastName`,`Password`) VALUES (?,?,?)", 10, "toto",
+				"vasavoir");
+		jdbcTemplate.update("REPLACE INTO `Person` (`Id`,`LastName`,`Password`) VALUES (?,?,?)", 11, "tota",
+				"vasavoirbis");
 	}
 
 	/**
@@ -113,8 +117,8 @@ public class Dao implements IDao {
 	 * @throws SQLException
 	 */
 	static private Person resultSetToPerson(ResultSet rs, int rank) throws SQLException {
-		return new Person(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4),
-				rs.getString(5), rs.getDate(6), rs.getString(7), rs.getLong(8));
+		return new Person(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
+				rs.getDate(6), rs.getString(7), rs.getLong(8));
 	}
 
 	/**
@@ -125,10 +129,13 @@ public class Dao implements IDao {
 	@Override
 	public Collection<Group> findAll(int page) {
 		Collection<Group> returnValue = Collections.emptyList();
-		try{
-			returnValue = this.jdbcTemplate.query("SELECT * FROM `Group` limit ?,?", Dao::resultSetToGroup,(page-1)*itemPerPage,itemPerPage);
-		} catch (EmptyResultDataAccessException e){
-			
+		if (page > 0) {
+			try {
+				returnValue = this.jdbcTemplate.query("SELECT * FROM `Group` limit ?,?", Dao::resultSetToGroup,
+						(page - 1) * itemPerPage, itemPerPage);
+			} catch (EmptyResultDataAccessException e) {
+
+			}
 		}
 		return returnValue;
 	}
@@ -142,32 +149,45 @@ public class Dao implements IDao {
 	@Override
 	public Collection<Person> findAll(long groupId, int page) {
 		Collection<Person> returnValue = Collections.emptyList();
-		try{
-			returnValue = this.jdbcTemplate.query("SELECT * FROM `Person` WHERE GroupId = ? limit ?,?", Dao::resultSetToPerson, groupId,(page-1)*itemPerPage,itemPerPage);
-		} catch (EmptyResultDataAccessException e){
-			
+		if (page > 0) {
+			try {
+				returnValue = this.jdbcTemplate.query("SELECT * FROM `Person` WHERE GroupId = ? limit ?,?",
+						Dao::resultSetToPerson, groupId, (page - 1) * itemPerPage, itemPerPage);
+			} catch (EmptyResultDataAccessException e) {
+
+			}
 		}
 		return returnValue;
 	}
 
 	@Override
 	public void saveBean(Person p) throws DaoException {
-		this.jdbcTemplate.update("REPLACE INTO `Person` VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)", p.getId(), p.getLastName(),
-				p.getFirstName(), p.getEmail(), p.getWebSite(), p.getBirthDate(), p.getPassword(), p.getGroupId());
+		if (p.getId() != 0) {
+			this.jdbcTemplate.update("REPLACE INTO `Person` VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)", p.getId(),
+					p.getLastName(), p.getFirstName(), p.getEmail(), p.getWebSite(), p.getBirthDate(), p.getPassword(),
+					p.getGroupId());
+		}
 	}
 
 	@Override
 	public void saveBean(Group g) throws DaoException {
-		this.jdbcTemplate.update("REPLACE INTO `Group` VALUES ( ?, ?)", g.getId(), g.getName());
+		if (g.getId() != 0) {
+			this.jdbcTemplate.update("REPLACE INTO `Group` VALUES ( ?, ?)", g.getId(), g.getName());
+		}
 	}
 
+	/**
+	 * faut retrouver le nom de la 2eme erreur c'est surcharge de reponce
+	 * 
+	 */
 	@Override
 	public Person findPerson(long id) throws DaoException {
 		Person returnValue = new Person();
-		try{
-			returnValue = this.jdbcTemplate.queryForObject("Select * FROM `Person` WHERE id = ?", new BeanPropertyRowMapper<Person>(Person.class), id);
-		} catch (EmptyResultDataAccessException e){
-			
+		try {
+			returnValue = this.jdbcTemplate.queryForObject("Select * FROM `Person` WHERE id = ?",
+					new BeanPropertyRowMapper<Person>(Person.class), id);
+		} catch (EmptyResultDataAccessException e) {
+
 		}
 		return returnValue;
 	}
@@ -175,10 +195,11 @@ public class Dao implements IDao {
 	@Override
 	public Group findGroup(long id) throws DaoException {
 		Group returnValue = new Group();
-		try{
-			returnValue = this.jdbcTemplate.queryForObject("Select * FROM `Group` WHERE id = ?", new BeanPropertyRowMapper<Group>(Group.class), id);
-		} catch (EmptyResultDataAccessException e){
-			
+		try {
+			returnValue = this.jdbcTemplate.queryForObject("Select * FROM `Group` WHERE id = ?",
+					new BeanPropertyRowMapper<Group>(Group.class), id);
+		} catch (EmptyResultDataAccessException e) {
+
 		}
 		return returnValue;
 	}
@@ -186,25 +207,27 @@ public class Dao implements IDao {
 	@Override
 	public Group findGroup(String name) throws DaoException {
 		Group returnValue = new Group();
-		try{
-			returnValue = this.jdbcTemplate.queryForObject("Select * FROM `Group` WHERE Name = ?", new BeanPropertyRowMapper<Group>(Group.class), name);
-		} catch (EmptyResultDataAccessException e){
-			
+		try {
+			returnValue = this.jdbcTemplate.queryForObject("Select * FROM `Group` WHERE Name = ?",
+					new BeanPropertyRowMapper<Group>(Group.class), name);
+		} catch (EmptyResultDataAccessException e) {
+
 		}
 		return returnValue;
 	}
-	
+
 	@Override
 	public Person findPerson(String lastName) throws DaoException {
 		Person returnValue = new Person();
-		try{
-			returnValue = this.jdbcTemplate.queryForObject("Select * FROM `Person` WHERE LastName = ?", new BeanPropertyRowMapper<Person>(Person.class), lastName);
-		} catch (EmptyResultDataAccessException e){
-			
+		try {
+			returnValue = this.jdbcTemplate.queryForObject("Select * FROM `Person` WHERE LastName = ?",
+					new BeanPropertyRowMapper<Person>(Person.class), lastName);
+		} catch (EmptyResultDataAccessException e) {
+
 		}
 		return returnValue;
 	}
-	
+
 	@Override
 	public void removePerson(long id) throws DaoException {
 		this.jdbcTemplate.update("DELETE FROM Person WHERE id = ?", id);

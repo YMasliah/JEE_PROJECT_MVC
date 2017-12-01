@@ -61,6 +61,16 @@ public abstract class BaseController {
 		return types;
 	}
 
+	/**
+	 * Recherche par nom une perssonne non implementer,
+	 * Pour implementer la recherche il faut crée une page liste de personne.
+	 * page non requise dans le cahier des charges.
+	 * 
+	 * @param key
+	 * @param type
+	 * @return
+	 * @throws DaoException
+	 */
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public ModelAndView search(@RequestParam(value = "key") String key, @RequestParam(value = "type") String type)
 			throws DaoException {
@@ -86,14 +96,15 @@ public abstract class BaseController {
 				id = Long.parseLong(key);
 				mv.addObject("id", id);
 			} catch (NumberFormatException e) {
-				if ((id = manager.findPerson(user, key).getId()) != null) {
+				mv = new ModelAndView("index");
+				mv.addObject("error", "find by name dont exist");
+				/*if ((id = manager.findPerson(user, key).getId()) != null) {
 					mv.addObject("id", id);
 				} else {
 					mv = new ModelAndView("index");
 					mv.addObject("error", "No result");
-				}
+				}*/
 			}
-			mv.addObject("id", id);
 		}
 		return mv;
 	}
