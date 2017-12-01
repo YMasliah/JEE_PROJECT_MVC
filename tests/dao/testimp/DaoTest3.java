@@ -29,12 +29,12 @@ import directory.beans.Person;
  * 
  * @author m21002022
  *
- *	test sur une base de donnée avec moins de 50 groupes et personnes par groupe
+ *	test sur du BigData
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "/ressources/spring-test.xml")
-public class DaoTest2 {
+public class DaoTest3 {
 
 	@Rule
 	public Timeout globalTimeout = Timeout.seconds(1);
@@ -45,12 +45,12 @@ public class DaoTest2 {
 	@Autowired
 	IDao dao;
 
-	String exportFile = "tests/ressources/xml/testDataset.xml";
+	String exportFile = "ressources/xml/testDataset.xml";
 
 	@BeforeClass
 	public static void setUpClass() throws Exception {
 		DBExtracteur.launchExtraction("tests/ressources/xml/currentDataset.xml");
-		DBExtracteur.launchExtraction("tests/ressources/xml/testDataset.xml");
+		DBExtracteur.launchExtraction("ressources/xml/testDataset.xml");
 	}
 
 	@AfterClass
@@ -61,7 +61,7 @@ public class DaoTest2 {
 	@Before
 	public void setUp() throws Exception {
 		System.out.println("debut du test");
-		DBInjecteur.launchInjection("tests/ressources/xml/mediumSizeDataset.xml");
+		DBInjecteur.launchInjection("tests/ressources/xml/emptyDataset.xml");
 	}
 
 	@After
@@ -83,14 +83,14 @@ public class DaoTest2 {
 	
 	/**
 	 * 
-	 * resultat non vide
+	 * resultat vide
 	 * 
 	 * @throws DaoException
 	 */
 	@Test
 	public void testFindAllPersons2() throws DaoException {
 		Collection<Group> expecteds = Collections.emptyList();
-		Assert.assertNotEquals(expecteds, dao.findAll(1,1));
+		Assert.assertEquals(expecteds, dao.findAll(1,1));
 	}
 
 	/**
@@ -218,11 +218,11 @@ public class DaoTest2 {
 	 */
 	@Test
 	public void testSaveBeanPerson2() throws DaoException {
-		int expected = dao.findAll(1).size();  
+		Collection<Person> expected = Collections.emptyList();  
 		Person p = new Person();
 		p.setId(0L);
 		p.setLastName("tata");
 		dao.saveBean(p);
-		Assert.assertEquals(expected, dao.findAll(1).size());
+		Assert.assertEquals(expected, dao.findAll(1));
 	}
 }
