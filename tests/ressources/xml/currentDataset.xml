@@ -3,6 +3,4 @@
   <Group Id="1" Name="No group"/>
   <Person Id="10" LastName="toto" Password="vasavoir" GroupId="1"/>
   <Person Id="11" LastName="tota" Password="vasavoirbis" GroupId="1"/>
-  <Person Id="13" LastName="helloquadro" GroupId="1"/>
-  <Person Id="14" LastName="hellobis" GroupId="1"/>
 </dataset>
