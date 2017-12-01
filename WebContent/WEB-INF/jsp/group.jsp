@@ -4,7 +4,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<title>Liste de Groupes</title>
+<title>Groupe</title>
 <c:url var="view" value="/actions/directory/person/view" />
 </head>
 <body>

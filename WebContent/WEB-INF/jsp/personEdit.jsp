@@ -1,12 +1,18 @@
-<!DOCTYPE html>
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
-<html>
-<head>
-</head>
 
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Personne</title>
+</head>
 <body>
 
-	<div class="container">
+	<c:import url="/WEB-INF/jsp/loginMenu.jsp">
+		<c:param name="page" value="1" />
+	</c:import>
+
+	<section style="float: left; width: 60%; margin: 0 1.5% 24px 1.5%;">
 		<h1>
 			Edit
 			<c:out value="${person.lastName}"></c:out>
@@ -80,7 +86,11 @@
 				<button type="submit" class="btn btn-info">Submit</button>
 			</div>
 		</form:form>
-	</div>
+	</section>
+
+	<c:import url="/WEB-INF/jsp/footer.jsp">
+		<c:param name="page" value="1" />
+	</c:import>
 
 </body>
 </html>
