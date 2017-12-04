@@ -5,7 +5,9 @@
 <head>
 <meta charset="utf-8">
 <title>Groupe</title>
-<c:url var="view" value="/actions/directory/person/view" />
+<c:url var="viewPerson" value="/actions/directory/person/view" />
+<c:url var="viewGroup" value="/actions/directory/group/view" />
+<c:url var="edit" value="/actions/directory/person/edit" />
 </head>
 <body>
 
@@ -24,23 +26,71 @@
 			etudiants (4 valeurs) <br> et pour finir on peu rajouter un
 			nouvel utilisateur
 		</p>
+
+		<ul class="pager">
+			<c:choose>
+				<c:when test="${page >= 2}">
+					<li><a href="${viewGroup}/${page-1}?id=${group.id}">Previous</a></li>
+				</c:when>
+				<c:otherwise>
+					<li class="disabled"><a>Previous</a></li>
+				</c:otherwise>
+			</c:choose>
+			<li>Page <c:out value="${page}"></c:out></li>
+			<c:choose>
+				<c:when test="${persons.size() == 50}">
+					<li><a href="${viewGroup}/${page+1}?id=${group.id}">Next</a></li>
+				</c:when>
+				<c:otherwise>
+					<li class="disabled"><a>Next</a></li>
+				</c:otherwise>
+			</c:choose>
+		</ul>
+
 		<table class="table table-condensed">
 			<thead>
 				<tr>
 					<th>Id</th>
 					<th>Name</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${persons}" var="persona">
-					<tr class='clickable-row' data-href='${view}?id=${persona.id}'>
-					<td><c:out value="${persona.id}" /></td>
+					<tr>
+						<td><c:out value="${persona.id}" /></td>
 						<td><c:out value="${persona.lastName}" /></td>
+						<td><a href="${viewPerson}?id=${persona.id}"
+							class="btn btn-info" role="button">Voir</a> <c:if
+								test="${user.name == persona.lastName && user.id == persona.id}">
+							<a class="btn btn-info" href="${edit}?id=${persona.id}">
+								Modifier </a>
+							</c:if></td>
 					</tr>
-				
+
 				</c:forEach>
 			</tbody>
 		</table>
+
+		<ul class="pager">
+			<c:choose>
+				<c:when test="${page >= 2}">
+					<li><a href="#">Previous</a></li>
+				</c:when>
+				<c:otherwise>
+					<li class="disabled"><a>Previous</a></li>
+				</c:otherwise>
+			</c:choose>
+			<li>Page <c:out value="${page}"></c:out></li>
+			<c:choose>
+				<c:when test="${persons.size() == 50}">
+					<li><a href="#">Next</a></li>
+				</c:when>
+				<c:otherwise>
+					<li class="disabled"><a>Next</a></li>
+				</c:otherwise>
+			</c:choose>
+		</ul>
 	</section>
 
 	<c:import url="/WEB-INF/jsp/footer.jsp">

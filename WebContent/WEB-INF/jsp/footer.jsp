@@ -27,7 +27,7 @@
 			
 			<div class="form-group">
 				<input type="submit" value="recherche"
-					class="form-control btn btn-primary" />
+					class="form-control btn btn-info" />
 			</div>
 		</form:form>
 	</div>

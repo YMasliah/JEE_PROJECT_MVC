@@ -22,7 +22,6 @@ import dao.dbtest.DBExtracteur;
 import dao.dbtest.DBInjecteur;
 import dao.exception.DaoException;
 import directory.beans.Group;
-import directory.beans.Person;
 
 
 /**
@@ -55,7 +54,8 @@ public class DaoTest3 {
 
 	@AfterClass
 	public static void tearDownClass() throws Exception {
-		//DBInjecteur.launchInjection("tests/ressources/xml/currentDataset.xml");
+		DBInjecteur.launchInjection("tests/ressources/xml/bigDataset.xml");
+		System.out.println("injecter");
 	}
 
 	@Before
