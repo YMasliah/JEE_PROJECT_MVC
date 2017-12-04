@@ -83,19 +83,19 @@ public abstract class BaseController {
 	 * @return
 	 * @throws DaoException
 	 */
-	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public ModelAndView search(@RequestParam(value = "key") String key, @RequestParam(value = "type") String type)
+	@RequestMapping(value = "/search/{page}", method = RequestMethod.POST)
+	public ModelAndView search(@RequestParam(value = "key") String key, @RequestParam(value = "type") String type, @PathVariable("page") Integer page)
 			throws DaoException {
 		logger.info("clé recherchée :" + key);
 		ModelAndView mv = new ModelAndView("index");
 		Long id = null;
 		if (type.equals("Group")) {
-			mv = new ModelAndView("redirect:group/view");
+			mv = new ModelAndView("redirect:/actions/directory/group/view/1");
 			try {
 				id = Long.parseLong(key);
 				mv.addObject("id", id);
 			} catch (NumberFormatException e) {
-				List<Group> groupList = (List<Group>) manager.findGroup(user, key, 1);
+				List<Group> groupList = (List<Group>) manager.findGroup(user, key, page);
 				if (groupList.size() == 1) {
 					mv.addObject("id", groupList.get(0).getId());
 				} else if (groupList.isEmpty()) {
@@ -108,11 +108,11 @@ public abstract class BaseController {
 			}
 		} else if (type.equals("Person")) {
 			try {
-				mv = new ModelAndView("redirect:person/view");
+				mv = new ModelAndView("redirect:/actions/directory/person/view");
 				id = Long.parseLong(key);
 				mv.addObject("id", id);
 			} catch (NumberFormatException e) {
-				List<Person> personList = (List<Person>) manager.findPerson(user, key, 1);
+				List<Person> personList = (List<Person>) manager.findPerson(user, key, page);
 				if (personList.size() == 1) {
 					mv.addObject("id", personList.get(0).getId());
 				} else if (personList.isEmpty()) {

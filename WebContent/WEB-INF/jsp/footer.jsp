@@ -1,7 +1,7 @@
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
 
 <c:url var="groupList"   value="/actions/directory/group/list" />
-<c:url var="search" value="/actions/directory/search" />
+<c:url var="search" value="/actions/directory/search/1" />
 
 	<aside style="float:right;width:25%;margin: 0 1.5% 24px 1.5%;">
        	<c:if test="${user.name !='No User' && not empty user.name}">
