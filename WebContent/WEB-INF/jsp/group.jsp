@@ -14,25 +14,33 @@
 	</c:import>
 
 	<section style="float: left; width: 60%; margin: 0 1.5% 24px 1.5%;">
-		<h1>
+		<h2>
+			Groupe :
 			<c:out value="${group.name}"></c:out>
+		</h2>
+		<p>
 			group : bon ici. si l'user est identique a l'etudiant on peut
 			modifier <br> sinon on peu juste afficher les valeurs des
 			etudiants (4 valeurs) <br> et pour finir on peu rajouter un
 			nouvel utilisateur
-		</h1>
-		<table class="table table-hover">
-			<c:forEach items="${persons}" var="persona">
+		</p>
+		<table class="table table-condensed">
+			<thead>
 				<tr>
-					<td><a href="${view}?id=${persona.id}"> <c:out
-								value="${persona.lastName}" />
-					</a></td>
+					<th>Id</th>
+					<th>Name</th>
 				</tr>
-			</c:forEach>
+			</thead>
+			<tbody>
+				<c:forEach items="${persons}" var="persona">
+					<tr class='clickable-row' data-href='${view}?id=${persona.id}'>
+					<td><c:out value="${persona.id}" /></td>
+						<td><c:out value="${persona.lastName}" /></td>
+					</tr>
+				
+				</c:forEach>
+			</tbody>
 		</table>
-		<!--         <p> -->
-		<%--             <a class="btn btn-info" href="${edit}">add new person</a> --%>
-		<!--         </p> -->
 	</section>
 
 	<c:import url="/WEB-INF/jsp/footer.jsp">
