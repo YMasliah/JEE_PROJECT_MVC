@@ -45,7 +45,7 @@
 				</c:when>
 				<c:otherwise>
 					<li><a href="${logout}"><span
-							class="glyphicon glyphicon-user"></span> Sign Up</a>
+							class="glyphicon glyphicon-user"></span> Logout</a>
 				</c:otherwise>
 			</c:choose>
 

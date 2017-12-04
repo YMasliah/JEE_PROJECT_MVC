@@ -4,6 +4,21 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+
+/**
+ * faut lire ca (7 ->7.3) 
+ * http://docs.spring.io/spring/docs/4.3.11.RELEASE/spring-framework-reference/html/beans.html
+ * 
+ * https://docs.spring.io/spring/docs/4.3.11.RELEASE/spring-framework-reference/html/beans.html#beans-autowired-annotation-qualifiers
+ * https://docs.spring.io/spring/docs/4.3.11.RELEASE/spring-framework-reference/html/beans.html#beans-annotation-config
+ * 
+ * demander a massat si c'est mieu de modifier ici
+ * ou directement dans le fichier XML
+ * persso je ne vois pas reelement la difference. 
+ * peut etre le fichier xml ne necessite pas de recompiler ?
+ * exemple : tp1 avant les callback
+ * Edit : avec la classe @config et les @value sa doit etre la vrai methode
+ */
 public class Group {
 
     @NotNull(message = "Un identifiant est obligatoire")
@@ -13,21 +28,6 @@ public class Group {
     @NotNull(message = "Un nom est obligatoire")
     @Size(min = 1, max = 100, message = "Entre 1 et 200 caract�res")
 	private String name;
-
-	/**
-	 * faut lire ca (7 ->7.3) 
-	 * http://docs.spring.io/spring/docs/4.3.11.RELEASE/spring-framework-reference/html/beans.html
-	 * 
-	 * https://docs.spring.io/spring/docs/4.3.11.RELEASE/spring-framework-reference/html/beans.html#beans-autowired-annotation-qualifiers
-	 * https://docs.spring.io/spring/docs/4.3.11.RELEASE/spring-framework-reference/html/beans.html#beans-annotation-config
-	 * 
-	 * demander a massat si c'est mieu de modifier ici
-	 * ou directement dans le fichier XML
-	 * persso je ne vois pas reelement la difference. 
-	 * peut etre le fichier xml ne necessite pas de recompiler ?
-	 * exemple : tp1 avant les callback
-	 * Edit : avec la classe @config et les @value sa doit etre la vrai methode
-	 */
 	
 	public Group() {
 		

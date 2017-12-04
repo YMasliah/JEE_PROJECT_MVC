@@ -37,7 +37,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td>Group = <c:out value="${person.groupId}" />
+				<td>Group = <c:out value="${group}" />
 				</td>
 			</tr>
 		</table>

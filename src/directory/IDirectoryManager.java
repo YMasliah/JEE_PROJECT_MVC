@@ -36,10 +36,12 @@ public interface IDirectoryManager {
 
     // enregistrer un groupe
 	void saveGroup(User user, Group p) throws DaoException;
-
+	
 	Group findGroup(User user, String name) throws DaoException;
 
-	Person findPerson(User user, String lastName) throws DaoException;
+	Collection<Group> findGroup(User user, String name, int page) throws DaoException;
+
+	Collection<Person> findPerson(User user, String lastName, int page) throws DaoException;
 
 	
 }

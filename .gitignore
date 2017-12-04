@@ -4,4 +4,4 @@
 .settings/
 WebContent/WEB-INF/springapp-servlet.xml
 /bin/
-
+/backup/

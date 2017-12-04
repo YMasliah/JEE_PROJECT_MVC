@@ -58,19 +58,19 @@ public class Manager implements IDirectoryManager {
 	}
 
 	@Override
-	public Person findPerson(User user, String lastName) throws DaoException {
-		Person returnValue = new Person();
+	public Collection<Person> findPerson(User user, String lastName, int page) throws DaoException {
+		Collection<Person> returnValue = Collections.emptyList();
 		if (user.getName() != "No User") {
-			returnValue = dao.findPerson(lastName);
+			returnValue = dao.findPerson(lastName, page);
 		}
 		return returnValue;
 	}
 
 	@Override
-	public Group findGroup(User user, String name) throws DaoException {
-		Group returnValue = new Group();
+	public Collection<Group> findGroup(User user, String name, int page) throws DaoException {
+		Collection<Group> returnValue = Collections.emptyList();
 		if (user.getName() != "No User") {
-			returnValue = dao.findGroup(name);
+			returnValue = dao.findGroup(name, page);
 		}
 		return returnValue;
 	}
@@ -144,6 +144,15 @@ public class Manager implements IDirectoryManager {
 	
 	public void itemPerPageEdit(int number){
 		Dao.setItemPerPage(number);
+	}
+
+	public Group findGroup(User user, String groupName) throws DaoException {
+		Group returnValue = new Group();
+		logger.info(user);
+		if (user.getName() != "No User") {
+			returnValue = dao.findGroup(groupName);
+		}
+		return returnValue;
 	}
 }
 
