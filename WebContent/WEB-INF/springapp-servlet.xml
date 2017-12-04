@@ -17,6 +17,7 @@
 	<context:component-scan base-package="springapp.web" />
 	<context:component-scan base-package="directory.manager.imp" />
 	<context:component-scan base-package="directory.manager.beans" />
+
 <!-- 	<context:component-scan base-package="mail.manager" /> -->
 
 	<bean id="viewResolver"
@@ -34,12 +35,12 @@
 		<property name="username" value="t16020692" />
 		<property name="password" value="Sgs-4xPr" />
 	</bean>
-
+	
 <!-- 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"> -->
 <!-- 		<property name="host" value="smtp.gmail.com" /> -->
-<!-- 		<property name="port" value="25" /> -->
-<!-- 		<property name="username" value="r.tigrara@gmail.com" /> -->
-<!-- 		<property name="password" value="zd4281111310" /> -->
+<!-- 		<property name="port" value="587" /> -->
+<!-- 		<property name="username" value="jee.manager@gmail.com" /> -->
+<!-- 		<property name="password" value="masliahtigrara" /> -->
 <!-- 		<property name="javaMailProperties"> -->
 <!-- 			<props> -->
 <!-- 				<prop key="mail.transport.protocol">smtp</prop> -->
@@ -50,10 +51,4 @@
 <!-- 		</property> -->
 <!-- 	</bean> -->
 
-
-<!-- 	<bean id="preConfiguredMessage" class="org.springframework.mail.SimpleMailMessage"> -->
-<!-- 		<property name="to" value="redouane.tigrara@gmail.com"></property> -->
-<!-- 		<property name="from" value="r.tigrara@gmail.com"></property> -->
-<!-- 		<property name="subject" value="FATAL - Application crash. Save your job !!" /> -->
-<!-- 	</bean> -->
 </beans>
