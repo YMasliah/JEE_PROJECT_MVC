@@ -10,9 +10,6 @@ public class ApplicationMailer {
 	@Autowired
 	private MailSender mailSender;
 
-	@Autowired
-	private SimpleMailMessage preConfiguredMessage;
-
 	/**
 	 * This method will send compose and send the message
 	 */
@@ -24,12 +21,4 @@ public class ApplicationMailer {
 		mailSender.send(message);
 	}
 
-	/**
-	 * This method will send a pre-configured message
-	 */
-	public void sendPreConfiguredMail(String message) {
-		SimpleMailMessage mailMessage = new SimpleMailMessage(preConfiguredMessage);
-		mailMessage.setText(message);
-		mailSender.send(mailMessage);
-	}
 }
