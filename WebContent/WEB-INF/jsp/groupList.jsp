@@ -26,17 +26,15 @@
 					<tr>
 						<th>Id</th>
 						<th>Groupe Name</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach items="${groups}" var="groupList">
 						<tr>
-							<td><a href="${view}?id=${groupList.id}"> <c:out
-										value="${groupList.id}" />
-							</a></td>
-							<td><a href="${view}?id=${groupList.id}"> <c:out
-										value="${groupList.name}" />
-							</a></td>
+							<td><c:out value="${groupList.id}" /></td>
+							<td><c:out value="${groupList.name}" /></td>
+							<td><a href="${view}/1?id=${groupList.id}" class="btn btn-info" role="button">Voir</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>

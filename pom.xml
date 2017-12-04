@@ -61,7 +61,7 @@
 			<artifactId>spring-test</artifactId>
 			<version>4.3.11.RELEASE</version>
 		</dependency>
-				<dependency>
+		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>1.7.25</version>
