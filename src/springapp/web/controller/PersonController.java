@@ -61,19 +61,22 @@ public class PersonController extends BaseController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public ModelAndView personEditReply(@ModelAttribute @Valid Person p, BindingResult result,@RequestParam(value = "group", required = true) String groupName,
-			@RequestParam(value = "page", required = false, defaultValue = "1") int page) throws DaoException {
+	public ModelAndView personEditReply(@ModelAttribute @Valid Person p, BindingResult result,@RequestParam(value = "group", required = true) String groupName) throws DaoException {
 		ModelAndView returnValue = new ModelAndView("groupList");
 		Long groupId = manager.findGroup(user, groupName).getId();
-		if (result.hasErrors() || groupId == null) {
+		if (result.hasErrors()) {
+			returnValue = new ModelAndView("personEdit");
+			returnValue.addObject("group",groupName);
+		}else if(groupId == null){
 			returnValue = new ModelAndView("personEdit", "error", "groupe inexistant");
 			returnValue.addObject("group",groupName);
 		}
-		else if (groupId != null) {
+		else {
 			p.setGroupId(groupId);
 			manager.savePerson(user, p);
 			returnValue = new ModelAndView("group", "group", manager.findGroup(user, p.getGroupId()));
-			returnValue.addObject("persons", manager.findAll(user, p.getGroupId(), page));
+			returnValue.addObject("persons", manager.findAll(user, p.getGroupId(), 1));
+			returnValue.addObject("page", 1);
 		}
 		return returnValue;
 	}

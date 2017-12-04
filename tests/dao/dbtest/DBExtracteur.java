@@ -14,9 +14,9 @@ import org.dbunit.ext.mysql.MySqlMetadataHandler;
 public class DBExtracteur extends DBTestCase {
 
 	private final static String driverName = "com.mysql.jdbc.Driver";
-	private final static String connexionURL = "jdbc:mysql://dbs-perso.luminy.univmed.fr/t16020692";
-	private final static String identifier = "t16020692";
-	private final static String password = "Sgs-4xPr";
+	private final static String connexionURL = "jdbc:mysql://dbs-perso.luminy.univmed.fr/m21002022";
+	private final static String identifier = "m21002022";
+	private final static String password = "ispbm.";
 	
 	Connection connexionDataBase;
 	private static String fileName = "ressources/xml/currentDataset.xml";
@@ -41,7 +41,7 @@ public class DBExtracteur extends DBTestCase {
 
 		connexionDataBase = DriverManager.getConnection(url, user, passwd);
 
-		connection = new DatabaseConnection(connexionDataBase, "t16020692");
+		connection = new DatabaseConnection(connexionDataBase, "m21002022");
 		
 		connection.getConfig().setProperty(DatabaseConfig.PROPERTY_METADATA_HANDLER, new MySqlMetadataHandler());
 		

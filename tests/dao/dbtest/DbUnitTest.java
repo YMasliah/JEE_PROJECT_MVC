@@ -38,9 +38,9 @@ public class DbUnitTest extends DBTestCase {
 	ApplicationContext context;
 	
 	private String driverName = "com.mysql.jdbc.Driver";
-	private String connexionURL = "jdbc:mysql://dbs-perso.luminy.univmed.fr/t16020692";
-	private String identifier = "t16020692";
-	private String password = "Sgs-4xPr";
+	private String connexionURL = "jdbc:mysql://dbs-perso.luminy.univmed.fr/m21002022";
+	private String identifier = "m21002022";
+	private String password = "ispbm.";
 
 	IDao dao;
 	DBInjecteur dBInjecteur;
@@ -61,7 +61,7 @@ public class DbUnitTest extends DBTestCase {
 
 		connexionDataBase = DriverManager.getConnection(connexionURL, identifier, password);
 
-		connexionDataBaseDBunit = new DatabaseConnection(connexionDataBase, "t16020692");
+		connexionDataBaseDBunit = new DatabaseConnection(connexionDataBase, "m21002022");
 		connexionDataBaseDBunit.getConfig().setProperty(DatabaseConfig.PROPERTY_METADATA_HANDLER, new MySqlMetadataHandler());
 		connexionDataBaseDBunit.getConfig().setProperty(DatabaseConfig.FEATURE_ALLOW_EMPTY_FIELDS, true);
 	}

@@ -9,7 +9,7 @@
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="#">Acceuil</a>
+			<a class="navbar-brand" href="${login}">Acceuil</a>
 		</div>
 
 		<ul class="nav navbar-nav navbar-right">
@@ -44,9 +44,9 @@
 						</form:form></li>
 				</c:when>
 				<c:otherwise>
-					<li> <a href="${logout}">
+					<li> 
 					Salut, <c:out value="${user.name}" />
-					<span class="glyphicon glyphicon-user"></span> Logout</a>
+					<a href="${logout}"><span class="glyphicon glyphicon-user"></span> Logout</a>
 					</li>
 				</c:otherwise>
 			</c:choose>

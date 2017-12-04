@@ -5,6 +5,7 @@
 <head>
 <meta charset="utf-8">
 <title>Personne</title>
+<c:url var="view" value="/actions/directory/group/view" />
 <c:url var="edit" value="/actions/directory/person/edit" />
 </head>
 <body>
