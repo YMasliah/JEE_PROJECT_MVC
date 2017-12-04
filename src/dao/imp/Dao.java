@@ -80,7 +80,7 @@ public class Dao implements IDao {
 				+ ")ENGINE=INNODB");
 
 		jdbcTemplate.update("REPLACE INTO `Person` (`Id`,`LastName`,`Password`) VALUES (?,?,?)", 10, "toto",
-				"vasavoir");
+				"-1227707557");
 		jdbcTemplate.update("REPLACE INTO `Person` (`Id`,`LastName`,`Password`) VALUES (?,?,?)", 11, "tota",
 				"vasavoirbis");
 	}
@@ -115,6 +115,7 @@ public class Dao implements IDao {
 	 * @return
 	 * @throws SQLException
 	 */
+	@SuppressWarnings("unused")
 	static private Person resultSetToPerson(ResultSet rs, int rank) throws SQLException {
 		return new Person(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
 				rs.getDate(6), rs.getString(7), rs.getLong(8));
@@ -167,8 +168,8 @@ public class Dao implements IDao {
 		Collection<Person> returnValue = Collections.emptyList();
 		if (page > 0) {
 			try {
-				returnValue = this.jdbcTemplate.query("SELECT * FROM `Person` WHERE GroupId = ? limit ?,?",
-						Dao::resultSetToPerson, groupId, (page - 1) * itemPerPage, itemPerPage);
+				returnValue = this.jdbcTemplate.query("SELECT Id,LastName FROM `Person` WHERE GroupId = ? limit ?,?",
+						new BeanPropertyRowMapper<Person>(Person.class), groupId, (page - 1) * itemPerPage, itemPerPage);
 			} catch (EmptyResultDataAccessException e) {
 
 			}
@@ -250,8 +251,8 @@ public class Dao implements IDao {
 		Collection<Person> returnValue = Collections.emptyList();
 		if (page > 0) {
 			try {
-				returnValue = this.jdbcTemplate.query("SELECT * FROM `Person` WHERE LastName like ? limit ?,?",
-						Dao::resultSetToPerson, "%" + lastName + "%", (page - 1) * itemPerPage, itemPerPage);
+				returnValue = this.jdbcTemplate.query("SELECT Id,LastName FROM `Person` WHERE LastName like ? limit ?,?",
+						new BeanPropertyRowMapper<Person>(Person.class), "%" + lastName + "%", (page - 1) * itemPerPage, itemPerPage);
 			} catch (EmptyResultDataAccessException e) {
 
 			}

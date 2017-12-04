@@ -23,7 +23,10 @@ public class DirectoryController extends BaseController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String show() throws managerException, DaoException {
 		logger.info("show user " + user);
-		if (user.getId() == null) {
+		if(user.getName() != "No User"){
+			
+		}
+		else if (user.getId() == null || user.getPassword() == null) {
 			user = manager.newUser(user);
 		} else {
 			user = manager.login(user);
@@ -41,7 +44,7 @@ public class DirectoryController extends BaseController {
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@ModelAttribute User u, BindingResult result) throws DaoException, managerException {
-		if (result.hasErrors()) {
+		if (u.getId() == null || u.getPassword() == null) {
 			return "index";
 		}
 		logger.info("pre-login user " + user);

@@ -1,5 +1,6 @@
 package directory.manager.imp;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -83,19 +84,17 @@ public class Manager implements IDirectoryManager {
 	 * 
 	 * @throws DaoException
 	 * @throws managerException
+	 * @throws NoSuchAlgorithmException 
 	 */
 	@Override
-	public User login(User user) throws DaoException, managerException {
+	public User login(User user) throws DaoException, managerException{
 		User returnValue = user;
-		if (user.getId() != null && !user.getPassword().isEmpty()) {
+		if (!user.getPassword().isEmpty()) {
 			Person person = dao.findPerson(user.getId());
 			logger.info(user);
-			if (person.getId()!=null && person.getPassword().equals(user.getPassword())) {
+			if (person.getId() != null && person.getPassword().equals(Integer.toString(user.getPassword().hashCode()))) {
 				returnValue.setName(person.getLastName());
-				if (user.getName() != "No User") {
-					logger.info("succes login");
-					user.setName(person.getLastName());
-				}
+				logger.info("succes login");
 			}
 		}
 		return returnValue;
@@ -108,36 +107,24 @@ public class Manager implements IDirectoryManager {
 	 */
 	@Override
 	public void logout(User user) throws managerException {
-		if (user.getName() != "No User") {
 			user = newUser(user);
-		}
 	}
 
 	@Override
 	public void savePerson(User user, Person p) throws DaoException {
-		if (user.getName() != "No User") {
+		logger.info(user);
+		if (user.getName().equals(p.getLastName()) && user.getId().equals(p.getId())) {
+			p.setPassword(Integer.toString(user.getPassword().hashCode()));
 			dao.saveBean(p);
 		}
 	}
 
-	@Override
-	public void saveGroup(User user, Group p) throws DaoException {
-		if (user.getName() != "No User") {
-			dao.saveBean(p);
-		}
-	}
-	
-	public void itemPerPageEdit(int number){
+	public void itemPerPageEdit(int number) {
 		Dao.setItemPerPage(number);
 	}
 
 	public Group findGroup(User user, String groupName) throws DaoException {
-		Group returnValue = new Group();
-		logger.info(user);
-		if (user.getName() != "No User") {
-			returnValue = dao.findGroup(groupName);
-		}
-		return returnValue;
+		return dao.findGroup(groupName);
 	}
 }
 

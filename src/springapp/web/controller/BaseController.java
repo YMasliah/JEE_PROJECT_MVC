@@ -83,7 +83,7 @@ public abstract class BaseController {
 	 * @return
 	 * @throws DaoException
 	 */
-	@RequestMapping(value = "/search/{page}", method = RequestMethod.POST)
+	@RequestMapping(value = "/search/{page}", method = {RequestMethod.POST, RequestMethod.GET} )
 	public ModelAndView search(@RequestParam(value = "key") String key, @RequestParam(value = "type") String type, @PathVariable("page") Integer page)
 			throws DaoException {
 		logger.info("clé recherchée :" + key);
@@ -126,59 +126,4 @@ public abstract class BaseController {
 		}
 		return mv;
 	}
-
-	/**
-	 * Recherche par nom une perssonne non implementer, Pour implementer la
-	 * recherche il faut crée une page liste de personne. page non requise dans
-	 * le cahier des charges.
-	 * 
-	 * @param key
-	 * @param type
-	 * @return
-	 * @throws DaoException
-	 */
-	@RequestMapping(value = "/search/{page}", method = RequestMethod.GET)
-	public ModelAndView search2(@RequestParam(value = "key") String key, @RequestParam(value = "type") String type,
-			@PathVariable("page") Integer page) throws DaoException {
-		logger.info("clé recherchée :" + key);
-		ModelAndView mv = new ModelAndView("index");
-		Long id = null;
-		if (type.equals("Group")) {
-			mv = new ModelAndView("redirect:group/view");
-			try {
-				id = Long.parseLong(key);
-				mv.addObject("id", id);
-			} catch (NumberFormatException e) {
-				List<Group> groupList = (List<Group>) manager.findGroup(user, key, page);
-				if (groupList.size() == 1) {
-					mv.addObject("id", groupList.get(0).getId());
-				} else if (groupList.isEmpty()) {
-					mv = new ModelAndView("index");
-					mv.addObject("error", "No result");
-				} else {
-					mv = new ModelAndView("searchResultList");
-					mv.addObject("groups", groupList);
-				}
-			}
-		} else if (type.equals("Person")) {
-			try {
-				mv = new ModelAndView("redirect:person/view");
-				id = Long.parseLong(key);
-				mv.addObject("id", id);
-			} catch (NumberFormatException e) {
-				List<Person> personList = (List<Person>) manager.findPerson(user, key, page);
-				if (personList.size() == 1) {
-					mv.addObject("id", personList.get(0).getId());
-				} else if (personList.isEmpty()) {
-					mv = new ModelAndView("index");
-					mv.addObject("error", "No result");
-				} else {
-					mv = new ModelAndView("searchResultList");
-					mv.addObject("persons", personList);
-				}
-			}
-		}
-		return mv;
-	}
-
 }
