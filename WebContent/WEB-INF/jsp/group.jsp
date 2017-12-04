@@ -61,11 +61,7 @@
 						<td><c:out value="${persona.id}" /></td>
 						<td><c:out value="${persona.lastName}" /></td>
 						<td><a href="${viewPerson}?id=${persona.id}"
-							class="btn btn-info" role="button">Voir</a> <c:if
-								test="${user.name == persona.lastName && user.id == persona.id}">
-							<a class="btn btn-info" href="${edit}?id=${persona.id}">
-								Modifier </a>
-							</c:if></td>
+							class="btn btn-info" role="button">Voir</a> </td>
 					</tr>
 
 				</c:forEach>

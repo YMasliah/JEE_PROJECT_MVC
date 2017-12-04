@@ -17,7 +17,7 @@
 	<context:component-scan base-package="springapp.web" />
 	<context:component-scan base-package="directory.manager.imp" />
 	<context:component-scan base-package="directory.manager.beans" />
-	<context:component-scan base-package="mail.manager" />
+<!-- 	<context:component-scan base-package="mail.manager" /> -->
 
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -34,27 +34,26 @@
 		<property name="username" value="t16020692" />
 		<property name="password" value="Sgs-4xPr" />
 	</bean>
-	<!-- SET default mail properties -->
-	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="smtp.gmail.com" />
-		<property name="port" value="25" />
-		<property name="username" value="r.tigrara@gmail.com" />
-		<property name="password" value="zd4281111310" />
-		<property name="javaMailProperties">
-			<props>
-				<prop key="mail.transport.protocol">smtp</prop>
-				<prop key="mail.smtp.auth">true</prop>
-				<prop key="mail.smtp.starttls.enable">true</prop>
-				<prop key="mail.debug">true</prop>
-			</props>
-		</property>
-	</bean>
 
-	<!-- You can have some pre-configured messagess also which are ready to 
-		send -->
-	<bean id="preConfiguredMessage" class="org.springframework.mail.SimpleMailMessage">
-		<property name="to" value="redouane.tigrara@gmail.com"></property>
-		<property name="from" value="r.tigrara@gmail.com"></property>
-		<property name="subject" value="FATAL - Application crash. Save your job !!" />
-	</bean>
+<!-- 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"> -->
+<!-- 		<property name="host" value="smtp.gmail.com" /> -->
+<!-- 		<property name="port" value="25" /> -->
+<!-- 		<property name="username" value="r.tigrara@gmail.com" /> -->
+<!-- 		<property name="password" value="zd4281111310" /> -->
+<!-- 		<property name="javaMailProperties"> -->
+<!-- 			<props> -->
+<!-- 				<prop key="mail.transport.protocol">smtp</prop> -->
+<!-- 				<prop key="mail.smtp.auth">true</prop> -->
+<!-- 				<prop key="mail.smtp.starttls.enable">true</prop> -->
+<!-- 				<prop key="mail.debug">true</prop> -->
+<!-- 			</props> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
+
+
+<!-- 	<bean id="preConfiguredMessage" class="org.springframework.mail.SimpleMailMessage"> -->
+<!-- 		<property name="to" value="redouane.tigrara@gmail.com"></property> -->
+<!-- 		<property name="from" value="r.tigrara@gmail.com"></property> -->
+<!-- 		<property name="subject" value="FATAL - Application crash. Save your job !!" /> -->
+<!-- 	</bean> -->
 </beans>
