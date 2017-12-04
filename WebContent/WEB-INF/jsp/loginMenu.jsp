@@ -44,8 +44,10 @@
 						</form:form></li>
 				</c:when>
 				<c:otherwise>
-					<li><a href="${logout}"><span
-							class="glyphicon glyphicon-user"></span> Logout</a>
+					<li> <a href="${logout}">
+					Salut, <c:out value="${user.name}" />
+					<span class="glyphicon glyphicon-user"></span> Logout</a>
+					</li>
 				</c:otherwise>
 			</c:choose>
 

@@ -14,26 +14,33 @@
 		<c:param name="page" value="1" />
 	</c:import>
 
-	<section style="float: left; width: 60%; margin: 0 1.5% 24px 1.5%;">
 
-		<h1>
-			Group List (bootstrap), bug de modification si un groupe a le meme id
-			qu'un nouveau groupe.<br> surement resolu lors de
-			l'implementation de la base de donnée
-		</h1>
-		<table class="table table-hover">
-			<c:forEach items="${groups}" var="groupList">
-				<tr>
-					<td><a href="${view}?id=${groupList.id}"> <c:out
-								value="${groupList.id}" />
-					</a></td>
-					<td><a href="${view}?id=${groupList.id}"> <c:out
-								value="${groupList.name}" />
-					</a></td>
-				</tr>
-			</c:forEach>
-		</table>
-		<p></p>
+	<section style="float: left; width: 60%; margin: 0 1.5% 24px 1.5%;">
+			<h2>Liste des groupes</h2>
+			<p>
+				bug de modification si un groupe a le meme id qu'un nouveau groupe.<br>
+				surement resolu lors de l'implementation de la base de donnée
+			</p>
+			<table class="table table-condensed">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Groupe Name</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${groups}" var="groupList">
+						<tr>
+							<td><a href="${view}?id=${groupList.id}"> <c:out
+										value="${groupList.id}" />
+							</a></td>
+							<td><a href="${view}?id=${groupList.id}"> <c:out
+										value="${groupList.name}" />
+							</a></td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
 	</section>
 
 	<c:import url="/WEB-INF/jsp/footer.jsp">
