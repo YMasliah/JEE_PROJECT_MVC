@@ -24,6 +24,8 @@
 		<form:form method="POST" commandName="person">
 
 			<form:errors path="*" cssClass="alert alert-danger" element="div" />
+			
+			<c:out value="${error }"></c:out>
 
 			<c:if test="${empty person.id}">
 				<div class="form-group">
@@ -77,11 +79,15 @@
 					element="div" />
 			</div>
 			<div class="form-group">
-				<label for="groupId">groupId:</label>
-				<form:input path="groupId" class="form-control" type="number" />
-				<form:errors path="groupId" cssClass="alert alert-warning"
-					element="div" />
+			<label for="password">groupId:</label>
+				<input name="group" class="form-control" value='<c:out value="${group}"></c:out>'/>
 			</div>
+<!-- 			<div class="form-group"> -->
+<!-- 				<label for="groupId">groupId:</label> -->
+<%-- 				<form:input path="groupId" class="form-control" type="number" /> --%>
+<%-- 				<form:errors path="groupId" cssClass="alert alert-warning" --%>
+<%-- 					element="div" /> --%>
+<!-- 			</div> -->
 			<div class="form-group">
 				<button type="submit" class="btn btn-info">Submit</button>
 			</div>

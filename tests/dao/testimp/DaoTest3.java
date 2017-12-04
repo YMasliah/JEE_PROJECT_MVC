@@ -61,7 +61,7 @@ public class DaoTest3 {
 	@Before
 	public void setUp() throws Exception {
 		System.out.println("debut du test");
-		DBInjecteur.launchInjection("tests/ressources/xml/emptyDataset.xml");
+		DBInjecteur.launchInjection("tests/ressources/xml/bigDataset.xml");
 	}
 
 	@After

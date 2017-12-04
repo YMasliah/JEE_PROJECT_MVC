@@ -20,7 +20,6 @@
 		</h2>
 		<p>faut rajouter des if et un lien de l'id du groupe.</p>
 
-
 		<table class="table table-condensed">
 			<tbody>
 				<tr>
@@ -41,8 +40,8 @@
 				</tr>
 				<tr>
 					<th scope="row">Id Group</th>
-					<td><a href="${view}?id=${groupList.id}"> <c:out
-								value="${person.groupId}" /></a></td>
+					<td><a href="${view}?id=${person.groupId}"> <c:out
+								value="${group}" /></a></td>
 				</tr>
 				<tr>
 					<th></th>
@@ -56,8 +55,6 @@
 
 			</tbody>
 		</table>
-
-
 	</section>
 
 	<c:import url="/WEB-INF/jsp/footer.jsp">

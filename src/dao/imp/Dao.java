@@ -12,7 +12,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -77,9 +76,8 @@ public class Dao implements IDao {
 				"BirthDate DATE," + //
 				"Password VARCHAR(30)," + //
 				"GroupId BIGINT DEFAULT 1," + //
-				"PRIMARY KEY (Id, LastName),"+
-				"FOREIGN KEY (GroupId) REFERENCES `Group`(Id) ON DELETE CASCADE" + 
-				")ENGINE=INNODB");
+				"PRIMARY KEY (Id, LastName)," + "FOREIGN KEY (GroupId) REFERENCES `Group`(Id) ON DELETE CASCADE"
+				+ ")ENGINE=INNODB");
 
 		jdbcTemplate.update("REPLACE INTO `Person` (`Id`,`LastName`,`Password`) VALUES (?,?,?)", 10, "toto",
 				"vasavoir");
@@ -135,9 +133,26 @@ public class Dao implements IDao {
 				returnValue = this.jdbcTemplate.query("SELECT * FROM `Group` limit ?,?", Dao::resultSetToGroup,
 						(page - 1) * itemPerPage, itemPerPage);
 			} catch (EmptyResultDataAccessException e) {
- 
+
 			}
 		}
+		return returnValue;
+	}
+
+	/**
+	 * Renvoi une collection de Group
+	 * 
+	 * @return
+	 */
+	@Override
+	public Collection<Group> findAll() {
+		Collection<Group> returnValue = Collections.emptyList();
+		try {
+			returnValue = this.jdbcTemplate.query("SELECT * FROM `Group` limit ?,?", Dao::resultSetToGroup);
+		} catch (EmptyResultDataAccessException e) {
+
+		}
+
 		return returnValue;
 	}
 
@@ -205,7 +220,6 @@ public class Dao implements IDao {
 		return returnValue;
 	}
 
-	@Override
 	public Group findGroup(String name) throws DaoException {
 		Group returnValue = new Group();
 		try {
@@ -218,15 +232,29 @@ public class Dao implements IDao {
 	}
 
 	@Override
-	public Person findPerson(String lastName) throws DaoException {
-		Person returnValue = new Person();
-		try {
-			returnValue = this.jdbcTemplate.queryForObject("Select * FROM `Person` WHERE LastName = ?",
-					new BeanPropertyRowMapper<Person>(Person.class), lastName);
-		} catch (EmptyResultDataAccessException e) {
+	public Collection<Group> findGroup(String name, int page) throws DaoException {
+		Collection<Group> returnValue = Collections.emptyList();
+		if (page > 0) {
+			try {
+				returnValue = this.jdbcTemplate.query("SELECT * FROM `Group` WHERE Name LIKE ? limit ?,?",
+						Dao::resultSetToGroup, "%" + name + "%", (page - 1) * itemPerPage, itemPerPage);
+			} catch (EmptyResultDataAccessException e) {
 
-		} catch (IncorrectResultSizeDataAccessException e){
-			
+			}
+		}
+		return returnValue;
+	}
+
+	@Override
+	public Collection<Person> findPerson(String lastName, int page) throws DaoException {
+		Collection<Person> returnValue = Collections.emptyList();
+		if (page > 0) {
+			try {
+				returnValue = this.jdbcTemplate.query("SELECT * FROM `Person` WHERE LastName like ? limit ?,?",
+						Dao::resultSetToPerson, "%" + lastName + "%", (page - 1) * itemPerPage, itemPerPage);
+			} catch (EmptyResultDataAccessException e) {
+
+			}
 		}
 		return returnValue;
 	}

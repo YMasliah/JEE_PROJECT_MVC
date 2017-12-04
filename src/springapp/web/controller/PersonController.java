@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +17,7 @@ import directory.beans.Person;
 @Controller
 @RequestMapping("/directory/person")
 public class PersonController extends BaseController {
+		
 	/**
 	 * Person Controller
 	 * 
@@ -29,7 +31,8 @@ public class PersonController extends BaseController {
 		ModelAndView mv = new ModelAndView("index");
 		if (person.getId() != null) {
 			mv = new ModelAndView("person");
-			mv.addObject("person", manager.findPerson(user, personId));
+			mv.addObject("person", person);
+			mv.addObject("group", manager.findGroup(user, person.getGroupId()).getName());
 		} else {
 			mv.addObject("error", "aucune personne trouver");
 		}
@@ -52,19 +55,22 @@ public class PersonController extends BaseController {
 			mv = new ModelAndView("personEdit");
 			if (personId != null) {
 				mv.addObject("person", person);
+				mv.addObject("group", manager.findGroup(user, person.getGroupId()).getName());
 			}
 		}
 		return mv;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public ModelAndView personEditReply(@ModelAttribute @Valid Person p, BindingResult result,
+	public ModelAndView personEditReply(@ModelAttribute @Valid Person p, BindingResult result,@RequestParam(value = "group", required = true) String groupName,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page) throws DaoException {
 		ModelAndView returnValue = new ModelAndView("groupList");
-		if (result.hasErrors()) {
-			return new ModelAndView("personEdit");
+		Long groupId = manager.findGroup(user, groupName).getId();
+		if (result.hasErrors() || groupId == null) {
+			return new ModelAndView("personEdit", "error", "groupe inexistant");
 		}
-		if (p.getGroupId() != null) {
+		if (groupId != null) {
+			p.setGroupId(groupId);
 			manager.savePerson(user, p);
 			returnValue = new ModelAndView("group", "group", manager.findGroup(user, p.getGroupId()));
 			returnValue.addObject("persons", manager.findAll(user, p.getGroupId(), page));

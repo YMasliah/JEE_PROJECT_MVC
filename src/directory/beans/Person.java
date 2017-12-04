@@ -51,7 +51,7 @@ public class Person {
 	// un int ou un Group ?
 
 	@Min(value = 1, message = "Le prix est trop bas")
-	@Group
+//	@Group
 	private Long groupId;
 
 	public Person() {
