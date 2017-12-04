@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import dao.exception.DaoException;
 import directory.manager.beans.User;
@@ -42,8 +43,17 @@ public abstract class BaseController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 
+	
+	/**
+	 * 
+<c:out value="${error }"></c:out>
+	 * @param redirectAttributes
+	 * @return
+	 * @throws managerException
+	 */
 	@RequestMapping(value = "/logout")
-	public String logout() throws managerException {
+	public String logout(RedirectAttributes redirectAttributes) throws managerException {
+		redirectAttributes.addFlashAttribute("error", "vous vous etes deco");
 		logger.info("logout user " + user);
 		user = manager.newUser(user);
 		return "redirect:login";

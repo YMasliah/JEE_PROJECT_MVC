@@ -50,12 +50,12 @@ public class DaoTest3 {
 	@BeforeClass
 	public static void setUpClass() throws Exception {
 		DBExtracteur.launchExtraction("tests/ressources/xml/currentDataset.xml");
-		DBExtracteur.launchExtraction("ressources/xml/testDataset.xml");
+		DBExtracteur.launchExtraction("tests/ressources/xml/testDataset.xml");
 	}
 
 	@AfterClass
 	public static void tearDownClass() throws Exception {
-		DBInjecteur.launchInjection("tests/ressources/xml/currentDataset.xml");
+		//DBInjecteur.launchInjection("tests/ressources/xml/currentDataset.xml");
 	}
 
 	@Before
@@ -71,158 +71,14 @@ public class DaoTest3 {
 
 	/**
 	 * 
-	 * requete invalide sur le 2eme argument
+	 * resultat vide
 	 * 
 	 * @throws DaoException
 	 */
 	@Test
-	public void testFindAllPersons1() throws DaoException {
+	public void testFindAllPersons4() throws DaoException {
 		Collection<Group> expecteds = Collections.emptyList();
-		Assert.assertEquals(expecteds, dao.findAll(1,0));
+		Assert.assertEquals(expecteds, dao.findAll(10,1));
 	}
 	
-	/**
-	 * 
-	 * resultat vide
-	 * 
-	 * @throws DaoException
-	 */
-	@Test
-	public void testFindAllPersons2() throws DaoException {
-		Collection<Group> expecteds = Collections.emptyList();
-		Assert.assertEquals(expecteds, dao.findAll(1,1));
-	}
-
-	/**
-	 * 
-	 * requete invalide
-	 * 
-	 * @throws DaoException
-	 */
-	@Test
-	public void testFindAllGroup1() throws DaoException {
-		Collection<Group> expecteds = Collections.emptyList();
-		Assert.assertEquals(expecteds, dao.findAll(0));
-	}
-
-	/**
-	 * 
-	 * resultat vide
-	 * 
-	 * @throws DaoException
-	 */
-	@Test
-	public void testFindAllGroup2() throws DaoException {
-		Collection<Group> expecteds = Collections.emptyList();
-		Assert.assertEquals(expecteds, dao.findAll(1));
-	}
-	
-	/**
-	 * 
-	 * resultat vide
-	 * recherche par id
-	 * 
-	 * @throws DaoException
-	 */
-	@Test
-	public void testFindGroup1() throws DaoException {
-		Group expected = new Group();
-		Assert.assertEquals(expected, dao.findGroup(1));
-	}
-	
-	/**
-	 * 
-	 * resultat vide
-	 * recherche par nom
-	 * 
-	 * @throws DaoException
-	 */
-	@Test
-	public void testFindGroup2() throws DaoException {
-		Group expected = new Group();
-		Assert.assertEquals(expected, dao.findGroup("toto"));
-	}
-	
-	/**
-	 * 
-	 * resultat vide
-	 * recherche par id
-	 * 
-	 * @throws DaoException
-	 */
-	@Test
-	public void testFindPerson1() throws DaoException {
-		Person expected = new Person();
-		Assert.assertEquals(expected, dao.findPerson(1));
-	}
-	
-	/**
-	 * 
-	 * resultat vide
-	 * recherche par nom
-	 * 
-	 * @throws DaoException
-	 */
-	@Test
-	public void testFindPerson2() throws DaoException {
-		Person expected = new Person();
-		Assert.assertEquals(expected, dao.findPerson("toto"));
-	}
-	
-	/**
-	 * 
-	 * edition d'un groupe
-	 * 
-	 * @throws DaoException
-	 */
-	@Test
-	public void testSaveBeanGroup1() throws DaoException {
-		Group expected = new Group(10,"toto");
-		dao.saveBean(expected);
-		Assert.assertEquals(expected, dao.findGroup(10));
-	}
-	
-	/**
-	 * 
-	 * ajout d'un groupe interdit
-	 * 
-	 * @throws DaoException
-	 */
-	@Test
-	public void testSaveBeanGroup2() throws DaoException {
-		Group expected = new Group();
-		dao.saveBean(new Group(0,"toto"));
-		Assert.assertEquals(expected, dao.findGroup("toto"));
-	}
-	
-	/**
-	 * 
-	 * edition d'une personne
-	 * 
-	 * @throws DaoException
-	 */
-	@Test
-	public void testSaveBeanPerson1() throws DaoException {
-		Person expected = new Person();
-		expected.setId(10L);
-		expected.setLastName("tata");
-		dao.saveBean(expected);
-		Assert.assertEquals(expected, dao.findPerson(10));
-	}
-	
-	/**
-	 * 
-	 * ajout d'une personne interdit
-	 * 
-	 * @throws DaoException
-	 */
-	@Test
-	public void testSaveBeanPerson2() throws DaoException {
-		Collection<Person> expected = Collections.emptyList();  
-		Person p = new Person();
-		p.setId(0L);
-		p.setLastName("tata");
-		dao.saveBean(p);
-		Assert.assertEquals(expected, dao.findAll(1));
-	}
 }

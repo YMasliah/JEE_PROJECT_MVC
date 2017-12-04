@@ -12,6 +12,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -134,7 +135,7 @@ public class Dao implements IDao {
 				returnValue = this.jdbcTemplate.query("SELECT * FROM `Group` limit ?,?", Dao::resultSetToGroup,
 						(page - 1) * itemPerPage, itemPerPage);
 			} catch (EmptyResultDataAccessException e) {
-
+ 
 			}
 		}
 		return returnValue;
@@ -224,6 +225,8 @@ public class Dao implements IDao {
 					new BeanPropertyRowMapper<Person>(Person.class), lastName);
 		} catch (EmptyResultDataAccessException e) {
 
+		} catch (IncorrectResultSizeDataAccessException e){
+			
 		}
 		return returnValue;
 	}
