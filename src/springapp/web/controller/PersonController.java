@@ -5,7 +5,6 @@ import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -67,9 +66,10 @@ public class PersonController extends BaseController {
 		ModelAndView returnValue = new ModelAndView("groupList");
 		Long groupId = manager.findGroup(user, groupName).getId();
 		if (result.hasErrors() || groupId == null) {
-			return new ModelAndView("personEdit", "error", "groupe inexistant");
+			returnValue = new ModelAndView("personEdit", "error", "groupe inexistant");
+			returnValue.addObject("group",groupName);
 		}
-		if (groupId != null) {
+		else if (groupId != null) {
 			p.setGroupId(groupId);
 			manager.savePerson(user, p);
 			returnValue = new ModelAndView("group", "group", manager.findGroup(user, p.getGroupId()));
