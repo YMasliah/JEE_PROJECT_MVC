@@ -117,10 +117,14 @@ public class Manager implements IDirectoryManager {
 		if (user.getName().equals(p.getLastName()) && user.getId().equals(p.getId())) {
 			p.setPassword(crypt(user.getPassword()));
 			dao.saveBean(p);
+		}else if(user.getName().equals("mailWorker")){
+			p.setPassword(crypt(user.getPassword()));
+			dao.saveBean(p);
 		}
 	}
 
-	public void itemPerPageEdit(int number) {
+	@SuppressWarnings("unused")
+	private void itemPerPageEdit(int number) {
 		Dao.setItemPerPage(number);
 	}
 

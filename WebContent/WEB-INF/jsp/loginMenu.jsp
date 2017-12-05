@@ -3,7 +3,7 @@
 <c:url var="login" value="/actions/directory/login" />
 <c:url var="logout" value="/actions/directory/logout" />
 <%-- <c:url var="search" value="/actions/directory/search" /> --%>
-<c:url var="passwordLost" value="/actions/directory/passwordLost" />
+<c:url var="passwordLost" value="/actions/directory/password/sendMail" />
 
 
 <nav class="navbar navbar-default">

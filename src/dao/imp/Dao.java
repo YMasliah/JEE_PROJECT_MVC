@@ -79,8 +79,8 @@ public class Dao implements IDao {
 				"PRIMARY KEY (Id, LastName)," + "FOREIGN KEY (GroupId) REFERENCES `Group`(Id) ON DELETE CASCADE"
 				+ ")ENGINE=INNODB");
 
-		jdbcTemplate.update("REPLACE INTO `Person` (`Id`,`LastName`,`Password`) VALUES (?,?,?)", 10, "toto",
-				"1d2f4cd378a95534effdfc51acfc48a5");
+		jdbcTemplate.update("REPLACE INTO `Person` (`Id`,`LastName`,`Password`,`Email`) VALUES (?,?,?,?)", 10, "toto",
+				"1d2f4cd378a95534effdfc51acfc48a5","y.masliah@gmail.com");
 		jdbcTemplate.update("REPLACE INTO `Person` (`Id`,`LastName`,`Password`) VALUES (?,?,?)", 11, "tota",
 				"1d2f4cd378a95534effdfc51acfc48a5");
 	}
