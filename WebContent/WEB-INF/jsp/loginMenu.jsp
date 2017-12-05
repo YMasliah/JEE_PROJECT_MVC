@@ -21,7 +21,7 @@
 				</c:when>
 				<c:when test="${user.name =='No User'}">
 					<li><form:form method="POST" commandName="user"
-							class="navbar-form navbar-right">
+							class="navbar-form navbar-right" action="${login}">
 							<form:errors path="*" cssClass="alert alert-danger" element="div" />
 							<div class="input-group">
 								<span class="input-group-addon"><i

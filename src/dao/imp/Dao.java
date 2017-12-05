@@ -74,15 +74,15 @@ public class Dao implements IDao {
 				"Email VARCHAR(250)," + //
 				"Website VARCHAR(250)," + //
 				"BirthDate DATE," + //
-				"Password VARCHAR(30)," + //
+				"Password VARCHAR(40)," + //
 				"GroupId BIGINT DEFAULT 1," + //
 				"PRIMARY KEY (Id, LastName)," + "FOREIGN KEY (GroupId) REFERENCES `Group`(Id) ON DELETE CASCADE"
 				+ ")ENGINE=INNODB");
 
 		jdbcTemplate.update("REPLACE INTO `Person` (`Id`,`LastName`,`Password`) VALUES (?,?,?)", 10, "toto",
-				"-1227707557");
+				"1d2f4cd378a95534effdfc51acfc48a5");
 		jdbcTemplate.update("REPLACE INTO `Person` (`Id`,`LastName`,`Password`) VALUES (?,?,?)", 11, "tota",
-				"vasavoirbis");
+				"1d2f4cd378a95534effdfc51acfc48a5");
 	}
 
 	/**

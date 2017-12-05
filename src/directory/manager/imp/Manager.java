@@ -1,5 +1,6 @@
 package directory.manager.imp;
 
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 import java.util.Collections;
@@ -92,7 +93,7 @@ public class Manager implements IDirectoryManager {
 		if (!user.getPassword().isEmpty()) {
 			Person person = dao.findPerson(user.getId());
 			logger.info(user);
-			if (person.getId() != null && person.getPassword().equals(Integer.toString(user.getPassword().hashCode()))) {
+			if (person.getId() != null && person.getPassword().equals(crypt(user.getPassword()))) {
 				returnValue.setName(person.getLastName());
 				logger.info("succes login");
 			}
@@ -114,7 +115,7 @@ public class Manager implements IDirectoryManager {
 	public void savePerson(User user, Person p) throws DaoException {
 		logger.info(user);
 		if (user.getName().equals(p.getLastName()) && user.getId().equals(p.getId())) {
-			p.setPassword(Integer.toString(user.getPassword().hashCode()));
+			p.setPassword(crypt(user.getPassword()));
 			dao.saveBean(p);
 		}
 	}
@@ -126,6 +127,34 @@ public class Manager implements IDirectoryManager {
 	public Group findGroup(User user, String groupName) throws DaoException {
 		return dao.findGroup(groupName);
 	}
+	
+	private String crypt(String password)
+    {
+        String generatedPassword = null;
+        try {
+            // Create MessageDigest instance for MD5
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            //Add password bytes to digest
+            md.update(password.getBytes());
+            //Get the hash's bytes
+            byte[] bytes = md.digest();
+            //This bytes[] has bytes in decimal format;
+            //Convert it to hexadecimal format
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++)
+            {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            //Get complete hashed password in hex format
+            generatedPassword = sb.toString();
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            e.printStackTrace();
+        }
+        return generatedPassword;
+    }
+	
 }
 
 /*

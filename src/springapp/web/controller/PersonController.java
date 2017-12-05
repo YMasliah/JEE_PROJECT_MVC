@@ -74,9 +74,7 @@ public class PersonController extends BaseController {
 		else {
 			p.setGroupId(groupId);
 			manager.savePerson(user, p);
-			returnValue = new ModelAndView("group", "group", manager.findGroup(user, p.getGroupId()));
-			returnValue.addObject("persons", manager.findAll(user, p.getGroupId(), 1));
-			returnValue.addObject("page", 1);
+			returnValue = new ModelAndView("redirect:/actions/directory/group/view/1", "id", p.getGroupId());
 		}
 		return returnValue;
 	}
