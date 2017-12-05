@@ -122,12 +122,7 @@ public class Manager implements IDirectoryManager {
 			dao.saveBean(p);
 		}
 	}
-
-	@SuppressWarnings("unused")
-	private void itemPerPageEdit(int number) {
-		Dao.setItemPerPage(number);
-	}
-
+	
 	public Group findGroup(User user, String groupName) throws DaoException {
 		return dao.findGroup(groupName);
 	}
