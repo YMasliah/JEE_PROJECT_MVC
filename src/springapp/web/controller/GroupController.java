@@ -46,7 +46,7 @@ public class GroupController extends BaseController {
 			mv.addObject("group", manager.findGroup(user, groupId));
 			mv.addObject("persons", manager.findAll(user, groupId,page));
 		} else {
-			mv.addObject("error", "aucun groupe trouver");
+			mv.addObject("error", "");
 		}
 		return mv;
 	}

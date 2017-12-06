@@ -2,14 +2,15 @@ package directory.beans;
 
 import java.util.Date;
 
-import javax.validation.constraints.Min;
+
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import springapp.web.Mail;
-import springapp.web.Group;
+//import springapp.web.Group;
 
 /**
  * @author masliah yann
@@ -25,12 +26,12 @@ public class Person {
 	@NotNull(message = "Un identifiant est obligatoire")
 	private Long id;
 
-	@NotNull(message = "Un identifiant est obligatoire")
-	@Size(min = 1, message = "Le nom est obligatoire")
+	@NotNull(message = "Le nom est obligatoire")
+	@Size(min = 1, message = "Le nom doit au minimum comporter 2 caractère")
 	private String lastName;
 
-	@NotNull(message = "Un identifiant est obligatoire")
-	@Size(min = 1, message = "Le nom est obligatoire")
+	@NotNull(message = "le prénom est obligatoire")
+	@Size(min = 1, message = "Le prénom doit au minimum comporter 2 caractère")
 	private String firstName;
 
 	@Mail
@@ -42,16 +43,17 @@ public class Person {
 	// un string pour debuter mais apres faut changer
 	// faut definir un format, soit yyyy-MM-dd soit l'autre
 	// par default sur la base de donnée c'est yyyy-MM-dd
+	@Past (message="Only the past is valid")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birthDate;
 
-	@NotNull(message = "Un identifiant est obligatoire")
-	@Size(min = 1, message = "Le nom est obligatoire")
+
 	private String password;
 	// un int ou un Group ?
 
-	@Min(value = 1, message = "Le prix est trop bas")
+
 //	@Group
+	@NotNull(message = "Un nom VALIDE du group est obligatoire")
 	private Long groupId;
 
 	public Person() {

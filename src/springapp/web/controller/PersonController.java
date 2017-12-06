@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+//import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -61,14 +62,15 @@ public class PersonController extends BaseController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public ModelAndView personEditReply(@ModelAttribute @Valid Person p, BindingResult result,@RequestParam(value = "group", required = true) String groupName) throws DaoException {
-		ModelAndView returnValue = new ModelAndView("groupList");
+	public ModelAndView personEditReply(@ModelAttribute @Valid Person p, BindingResult result,
+			@RequestParam(value = "group", required = true) String groupName ) throws DaoException {
+		ModelAndView returnValue = new ModelAndView("groupList");;
 		Long groupId = manager.findGroup(user, groupName).getId();
 		if (result.hasErrors()) {
 			returnValue = new ModelAndView("personEdit");
 			returnValue.addObject("group",groupName);
 		}else if(groupId == null){
-			returnValue = new ModelAndView("personEdit", "error", "groupe inexistant");
+			returnValue = new ModelAndView("personEdit", "error", " ce groupe est inexistant");
 			returnValue.addObject("group",groupName);
 		}
 		else {
