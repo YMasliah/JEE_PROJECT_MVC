@@ -22,7 +22,7 @@
 				il faut s'authentifier</p>
 		</article>
 
-		<aside>wola je suis un truc qui servira peut etre</aside>
+		<>
 
 	</section>
 
