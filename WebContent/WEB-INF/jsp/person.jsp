@@ -35,6 +35,16 @@
 					<th scope="row">First Name</th>
 					<td><c:out value="${person.firstName}" /></td>
 				</tr>
+				<c:if test="${user.name !='No User' && not empty user.name}">
+					<tr>
+						<th scope="row">Email</th>
+						<td><c:out value="${person.email}" /></td>
+					</tr>
+					<tr>
+						<th scope="row">Birthday</th>
+						<td><c:out value="${person.birthDate}" /></a></td>
+					</tr>
+				</c:if>
 				<tr>
 					<th scope="row">Web Site</th>
 					<td><c:out value="${person.webSite}" /></td>

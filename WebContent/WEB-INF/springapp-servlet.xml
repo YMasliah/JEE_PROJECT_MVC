@@ -31,9 +31,9 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url"
-			value="jdbc:mysql://dbs-perso.luminy.univmed.fr/m21002022" />
-		<property name="username" value="m21002022" />
-		<property name="password" value="ispbm." />
+			value="jdbc:mysql://dbs-perso.luminy.univmed.fr/t16020692" />
+		<property name="username" value="t16020692" />
+		<property name="password" value="Sgs-4xPr" />
 	</bean>
 	<!-- <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"> -->
 	<!-- <property name="host" value="smtp.gmail.com" /> -->

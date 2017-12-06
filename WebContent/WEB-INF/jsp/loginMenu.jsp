@@ -2,14 +2,15 @@
 
 <c:url var="login" value="/actions/directory/login" />
 <c:url var="logout" value="/actions/directory/logout" />
-<%-- <c:url var="search" value="/actions/directory/search" /> --%>
+<c:url var="groupList" value="/actions/directory/group/list" />
 <c:url var="passwordLost" value="/actions/directory/passwordLost" />
 
 
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="${login}">Acceuil</a>
+			<a class="navbar-brand" href="${login}">Acceuil</a> <a
+				class="navbar-text" href="${groupList}">liste des groupes</a>
 		</div>
 
 		<ul class="nav navbar-nav navbar-right">
@@ -44,10 +45,10 @@
 						</form:form></li>
 				</c:when>
 				<c:otherwise>
-					<li> 
-					Salut, <c:out value="${user.name}" />
-					<a href="${logout}"><span class="glyphicon glyphicon-user"></span> Logout</a>
-					</li>
+					<li><a disable><span class="glyphicon glyphicon-user"></span>
+							Salut, <c:out value="${user.name}" /></a></li>
+					<li><a href="${logout}"><span
+							class="glyphicon glyphicon-off"></span> Logout</a></li>
 				</c:otherwise>
 			</c:choose>
 
