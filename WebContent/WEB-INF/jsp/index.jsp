@@ -26,6 +26,11 @@
 
 	</section>
 
+<c:forEach items="${errors}" var="error">
+            ${error.value}
+    </c:forEach>
+
+    
 	<c:import url="/WEB-INF/jsp/footer.jsp">
 		<c:param name="page" value="1" />
 	</c:import>

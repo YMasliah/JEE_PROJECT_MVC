@@ -70,7 +70,7 @@ public class Dao implements IDao {
 	}
 
 	/**
-	 * Connection a la base de donnée, informations dans le fichier .xml
+	 * Connection a la base de donnï¿½e, informations dans le fichier .xml
 	 * 
 	 * @param dataSource
 	 *            configurations

@@ -17,10 +17,10 @@ import directory.manager.exception.managerException;
 public interface IDirectoryManager {
 
 	/**
-	 * créer un utilisateur anonyme
+	 * crï¿½er un utilisateur anonyme
 	 * 
 	 * @param user utilisateur subissant la modification de droit
-	 * @return utilisateur modifié
+	 * @return utilisateur modifiï¿½
 	 * @throws managerException
 	 */
 	User newUser(User user) throws managerException;
@@ -36,6 +36,16 @@ public interface IDirectoryManager {
 	Person findPerson(User user, long personId) throws DaoException;
 
 	/**
+	 * 
+	 * @param user
+	 * @param lastName
+	 * @param page
+	 * @return
+	 * @throws DaoException
+	 */
+	Collection<Person> findPerson(User user, String lastName, int page) throws DaoException;
+	
+	/**
 	 * chercher un groupe
 	 * 
 	 * @param user
@@ -45,6 +55,25 @@ public interface IDirectoryManager {
 	 */
 	Group findGroup(User user, long groupId) throws DaoException;
 
+	/**
+	 * 
+	 * @param user
+	 * @param name
+	 * @return
+	 * @throws DaoException
+	 */
+	Group findGroup(User user, String name) throws DaoException;
+	
+	/**
+	 * 
+	 * @param user
+	 * @param name
+	 * @param page
+	 * @return
+	 * @throws DaoException
+	 */
+	Collection<Group> findGroup(User user, String name, int page) throws DaoException;
+	
 	/**
 	 * chercher les personnes d'un groupe
 	 * 
@@ -92,34 +121,5 @@ public interface IDirectoryManager {
 	 * @throws DaoException
 	 */
 	void savePerson(User user, Person p) throws DaoException;
-
-	/**
-	 * 
-	 * @param user
-	 * @param name
-	 * @return
-	 * @throws DaoException
-	 */
-	Group findGroup(User user, String name) throws DaoException;
-
-	/**
-	 * 
-	 * @param user
-	 * @param name
-	 * @param page
-	 * @return
-	 * @throws DaoException
-	 */
-	Collection<Group> findGroup(User user, String name, int page) throws DaoException;
-
-	/**
-	 * 
-	 * @param user
-	 * @param lastName
-	 * @param page
-	 * @return
-	 * @throws DaoException
-	 */
-	Collection<Person> findPerson(User user, String lastName, int page) throws DaoException;
 
 }

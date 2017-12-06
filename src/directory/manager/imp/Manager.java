@@ -58,11 +58,7 @@ public class Manager implements IDirectoryManager {
 
 	@Override
 	public Collection<Person> findPerson(User user, String lastName, int page) throws DaoException {
-		Collection<Person> returnValue = Collections.emptyList();
-		if (user.getName() != "No User") {
-			returnValue = dao.findPerson(lastName, page);
-		}
-		return returnValue;
+		return dao.findPerson(lastName, page);
 	}
 
 	@Override

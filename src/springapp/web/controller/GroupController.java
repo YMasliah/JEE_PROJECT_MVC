@@ -1,5 +1,8 @@
 package springapp.web.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,7 +62,9 @@ public class GroupController extends BaseController {
 			mv.addObject("group", manager.findGroup(user, groupId));
 			mv.addObject("persons", manager.findAll(user, groupId,page));
 		} else {
-			mv.addObject("error", "aucun groupe trouver");
+			Map<String, String> erreur = new HashMap<String, String>();
+			erreur.put("1","aucun groupe trouver");
+			mv.addObject("errors", erreur);
 		}
 		return mv;
 	}

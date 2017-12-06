@@ -36,7 +36,7 @@
 	    </c:if>        
     </aside>
     
-    
+
     <footer style="clear: both; margin-bottom: 0;margin: 0 1.5% 24px 1.5%;">
   <div class="row">
   <hr>
