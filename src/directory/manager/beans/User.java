@@ -2,8 +2,6 @@ package directory.manager.beans;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotNull;
-
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
@@ -25,6 +23,8 @@ public class User implements Serializable {
 	private Long id;
 	private String password;
 	private String name;
+	private String token;
+	private long tokenTime;
 
 	public User() {
 		name = "No User";
@@ -93,5 +93,21 @@ public class User implements Serializable {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", password=" + password + ", name=" + name + "]";
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	public long getTokenTime() {
+		return tokenTime;
+	}
+
+	public void setTokenTime(long tokenTime) {
+		this.tokenTime = tokenTime;
 	}
 }

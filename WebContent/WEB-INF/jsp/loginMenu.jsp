@@ -3,7 +3,7 @@
 <c:url var="login" value="/actions/directory/login" />
 <c:url var="logout" value="/actions/directory/logout" />
 <c:url var="groupList" value="/actions/directory/group/list" />
-<c:url var="passwordLost" value="/actions/directory/passwordLost" />
+<c:url var="passwordLost" value="/actions/directory/password/sendMail" />
 
 
 <nav class="navbar navbar-default">
@@ -22,7 +22,7 @@
 				</c:when>
 				<c:when test="${user.name =='No User'}">
 					<li><form:form method="POST" commandName="user"
-							class="navbar-form navbar-right">
+							class="navbar-form navbar-right" action="${login}">
 							<form:errors path="*" cssClass="alert alert-danger" element="div" />
 							<div class="input-group">
 								<span class="input-group-addon"><i
