@@ -21,10 +21,14 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import dao.dbtest.DBExtracteur;
 import dao.dbtest.DBInjecteur;
+import dao.exception.DaoException;
 import directory.manager.beans.User;
+import directory.manager.exception.managerException;
+
 import org.junit.Assert;
 
-/**
+/** 
+ * 
  * @author m21002022
  *
  */
@@ -68,6 +72,7 @@ public class BaseControllerTest {
 	}
 
 	/**
+	 * test le renvoi de valeur de la methode
 	 * 
 	 * Test method for {@link springapp.web.controller.BaseController#newUser()}.
 	 */
@@ -79,13 +84,71 @@ public class BaseControllerTest {
 	}
 
 	/**
+	 * renvoi la page d'index si la personne est un utilisateur deja connecter.
+	 * 
 	 * Test method for {@link springapp.web.controller.BaseController#show()}.
+	 * @throws DaoException 
+	 * @throws managerException 
 	 */
 	@Test
-	public void testShow() {
-		fail("Not yet implemented");
+	public void testShow1() throws managerException, DaoException {
+		String expected = "index";
+		String actual ;
+		baseController.user.setName("toto");
+		actual = baseController.show();
+		Assert.assertEquals(expected, actual);
 	}
 
+	/**
+	 * renvoi la page d'index si la personne a rentrer un identifiant vide ou incorrect.
+	 * 
+	 * Test method for {@link springapp.web.controller.BaseController#show()}.
+	 * @throws DaoException 
+	 * @throws managerException 
+	 */
+	@Test
+	public void testShow2() throws managerException, DaoException {
+		String expected = "index";
+		String actual ;
+		baseController.user.setId(null);
+		actual = baseController.show();
+		Assert.assertEquals(expected, actual);
+	}
+	
+	/**
+	 * renvoi la page d'index si la personne a rentrer un mot de passe vide ou incorrecte.
+	 * 
+	 * Test method for {@link springapp.web.controller.BaseController#show()}.
+	 * @throws DaoException 
+	 * @throws managerException 
+	 */
+	@Test
+	public void testShow3() throws managerException, DaoException {
+		String expected = "index";
+		String actual ;
+		baseController.user.setPassword(null);
+		actual = baseController.show();
+		Assert.assertEquals(expected, actual);
+	}
+	
+	/**
+	 * authentifie l'user si les informations sont correcte
+	 * 
+	 * Test method for {@link springapp.web.controller.BaseController#show()}.
+	 * @throws DaoException 
+	 * @throws managerException 
+	 */
+	@Test
+	public void testShow4() throws managerException, DaoException {
+		String expected = "index";
+		User expected2 = new User(10,"vasavoirbis");
+		expected2.setName("toto");
+		baseController.user.setId(10L);
+		baseController.user.setPassword("vasavoirbis");
+		Assert.assertEquals(expected, baseController.show());
+		Assert.assertEquals(expected2.toString(), baseController.user.toString());
+	}
+	
 	/**
 	 * Test method for {@link springapp.web.controller.BaseController#login(directory.manager.beans.User, org.springframework.validation.BindingResult)}.
 	 */

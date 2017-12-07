@@ -54,9 +54,7 @@ public class BaseController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String show() throws managerException, DaoException {
 		logger.info("show user " + user);
-		if(user.getName() != "No User"){
-			
-		}
+		if(user.getName() != "No User"){}
 		else if (user.getId() == null || user.getPassword() == null) {
 			user = manager.newUser(user);
 		} else {
