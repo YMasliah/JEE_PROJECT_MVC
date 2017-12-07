@@ -37,26 +37,6 @@ public class GroupController extends BaseController {
 		return new ModelAndView("groupList", "groups", manager.findAll(user, page));
 	}
 
-	@RequestMapping(value = "/view", method = RequestMethod.GET)
-	public ModelAndView groupViewRequest(@RequestParam(value = "id", required = true) Long groupId,
-			@RequestParam(value = "page", required = false, defaultValue = "1") int page) throws DaoException {
-		Group group = manager.findGroup(user, groupId);
-		logger.info("Returning group view");
-		ModelAndView mv = new ModelAndView("redirect:/actions/directory/login");
-		if (group.getId() != null) {
-			mv = new ModelAndView("group");
-			mv.addObject("group", manager.findGroup(user, groupId));
-			mv.addObject("persons", manager.findAll(user, groupId, page));
-			mv.addObject("type_erreur", "success");
-			mv.addObject("erreur", "Recherche réussite");
-		} else {
-			mv = new ModelAndView("index");
-			mv.addObject("type_erreur", "danger");
-			mv.addObject("erreur", "Aucun Groupe trouvé.");
-		}
-		return mv;
-	}
-
 	@RequestMapping(value = "/view/{page}", method = RequestMethod.GET)
 	public ModelAndView groupViewRequestPage(@RequestParam(value = "id", required = true) Long groupId,
 			@PathVariable("page") Integer page) throws DaoException {

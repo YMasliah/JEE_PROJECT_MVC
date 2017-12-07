@@ -9,6 +9,7 @@ import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
+import org.dbunit.ext.mysql.MySqlDataTypeFactory;
 import org.dbunit.ext.mysql.MySqlMetadataHandler;
 
 public class DBExtracteur extends DBTestCase {
@@ -43,6 +44,7 @@ public class DBExtracteur extends DBTestCase {
 
 		connection = new DatabaseConnection(connexionDataBase, "m21002022");
 		
+		connection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MySqlDataTypeFactory());
 		connection.getConfig().setProperty(DatabaseConfig.PROPERTY_METADATA_HANDLER, new MySqlMetadataHandler());
 		
 		dataSet = connection.createDataSet();

@@ -91,7 +91,7 @@ public class BaseController {
 	}
 
 	@RequestMapping(value = "/passwordLost", method = RequestMethod.GET)
-	public String newUserRequest() {
+	public String passwordLost() {
 		return "passwordLost";
 	}
 	

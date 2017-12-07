@@ -10,6 +10,7 @@ import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ReplacementDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
+import org.dbunit.ext.mysql.MySqlDataTypeFactory;
 import org.dbunit.ext.mysql.MySqlMetadataHandler;
 import org.dbunit.operation.DatabaseOperation;
 
@@ -43,6 +44,7 @@ public class DBInjecteur extends DBTestCase {
 		connexionDataBase = DriverManager.getConnection(url, user, passwd);
 
 		connexionDataBaseDBunit = new DatabaseConnection(connexionDataBase, "m21002022");
+		connexionDataBaseDBunit.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MySqlDataTypeFactory());
 		connexionDataBaseDBunit.getConfig().setProperty(DatabaseConfig.PROPERTY_METADATA_HANDLER, new MySqlMetadataHandler());
 		connexionDataBaseDBunit.getConfig().setProperty(DatabaseConfig.FEATURE_ALLOW_EMPTY_FIELDS, true);
 

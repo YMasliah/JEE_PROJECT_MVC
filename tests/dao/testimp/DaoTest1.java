@@ -45,17 +45,18 @@ public class DaoTest1 {
 	@Autowired
 	IDao dao;
 
-	String exportFile = "ressources/xml/testDataset.xml";
+	String exportFile = "tests/ressources/xml/testDataset.xml";
 
 	@BeforeClass
 	public static void setUpClass() throws Exception {
 		DBExtracteur.launchExtraction("tests/ressources/xml/currentDataset.xml");
-		DBExtracteur.launchExtraction("ressources/xml/testDataset.xml");
 	}
 
 	@AfterClass
-	public static void tearDownClass() throws Exception {
+	public static void tearDownAfterClass() throws Exception {
+		DBExtracteur.launchExtraction("tests/ressources/xml/testDataset.xml");
 		DBInjecteur.launchInjection("tests/ressources/xml/currentDataset.xml");
+		System.out.println("injecter");
 	}
 
 	@Before
@@ -165,7 +166,7 @@ public class DaoTest1 {
 	 */
 	@Test
 	public void testFindPerson2() throws DaoException {
-		Person expected = new Person();
+		Collection<Person> expected = Collections.emptyList();
 		Assert.assertEquals(expected, dao.findPerson("toto",1));
 	}
 	

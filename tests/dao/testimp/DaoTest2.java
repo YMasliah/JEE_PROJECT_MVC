@@ -1,5 +1,6 @@
 package dao.testimp;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -50,12 +51,13 @@ public class DaoTest2 {
 	@BeforeClass
 	public static void setUpClass() throws Exception {
 		DBExtracteur.launchExtraction("tests/ressources/xml/currentDataset.xml");
-		DBExtracteur.launchExtraction("tests/ressources/xml/testDataset.xml");
 	}
 
 	@AfterClass
-	public static void tearDownClass() throws Exception {
+	public static void tearDownAfterClass() throws Exception {
+		DBExtracteur.launchExtraction("tests/ressources/xml/testDataset.xml");
 		DBInjecteur.launchInjection("tests/ressources/xml/currentDataset.xml");
+		System.out.println("injecter");
 	}
 
 	@Before
@@ -232,23 +234,21 @@ public class DaoTest2 {
 	public void testFindPerson2() throws DaoException {
 		Person expected = new Person();
 		expected.setId(10L);
-		expected.setPassword("vasavoir");
 		expected.setLastName("toti");
-		expected.setGroupId(1L);
-		Assert.assertEquals(expected, dao.findPerson("toti",1));
+		Assert.assertEquals(expected, ((ArrayList<Person>) dao.findPerson("toti",1)).get(0));
 	}
 	
 	/**
 	 * 
-	 * resultat trop grand, donc resultat vide
+	 * recuperation d'une liste de personne
 	 * recherche par nom
 	 * 
 	 * @throws DaoException
 	 */
 	@Test
 	public void testFindPerson3() throws DaoException {
-		Person expected = new Person();
-		Assert.assertEquals(expected, dao.findPerson("toto",1));
+		long expected = 1;
+		Assert.assertTrue(expected<dao.findPerson("toto",1).size());
 	}
 	
 	/**
@@ -277,7 +277,7 @@ public class DaoTest2 {
 	 */
 	@Test
 	public void testFindPerson5() throws DaoException {
-		Person expected = new Person();
+		Collection<Person> expected = Collections.emptyList();
 		Assert.assertEquals(expected, dao.findPerson("rondoudou",1));
 	}
 	

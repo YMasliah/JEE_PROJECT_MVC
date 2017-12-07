@@ -7,6 +7,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -18,14 +19,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.validation.BindException;
 
 import dao.dbtest.DBExtracteur;
 import dao.dbtest.DBInjecteur;
 import dao.exception.DaoException;
 import directory.manager.beans.User;
 import directory.manager.exception.managerException;
-
-import org.junit.Assert;
 
 /** 
  * 
@@ -150,35 +150,105 @@ public class BaseControllerTest {
 	}
 	
 	/**
+	 * login reussi
+	 * 
 	 * Test method for {@link springapp.web.controller.BaseController#login(directory.manager.beans.User, org.springframework.validation.BindingResult)}.
+	 * @throws managerException 
+	 * @throws DaoException 
 	 */
 	@Test
-	public void testLogin() {
-		fail("Not yet implemented");
+	public void testLogin1() throws DaoException, managerException {
+		String expected = "redirect:login";
+		User expected2 = new User(10,"vasavoirbis");
+		baseController.user.setId(10L);
+		baseController.user.setPassword("vasavoirbis");
+		Assert.assertEquals(expected, baseController.login(expected2, new BindException(expected2, "user")));
+		Assert.assertEquals(expected2.toString(), baseController.user.toString());
 	}
 
+	/**
+	 * mot de passe incorrect
+	 * 
+	 * Test method for {@link springapp.web.controller.BaseController#login(directory.manager.beans.User, org.springframework.validation.BindingResult)}.
+	 * @throws managerException 
+	 * @throws DaoException 
+	 */
+	@Test
+	public void testLogin2() throws DaoException, managerException {
+		String expected = "index";
+		User expected2 = new User(10,"aze");
+		expected2.setName("No User");
+		baseController.user.setId(10L);
+		baseController.user.setPassword("aze");
+		Assert.assertEquals(expected, baseController.login(expected2, new BindException(expected2, "user")));
+	}
+	
+	/**
+	 * identifiant incorrect
+	 * 
+	 * Test method for {@link springapp.web.controller.BaseController#login(directory.manager.beans.User, org.springframework.validation.BindingResult)}.
+	 * @throws managerException 
+	 * @throws DaoException 
+	 */
+	@Test
+	public void testLogin3() throws DaoException, managerException {
+		String expected = "index";
+		User expected2 = new User(1,"vasavoirbis");
+		expected2.setName("No User");
+		baseController.user.setId(1L);
+		baseController.user.setPassword("vasavoirbis");
+		Assert.assertEquals(expected, baseController.login(expected2, new BindException(expected2, "user")));
+	}
+	
+	/**
+	 * identifiant vide
+	 * 
+	 * Test method for {@link springapp.web.controller.BaseController#login(directory.manager.beans.User, org.springframework.validation.BindingResult)}.
+	 * @throws managerException 
+	 * @throws DaoException 
+	 */
+	@Test
+	public void testLogin4() throws DaoException, managerException {
+		String expected = "index";
+		baseController.user.setId(null);
+		baseController.user.setPassword("vasavoirbis");
+		Assert.assertEquals(expected, baseController.login(baseController.user, new BindException(baseController.user, "user")));
+	}
+	
+	/**
+	 * identifiant vide
+	 * 
+	 * Test method for {@link springapp.web.controller.BaseController#login(directory.manager.beans.User, org.springframework.validation.BindingResult)}.
+	 * @throws managerException 
+	 * @throws DaoException 
+	 */
+	@Test
+	public void testLogin5() throws DaoException, managerException {
+		String expected = "index";
+		baseController.user.setId(10L);
+		baseController.user.setPassword(null);
+		Assert.assertEquals(expected, baseController.login(baseController.user, new BindException(baseController.user, "user")));
+	}
+	
 	/**
 	 * Test method for {@link springapp.web.controller.BaseController#newUserRequest()}.
 	 */
 	@Test
-	public void testNewUserRequest() {
-		fail("Not yet implemented");
+	public void testPasswordLost() {
+		String expected = "passwordLost";
+		Assert.assertEquals(expected, baseController.passwordLost());
 	}
 
 	/**
 	 * Test method for {@link springapp.web.controller.BaseController#logout(org.springframework.web.servlet.mvc.support.RedirectAttributes)}.
+	 * @throws managerException 
 	 */
 	@Test
-	public void testLogout() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link springapp.web.controller.BaseController#productTypes()}.
-	 */
-	@Test
-	public void testProductTypes() {
-		fail("Not yet implemented");
+	public void testLogout() throws managerException {
+		String expected = "redirect:login";
+		String expected2 = "No user";
+		Assert.assertEquals(expected, baseController.logout(null));
+		Assert.assertEquals(expected2, baseController.user.getName());
 	}
 
 	/**

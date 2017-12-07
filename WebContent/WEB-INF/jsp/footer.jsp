@@ -3,7 +3,7 @@
 <c:url var="search" value="/actions/directory/search/1" />
 
 <aside style="float: right; width: 25%; margin: 0 1.5% 24px 1.5%;">
-<%-- 	<c:if test="${user.name !='No User' && not empty user.name}"> --%>
+	<c:if test="${not empty user.name}">
 		<div>
 			<form:form method="POST" action="${search}">
 
@@ -35,7 +35,7 @@
 				<c:out value="${erreur}"></c:out>
 			</div>
 		</div>
-<%-- 	</c:if> --%>
+	</c:if>
 </aside>
 
 
@@ -52,4 +52,5 @@
 			</div>
 		</div>
 	</div>
+	<c:out value="${error}"></c:out>
 </footer>
