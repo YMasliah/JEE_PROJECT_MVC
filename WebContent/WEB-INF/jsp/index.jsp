@@ -5,9 +5,9 @@
 <head>
 <meta charset="utf-8">
 <title>Bienvenu sur l'annuaire</title>
-<c:url var="groupList" value="/actions/directory/group/list" />
+<%-- <c:url var="groupList" value="/actions/directory/group/list" /> --%>
 <%-- <c:url var="passwordLost" value="/actions/directory/passwordLost" /> --%>
-<c:url var="search" value="/actions/directory/search" />
+<%-- <c:url var="search" value="/actions/directory/search" /> --%>
 </head>
 <body>
 
@@ -24,9 +24,9 @@
 
 	</section>
 
-<c:forEach items="${errors}" var="error">
-            ${error.value}
-    </c:forEach>
+<%-- <c:forEach items="${errors}" var="error"> --%>
+<%--             ${error.value} --%>
+<%--     </c:forEach> --%>
 
     
 	<c:import url="/WEB-INF/jsp/footer.jsp">

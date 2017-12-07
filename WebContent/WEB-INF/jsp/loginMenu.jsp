@@ -23,15 +23,15 @@
 				<c:when test="${user.name =='No User'}">
 					<li><form:form method="POST" commandName="user"
 							class="navbar-form navbar-right" action="${login}">
-							<form:errors path="*" cssClass="alert alert-danger" element="div" />
-							<div class="input-group">
+							
+							<div class="input-group col-md-4">
 								<span class="input-group-addon"><i
 									class="glyphicon glyphicon-user"></i></span>
 								<form:input class="form-control" path="id" type="number"
 									value="" placeholder="Id" />
 								<%-- 				<form:errors path="id" cssClass="alert alert-warning" element="div" /> --%>
 							</div>
-							<div class="input-group">
+							<div class="input-group form-group col-md-4">
 								<span class="input-group-addon"><i
 									class="glyphicon glyphicon-lock"></i></span>
 								<form:input class="form-control" path="password" type="password"
@@ -42,6 +42,8 @@
 								<button type="submit" class="btn btn-primary">Submit</button>
 							</div>
 							<a href="${passwordLost}">mot de passe perdu ?</a>
+							
+							<form:errors path="*" cssClass="alert alert-danger" element="div" />
 						</form:form></li>
 				</c:when>
 				<c:otherwise>
