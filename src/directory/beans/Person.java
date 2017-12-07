@@ -26,12 +26,12 @@ public class Person {
 	@NotNull(message = "Un identifiant est obligatoire")
 	private Long id;
 
-	@NotNull(message = "Le nom est obligatoire")
-	@Size(min = 1, message = "Le nom doit au minimum comporter 2 caractère")
+	@NotNull(message = "** Le nom est obligatoire.")
+	@Size(min = 1, message = "** Le nom n'est pas valide (Minimum 2 caractères)")
 	private String lastName;
 
-	@NotNull(message = "le prénom est obligatoire")
-	@Size(min = 1, message = "Le prénom doit au minimum comporter 2 caractère")
+	@NotNull(message = "** le prénom est obligatoire")
+	@Size(min = 1, message = "** Le prénom n'est pas valide (Minimum 2 caractères)")
 	private String firstName;
 
 	@Mail
@@ -53,7 +53,7 @@ public class Person {
 
 
 //	@Group
-	@NotNull(message = "Un nom VALIDE du group est obligatoire")
+//	@NotNull(message = "Un nom VALIDE du group est obligatoire")
 	private Long groupId;
 
 	public Person() {

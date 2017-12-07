@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 //import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,7 @@ import directory.beans.Person;
 @Controller
 @RequestMapping("/directory/person")
 public class PersonController extends BaseController {
-		
+
 	/**
 	 * Person Controller
 	 * 
@@ -63,17 +64,22 @@ public class PersonController extends BaseController {
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	public ModelAndView personEditReply(@ModelAttribute @Valid Person p, BindingResult result,
-			@RequestParam(value = "group", required = true) String groupName ) throws DaoException {
-		ModelAndView returnValue = new ModelAndView("groupList");;
+			@RequestParam(value = "group", required = true) String groupName) throws DaoException {
+		ModelAndView returnValue = new ModelAndView("groupList");
 		Long groupId = manager.findGroup(user, groupName).getId();
 		if (result.hasErrors()) {
 			returnValue = new ModelAndView("personEdit");
-			returnValue.addObject("group",groupName);
-		}else if(groupId == null){
-			returnValue = new ModelAndView("personEdit", "error", " ce groupe est inexistant");
-			returnValue.addObject("group",groupName);
-		}
-		else {
+			returnValue.addObject("group", groupName);
+			if (groupId == null) {
+				ObjectError error = new ObjectError("group", "** Le nom de groupe n'est valide.");
+				result.addError(error);
+			}
+		} else if (groupId == null) {
+			returnValue = new ModelAndView("personEdit");
+			returnValue.addObject("group", groupName);
+			ObjectError error = new ObjectError("group", "** Le nom de groupe n'est valide.");
+			result.addError(error);
+		} else {
 			p.setGroupId(groupId);
 			manager.savePerson(user, p);
 			returnValue = new ModelAndView("redirect:/actions/directory/group/view/1", "id", p.getGroupId());

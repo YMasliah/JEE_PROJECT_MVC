@@ -25,14 +25,14 @@
 		<property name="prefix" value="/WEB-INF/jsp/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
-	
+
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url"
-			value="jdbc:mysql://localhost/t16020692" />
-		<property name="username" value="root" />
-		<property name="password" value="root" />
+			value="jdbc:mysql://dbs-perso.luminy.univmed.fr/t16020692" />
+		<property name="username" value="t16020692" />
+		<property name="password" value="Sgs-4xPr" />
 	</bean>
 
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
