@@ -6,7 +6,7 @@
 <meta charset="utf-8">
 <title>Liste des groupes</title>
 <c:url var="edit" value="/actions/directory/group/edit" />
-<c:url var="view" value="/actions/directory/group/view" />
+<c:url var="view" value="/actions/directory/group/view/1" />
 <c:url var="editPerson" value="/actions/directory/person/edit" />
 <c:url var="viewPerson" value="/actions/directory/person/view" />
 </head>
