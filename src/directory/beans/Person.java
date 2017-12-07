@@ -34,7 +34,7 @@ public class Person {
 	@Size(min = 1, message = "** Le prénom n'est pas valide (Minimum 2 caractères)")
 	private String firstName;
 
-	@Mail
+	@Mail(message = "** l'adresse mail n'est pas valide")
 	private String email;
 
 	// @URL
@@ -43,7 +43,7 @@ public class Person {
 	// un string pour debuter mais apres faut changer
 	// faut definir un format, soit yyyy-MM-dd soit l'autre
 	// par default sur la base de donnée c'est yyyy-MM-dd
-	@Past (message="Only the past is valid")
+	@Past (message="** Only the past is valid")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birthDate;
 

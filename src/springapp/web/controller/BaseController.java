@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -73,11 +74,18 @@ public class BaseController {
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@ModelAttribute User u, BindingResult result) throws DaoException, managerException {
-		if (u.getId() == null || u.getPassword() == null) {
+		if (u.getId() == null || u.getPassword() == null || u.getPassword().isEmpty()) {
+			ObjectError error = new ObjectError("error", "  **  Id et/ou Mot de passe  non valide !!");
+			result.addError(error);
 			return "index";
 		}
 		logger.info("pre-login user " + user);
 		user = manager.login(u);
+		if(user.getName().equals("No User")){
+			ObjectError error = new ObjectError("error", "Mot de passe incorrect !!");
+			result.addError(error);
+			return "index";
+		}
 		logger.info("post-login user " + user);
 		return "redirect:login";
 	}
@@ -140,10 +148,13 @@ public class BaseController {
 					mv.addObject("id", groupList.get(0).getId());
 				} else if (groupList.isEmpty()) {
 					mv = new ModelAndView("index");
-					mv.addObject("error", "No result");
+					mv.addObject("type_erreur", "danger");
+					mv.addObject("erreur", "Aucun Groupe trouvé.");
 				} else {
 					mv = new ModelAndView("searchResultList");
 					mv.addObject("groups", groupList);
+					mv.addObject("type_erreur", "success");
+					mv.addObject("erreur", "Recherche réussite");
 				}
 			}
 		} else if (type.equals("Person")) {
@@ -157,10 +168,13 @@ public class BaseController {
 					mv.addObject("id", personList.get(0).getId());
 				} else if (personList.isEmpty()) {
 					mv = new ModelAndView("index");
-					mv.addObject("error", "No result");
+					mv.addObject("type_erreur", "danger");
+					mv.addObject("erreur", "Aucune Personne trouvée.");
 				} else {
 					mv = new ModelAndView("searchResultList");
 					mv.addObject("persons", personList);
+					mv.addObject("type_erreur", "success");
+					mv.addObject("erreur", "Recherche réussite");
 				}
 			}
 		}

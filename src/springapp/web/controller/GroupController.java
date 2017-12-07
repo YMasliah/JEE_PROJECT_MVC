@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,17 +23,18 @@ public class GroupController extends BaseController {
 	 * @throws DaoException
 	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView groupListRequest(@RequestParam(value = "page", required = false, defaultValue = "1") int page) throws DaoException {
+	public ModelAndView groupListRequest(@RequestParam(value = "page", required = false, defaultValue = "1") int page)
+			throws DaoException {
 		logger.info("Returning groupList view ");
 		logger.info(page);
-		return new ModelAndView("groupList", "groups", manager.findAll(user,page));
+		return new ModelAndView("groupList", "groups", manager.findAll(user, page));
 	}
-	
+
 	@RequestMapping(value = "/list/{page}", method = RequestMethod.GET)
 	public ModelAndView groupListRequestPage(@PathVariable("page") Integer page) throws DaoException {
 		logger.info("Returning groupList view ");
 		logger.info(page);
-		return new ModelAndView("groupList", "groups", manager.findAll(user,page));
+		return new ModelAndView("groupList", "groups", manager.findAll(user, page));
 	}
 
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
@@ -44,9 +46,13 @@ public class GroupController extends BaseController {
 		if (group.getId() != null) {
 			mv = new ModelAndView("group");
 			mv.addObject("group", manager.findGroup(user, groupId));
-			mv.addObject("persons", manager.findAll(user, groupId,page));
+			mv.addObject("persons", manager.findAll(user, groupId, page));
+			mv.addObject("type_erreur", "success");
+			mv.addObject("erreur", "Recherche réussite");
 		} else {
-			mv.addObject("error", "bliiiiing bliiing");
+			mv = new ModelAndView("index");
+			mv.addObject("type_erreur", "danger");
+			mv.addObject("erreur", "Aucun Groupe trouvé.");
 		}
 		return mv;
 	}
@@ -60,13 +66,15 @@ public class GroupController extends BaseController {
 		if (group.getId() != null) {
 			mv = new ModelAndView("group");
 			mv.addObject("group", manager.findGroup(user, groupId));
-			mv.addObject("persons", manager.findAll(user, groupId,page));
+			mv.addObject("persons", manager.findAll(user, groupId, page));
+			mv.addObject("type_erreur", "success");
+			mv.addObject("erreur", "Recherche réussite");
 		} else {
-			Map<String, String> erreur = new HashMap<String, String>();
-			erreur.put("1","aucun groupe trouver");
-			mv.addObject("errors", erreur);
+			mv = new ModelAndView("index");
+			mv.addObject("type_erreur", "danger");
+			mv.addObject("erreur", "Aucun Groupe trouvé.");
 		}
 		return mv;
 	}
-	
+
 }
