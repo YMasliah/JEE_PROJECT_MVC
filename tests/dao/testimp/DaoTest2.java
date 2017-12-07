@@ -235,7 +235,7 @@ public class DaoTest2 {
 		expected.setPassword("vasavoir");
 		expected.setLastName("toti");
 		expected.setGroupId(1L);
-		Assert.assertEquals(expected, dao.findPerson("toti"));
+		Assert.assertEquals(expected, dao.findPerson("toti",1));
 	}
 	
 	/**
@@ -248,7 +248,7 @@ public class DaoTest2 {
 	@Test
 	public void testFindPerson3() throws DaoException {
 		Person expected = new Person();
-		Assert.assertEquals(expected, dao.findPerson("toto"));
+		Assert.assertEquals(expected, dao.findPerson("toto",1));
 	}
 	
 	/**
@@ -278,7 +278,7 @@ public class DaoTest2 {
 	@Test
 	public void testFindPerson5() throws DaoException {
 		Person expected = new Person();
-		Assert.assertEquals(expected, dao.findPerson("rondoudou"));
+		Assert.assertEquals(expected, dao.findPerson("rondoudou",1));
 	}
 	
 	/**

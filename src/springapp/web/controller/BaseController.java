@@ -118,8 +118,8 @@ public class BaseController {
 	@ModelAttribute("dataTypes")
 	public Map<String, String> productTypes() {
 		Map<String, String> types = new LinkedHashMap<>();
-		types.put("Group", "Group");
 		types.put("Person", "Person");
+		types.put("Group", "Group");
 		return types;
 	}
 

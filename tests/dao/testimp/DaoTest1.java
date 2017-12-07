@@ -166,7 +166,7 @@ public class DaoTest1 {
 	@Test
 	public void testFindPerson2() throws DaoException {
 		Person expected = new Person();
-		Assert.assertEquals(expected, dao.findPerson("toto"));
+		Assert.assertEquals(expected, dao.findPerson("toto",1));
 	}
 	
 	/**

@@ -309,17 +309,43 @@ public class ManagerTest {
 	}
 
 	/**
-	 * login
-	 * TODO
+	 * login mauvais identifiant
 	 * 
 	 * @throws managerException
 	 * @throws DaoException 
 	 */
 	@Test
 	public void loginTest1() throws managerException, DaoException {
-		int expected = 3;
-		Collection<Group> actual = manager.findAll(new User(),1);
-		Assert.assertEquals(expected, actual.size());
+		User expected = new User(1,"vasavoir");
+		User actual = manager.login(expected);
+		Assert.assertEquals(expected, actual);
+	}
+	
+	/**
+	 * login mauvais mot de passe
+	 * 
+	 * @throws managerException
+	 * @throws DaoException 
+	 */
+	@Test
+	public void loginTest2() throws managerException, DaoException {
+		User expected = new User(10,"moi pas connaitre");
+		User actual = manager.login(expected);
+		Assert.assertEquals(expected, actual);
+	}
+	
+	/**
+	 * login correct
+	 * 
+	 * @throws managerException
+	 * @throws DaoException 
+	 */
+	@Test
+	public void loginTest3() throws managerException, DaoException {
+		String expected = "toto";
+		User actual = new User(10,"vasavoirbis");
+		actual = manager.login(actual);
+		Assert.assertEquals(expected, actual.getName());
 	}
 	
 	/**
