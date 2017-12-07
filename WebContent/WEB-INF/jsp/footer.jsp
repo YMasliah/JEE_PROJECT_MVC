@@ -13,7 +13,7 @@
 				<div class="form-group">
 					<select class="custom-select" id="type" name="type">
 						<c:forEach items="${dataTypes}" var="dataType">
-							<option value="${dataType.key}">
+							<option value="${dataType.key}" size="20">
 								<c:out value="${dataType.value}"></c:out>
 							</option>
 						</c:forEach>
@@ -48,22 +48,4 @@
 			</div>
 		</div>
 	</div>
-
-
-	       <div><a href="${groupList}">liste des groupes</a></div>        
-    </aside>
-    
-
-    <footer style="clear: both; margin-bottom: 0;margin: 0 1.5% 24px 1.5%;">
-  <div class="row">
-  <hr>
-    <div class="col-lg-12">
-      <div class="col-md-8">
-        <a href="#">Java Doc</a> | <a href="#">Cahier des charges</a>    
-      </div>
-      <div class="col-md-4">
-        <p class="muted pull-right">© 2017 Maslia&Tigrara Co. All rights reserved</p>
-      </div>
-    </div>
-  </div>
 </footer>

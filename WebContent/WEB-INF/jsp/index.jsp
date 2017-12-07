@@ -22,8 +22,6 @@
 				il faut s'authentifier</p>
 		</article>
 
-		<>
-
 	</section>
 
 <c:forEach items="${errors}" var="error">

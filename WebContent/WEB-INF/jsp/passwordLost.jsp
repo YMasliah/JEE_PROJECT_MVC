@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/jsp/include.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
      "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -8,29 +9,50 @@
 <title>Email with Spring MVC</title>
 </head>
 <body>
-    <center>
-        <h1>Sending e-mail with Spring MVC</h1>
-        <form method="post" action="sendMail">
-            <table border="0" width="80%">
-                <tr>
-                    <td>Mail address:</td>
-                    <td><input type="text" name="email" size="65" /></td>
-                </tr>
-                <tr>
-                    <td>Id:</td>
-                    <td><input type="text" name="id" size="65" /></td>
-                </tr>
-                <tr>
-                    <td>Lastname:</td>
-                    <td><textarea cols="50" rows="10" name="lastName"></textarea></td>
-                </tr>               
-                <tr>
-                    <td colspan="2" align="center">
-                        <input type="submit" value="Send E-mail" />
-                    </td>
-                </tr>
-            </table>
-        </form>
-    </center>
+	<div class="form-gap" style="padding-top: 70px;"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 col-md-offset-4">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="text-center">
+							<h3>
+								<i class="fa fa-lock fa-4x"></i>
+							</h3>
+							<h2 class="text-center">Mot de passe oublié?</h2>
+							<p>Vou pouvez recuperer votre mot de passe ici.</p>
+							<div class="panel-body">
+
+								<form id="register-form" role="form" autocomplete="off" class="form" method="post" action="sendMail">
+
+									<div class="form-group">
+										<div class="input-group">
+											<span class="input-group-addon"><i
+												class="glyphicon glyphicon-envelope color-blue"></i></span> <input
+												id="email" name="email" placeholder="email address"
+												class="form-control" type="email">
+										</div>
+										<div class="input-group">
+											<span class="input-group-addon"><i
+												class="glyphicon glyphicon-user color-blue"></i></span> <input
+												id="id" name="id" placeholder="Id"
+												class="form-control" type="text">
+										</div>
+									</div>
+									<div class="form-group">
+										<input name="recover-submit"
+											class="btn btn-lg btn-primary btn-block"
+											value="Send Email" type="submit">
+									</div>
+
+								</form>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
