@@ -14,19 +14,29 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dao.exception.DaoException;
 import directory.beans.Person;
+import springapp.web.IPersonController;
 
+/**
+ * Master 2 ISL 2017/2018
+ * 
+ * Couche qui interargie avec l'utilisateur
+ * 
+ * Controlleur spring qui fournis toute les fonctionnalitée disponibles qui
+ * concernent l'object Person
+ * 
+ * @author MASLIAH Yann
+ * @author TIGRARA Redouane
+ */
 @Controller
 @RequestMapping("/directory/person")
-public class PersonController extends BaseController {
+public class PersonController extends BaseController implements IPersonController {
 
 	/**
-	 * Person Controller
-	 * 
-	 * @throws DaoException
+	 * @see springapp.web.controller.IPersonController#getPersonView(java.lang.Long)
 	 */
+	@Override
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
-	public ModelAndView personViewRequest(@RequestParam(value = "id", required = true) Long personId)
-			throws DaoException {
+	public ModelAndView getPersonView(@RequestParam(value = "id", required = true) Long personId) throws DaoException {
 		Person person = manager.findPerson(user, personId);
 		logger.info("Returning group view");
 		ModelAndView mv = new ModelAndView("index");
@@ -45,15 +55,11 @@ public class PersonController extends BaseController {
 	}
 
 	/**
-	 * faut modifier et lire la bd pour redirect si c pas lui
-	 * 
-	 * @param personId
-	 * @return
-	 * @throws DaoException
+	 * @see springapp.web.controller.IPersonController#getPersonEdit(java.lang.Long)
 	 */
+	@Override
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView personEditRequest(@RequestParam(value = "id", required = true) Long personId)
-			throws DaoException {
+	public ModelAndView getPersonEdit(@RequestParam(value = "id", required = true) Long personId) throws DaoException {
 		ModelAndView mv = new ModelAndView("index");
 		Person person = manager.findPerson(user, personId);
 		if (person.getLastName().equals(user.getName())) {
@@ -66,8 +72,13 @@ public class PersonController extends BaseController {
 		return mv;
 	}
 
+	/**
+	 * @see springapp.web.controller.IPersonController#postPersonEdit(directory.beans.Person,
+	 *      org.springframework.validation.BindingResult, java.lang.String)
+	 */
+	@Override
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public ModelAndView personEditReply(@ModelAttribute @Valid Person p, BindingResult result,
+	public ModelAndView postPersonEdit(@ModelAttribute @Valid Person p, BindingResult result,
 			@RequestParam(value = "group", required = true) String groupName) throws DaoException {
 		ModelAndView returnValue = new ModelAndView("groupList");
 		Long groupId = manager.findGroup(user, groupName).getId();

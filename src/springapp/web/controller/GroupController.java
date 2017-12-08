@@ -1,10 +1,6 @@
 package springapp.web.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,32 +9,40 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dao.exception.DaoException;
 import directory.beans.Group;
+import springapp.web.IGroupController;
 
+/**
+ * Master 2 ISL 2017/2018
+ * 
+ * Couche qui interargie avec l'utilisateur
+ * 
+ * Controlleur spring qui fournis toute les fonctionnalitée disponibles qui
+ * concernent l'object Group
+ * 
+ * @author MASLIAH Yann
+ * @author TIGRARA Redouane
+ */
 @Controller()
 @RequestMapping("/directory/group")
-public class GroupController extends BaseController {
+public class GroupController extends BaseController implements IGroupController {
+	
 	/**
-	 * Group Controller
-	 * 
-	 * @throws DaoException
+	 * @see springapp.web.controller.IGroupController#groupListRequestPage(java.lang.Integer)
 	 */
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView groupListRequest(@RequestParam(value = "page", required = false, defaultValue = "1") int page)
-			throws DaoException {
-		logger.info("Returning groupList view ");
-		logger.info(page);
-		return new ModelAndView("groupList", "groups", manager.findAll(user, page));
-	}
-
+	@Override
 	@RequestMapping(value = "/list/{page}", method = RequestMethod.GET)
-	public ModelAndView groupListRequestPage(@PathVariable("page") Integer page) throws DaoException {
+	public ModelAndView getGroupList(@PathVariable("page") Integer page) throws DaoException {
 		logger.info("Returning groupList view ");
 		logger.info(page);
 		return new ModelAndView("groupList", "groups", manager.findAll(user, page));
 	}
 
+	/**
+	 * @see springapp.web.controller.IGroupController#groupViewRequestPage(java.lang.Long, java.lang.Integer)
+	 */
+	@Override
 	@RequestMapping(value = "/view/{page}", method = RequestMethod.GET)
-	public ModelAndView groupViewRequestPage(@RequestParam(value = "id", required = true) Long groupId,
+	public ModelAndView getGroupView(@RequestParam(value = "id", required = true) Long groupId,
 			@PathVariable("page") Integer page) throws DaoException {
 		Group group = manager.findGroup(user, groupId);
 		logger.info("Returning group view");

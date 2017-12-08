@@ -1,4 +1,4 @@
-package springapp.web;
+package springapp.web.annotation;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;

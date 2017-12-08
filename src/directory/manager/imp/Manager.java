@@ -19,6 +19,14 @@ import directory.beans.Person;
 import directory.manager.beans.User;
 import directory.manager.exception.managerException;
 
+/**
+ * Master 2 ISL 2017/2018
+ * 
+ * Couche qui interargie avec la Dao et qui sert de liaison aux controllers
+ * 
+ * @author MASLIAH Yann
+ * @author TIGRARA Redouane
+ */
 @Service
 public class Manager implements IDirectoryManager {
 
@@ -31,6 +39,9 @@ public class Manager implements IDirectoryManager {
 
 	}
 
+	/**
+	 * @see directory.IDirectoryManager#newUser(directory.manager.beans.User)
+	 */
 	@Override
 	public User newUser(User user) throws managerException {
 		User returnValue = user;
@@ -40,6 +51,9 @@ public class Manager implements IDirectoryManager {
 		return returnValue;
 	}
 
+	/**
+	 * @see directory.IDirectoryManager#findPerson(directory.manager.beans.User, long)
+	 */
 	@Override
 	public Person findPerson(User user, long personId) throws DaoException {
 		Person returnValue = dao.findPerson(personId);
@@ -51,37 +65,49 @@ public class Manager implements IDirectoryManager {
 		return returnValue;
 	}
 
+	
+	/**
+	 * @see directory.IDirectoryManager#findGroup(directory.manager.beans.User, long)
+	 */
 	@Override
 	public Group findGroup(User user, long groupId) throws DaoException {
 		return dao.findGroup(groupId);
 	}
 
+	/**
+	 * @see directory.IDirectoryManager#findPerson(directory.manager.beans.User, java.lang.String, int)
+	 */
 	@Override
 	public Collection<Person> findPerson(User user, String lastName, int page) throws DaoException {
 		return dao.findPerson(lastName, page);
 	}
 
+	/**
+	 * @see directory.IDirectoryManager#findGroup(directory.manager.beans.User, java.lang.String, int)
+	 */
 	@Override
 	public Collection<Group> findGroup(User user, String name, int page) throws DaoException {
 		return dao.findGroup(name, page);
 	}
 
+	/**
+	 * @see directory.IDirectoryManager#findAll(directory.manager.beans.User, long, int)
+	 */
 	@Override
 	public Collection<Person> findAll(User user, long groupId, int page) throws DaoException {
 		return dao.findAll(groupId, page);
 	}
 
+	/**
+	 * @see directory.IDirectoryManager#findAll(directory.manager.beans.User, int)
+	 */
 	@Override
 	public Collection<Group> findAll(User user, int page) throws DaoException {
 		return dao.findAll(page);
 	}
 
 	/**
-	 * faut check la base de donnée si la perssonne existe
-	 * 
-	 * @throws DaoException
-	 * @throws managerException
-	 * @throws NoSuchAlgorithmException 
+	 * @see directory.IDirectoryManager#login(directory.manager.beans.User)
 	 */
 	@Override
 	public User login(User user) throws DaoException, managerException{
@@ -97,16 +123,18 @@ public class Manager implements IDirectoryManager {
 		return returnValue;
 	}
 
+
 	/**
-	 * faire une petite trace quand meme
-	 * 
-	 * @throws managerException
+	 * @see directory.IDirectoryManager#logout(directory.manager.beans.User)
 	 */
 	@Override
 	public void logout(User user) throws managerException {
 			user = newUser(user);
 	}
 
+	/**
+	 * @see directory.IDirectoryManager#savePerson(directory.manager.beans.User, directory.beans.Person)
+	 */
 	@Override
 	public void savePerson(User user, Person p) throws DaoException {
 		logger.info(user);
@@ -119,10 +147,20 @@ public class Manager implements IDirectoryManager {
 		}
 	}
 	
+	/**
+	 * @see directory.IDirectoryManager#findGroup(directory.manager.beans.User, java.lang.String)
+	 */
 	public Group findGroup(User user, String groupName) throws DaoException {
 		return dao.findGroup(groupName);
 	}
 	
+	
+	/**
+	 * fonction de cryptage des mot de passe
+	 * 
+	 * @param password mot de passe a encrypter
+	 * @return resultat de l'encryption
+	 */
 	private String crypt(String password)
     {
         String generatedPassword = null;
@@ -149,41 +187,4 @@ public class Manager implements IDirectoryManager {
         }
         return generatedPassword;
     }
-	
 }
-
-/*
- * Date date = null; try { date = sdf.parse("22/03/1991"); } catch
- * (ParseException e) { e.printStackTrace(); } returnValue = new Person(10,
- * "MASLIAH", "Yann", date, "toto@gmail.com", "apas", "tata", 0L);
- */
-
-/**
- * faut check la base de donnée si la perssonne existe
- */
-/*
- * @Override public User newUser(long personId, String lastName, String
- * password) throws managerException { User newUser = new
- * User(personId,password); newUser.setName(lastName);
- * if(userList.get(newUser)!=null){ throw new managerException(); }
- * userList.put(newUser, false); return newUser; }
- */
-
-/*
- * Date date = null; try { date = sdf.parse("22/03/1991"); } catch
- * (ParseException e) { e.printStackTrace(); }
- * 
- * userList.put(new User(1, "vtff"),true); HashMap<Integer,Person> persons = new
- * HashMap<>();
- * 
- * Person person = new Person(10, "MASLIAH", "Yann", date, "toto@gmail.com",
- * "apas", "tata", 0L); persons.put(1,new Person()); persons.put(2,person);
- * Group g1 = new Group(1, "isl"); toto.put(g1.getId(), g1); Group g2 = new
- * Group(2, "fsi"); toto.put(g2.getId(), g2); groups = toto.values();
- */
-
-// mumuse sans dao
-/*
- * Map<Long, Group> toto = new HashMap<>(); Collection<Group> groups;
- * SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
- */

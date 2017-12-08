@@ -9,8 +9,7 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import springapp.web.Mail;
-//import springapp.web.Group;
+import springapp.web.annotation.Mail;
 
 /**
  * Master 2 ISL 2017/2018

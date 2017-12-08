@@ -1,4 +1,4 @@
-package springapp.web;
+package springapp.web.annotation;
 
 import java.lang.annotation.Documented; 
 import java.lang.annotation.Retention; 
