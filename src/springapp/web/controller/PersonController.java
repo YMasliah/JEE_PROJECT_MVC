@@ -34,12 +34,12 @@ public class PersonController extends BaseController {
 			mv = new ModelAndView("person");
 			mv.addObject("person", person);
 			mv.addObject("group", manager.findGroup(user, person.getGroupId()).getName());
-			mv.addObject("type_erreur", "success");
-			mv.addObject("erreur", "Recherche réussite");
+			mv.addObject("type_notify", "success");
+			mv.addObject("notify", "Recherche réussite");
 		} else {
 			mv = new ModelAndView("index");
-			mv.addObject("type_erreur", "danger");
-			mv.addObject("erreur", "Aucune Personne trouvée.");
+			mv.addObject("type_notify", "danger");
+			mv.addObject("notify", "Aucune Personne trouvée.");
 		}
 		return mv;
 	}

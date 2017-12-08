@@ -1,29 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ include file="/WEB-INF/jsp/include.jsp"%>
+	pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/jsp/include.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
      "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Email with Spring MVC</title>
+<title>Modification du mot de passe</title>
 </head>
 <body>
-	<div class="form-gap" style="padding-top: 70px;"></div>
+	<c:import url="/WEB-INF/jsp/loginMenu.jsp">
+		<c:param name="page" value="1" />
+	</c:import>
+
+	<section style="float: left; width: 60%; margin: 0 1.5% 24px 1.5%;">
+	<div class="form-gap" style="padding-top: 50px;"></div>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-4 col-md-offset-4">
+			<div class="col-md-4 col-md-offset-3">
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<div class="text-center">
 							<h3>
-								<i class="fa fa-lock fa-4x"></i>
+								<span style="font-size: 3.5em;" class="glyphicon glyphicon-lock"></span>
 							</h3>
 							<h2 class="text-center">Sending e-mail with Spring MVC</h2>
 							<p>Vou pouvez réinitialisez votre mot de passe.</p>
 							<div class="panel-body">
 
-								<form id="register-form" role="form" autocomplete="off" class="form" method="post" action="token">
+								<form id="register-form" role="form" autocomplete="off"
+									class="form" method="post" action="token">
 
 									<div class="form-group">
 										<div class="input-group">
@@ -32,12 +38,16 @@
 												id="token" name="token" placeholder="Code"
 												class="form-control" type="text">
 										</div>
+									</div>
+									<div class="form-group">
 										<div class="input-group">
 											<span class="input-group-addon"><i
 												class="glyphicon glyphicon-eye-close color-blue"></i></span> <input
 												id="password1" name="password1" placeholder="Password"
 												class="form-control" type="password">
 										</div>
+									</div>
+									<div class="form-group">
 										<div class="input-group">
 											<span class="input-group-addon"><i
 												class="glyphicon glyphicon-eye-close color-blue"></i></span> <input
@@ -50,9 +60,14 @@
 											class="btn btn-lg btn-primary btn-block"
 											value="Reset Password" type="submit">
 									</div>
-
+									<div class="form-group">
+										<c:if test="${error_token == 'yes'}">
+											<div class="alert alert-danger">
+												<c:out value="${notify_token}"></c:out>
+											</div>
+										</c:if>
+									</div>
 								</form>
-
 							</div>
 						</div>
 					</div>
@@ -60,30 +75,9 @@
 			</div>
 		</div>
 	</div>
-<!--     <center> -->
-<!--         <h1>Sending e-mail with Spring MVC</h1> -->
-<%--         <c:out value="${error }"></c:out> --%>
-<!--         <form method="post" action="token"> -->
-<!--             <table border="0" width="80%"> -->
-<!--                 <tr> -->
-<!--                     <td>token:</td> -->
-<!--                     <td><input type="text" name="token" size="65" /></td> -->
-<!--                 </tr> -->
-<!--                                 <tr> -->
-<!--                     <td>password1:</td> -->
-<!--                     <td><input type="text" name="password1" size="65" /></td> -->
-<!--                 </tr> -->
-<!--                                 <tr> -->
-<!--                     <td>password2:</td> -->
-<!--                     <td><input type="text" name="password2" size="65" /></td> -->
-<!--                 </tr> -->
-<!--                  <tr> -->
-<!--                     <td colspan="2" align="center"> -->
-<!--                         <input type="submit" value="Send E-mail" /> -->
-<!--                     </td> -->
-<!--                 </tr> -->
-<!--             </table> -->
-<!--         </form> -->
-<!--     </center> -->
+	</section>
+	<c:import url="/WEB-INF/jsp/footer.jsp">
+		<c:param name="page" value="1" />
+	</c:import>
 </body>
 </html>

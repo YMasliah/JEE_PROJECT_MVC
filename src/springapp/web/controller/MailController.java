@@ -27,12 +27,12 @@ import directory.manager.beans.User;
 @Controller
 @RequestMapping("/directory/password")
 public class MailController extends BaseController {
-	
+
 	private final String subject = "JEE : Reset password token";
 	private final User mailWorker = new User();
 	// minutes before token to be deleted
 	private final int time = 5;
-	
+
 	@Autowired
 	private JavaMailSender mailSender;
 
@@ -40,29 +40,42 @@ public class MailController extends BaseController {
 	public void init() {
 		mailWorker.setName("mailWorker");
 	}
-	
-	@RequestMapping(value = "/sendMail",method = RequestMethod.GET)
+
+	@RequestMapping(value = "/sendMail", method = RequestMethod.GET)
 	public String getFormEmail(HttpServletRequest request) {
 		return "passwordLost";
 	}
 
-	@RequestMapping(value = "/sendMail",method = RequestMethod.POST)
-	public ModelAndView doSendEmail(HttpServletRequest request) throws NumberFormatException, DaoException, InterruptedException {
+	@RequestMapping(value = "/sendMail", method = RequestMethod.POST)
+	public ModelAndView doSendEmail(HttpServletRequest request)
+			throws NumberFormatException, DaoException, InterruptedException {
 		ModelAndView mv = new ModelAndView("tokenForm");
 		String mailAddress = request.getParameter("email");
 		String id = request.getParameter("id");
 		String lastName = request.getParameter("lastName");
-		
-		String databaseMail = manager.findPerson(mailWorker, Long.parseLong(id)).getEmail();
-		
-		if(databaseMail != null && databaseMail.equals(mailAddress)){
-			
-		}else{
+
+		if (!id.isEmpty() && !id.equals("")) {
+			if (!mailAddress.isEmpty() && !mailAddress.equals("")) {
+				String databaseMail = manager.findPerson(mailWorker, Long.parseLong(id)).getEmail();
+				if (databaseMail == null || !databaseMail.equals(mailAddress)) {
+					mv = new ModelAndView("passwordLost");
+					mv.addObject("error_pwd", "yes");
+					mv.addObject("notify_pwd", "ID et/ou EMAIL non valid ou bien ne correspendent pas à un utilisateur.");
+					return mv;
+				}
+			} else {
+				mv = new ModelAndView("passwordLost");
+				mv.addObject("error_pwd", "yes");
+				mv.addObject("notify_pwd", "le champ ADRESSE MAIL est obligatoir.");
+				return mv;
+			}
+		} else {
 			mv = new ModelAndView("passwordLost");
-			mv.addObject("error", "l'utilisateur ne dispose pas de mail ou le mail ne correspond pas");
+			mv.addObject("error_pwd", "yes");
+			mv.addObject("notify_pwd", "le champ ID est obligatoir.");
 			return mv;
 		}
-		
+
 		Integer temp = ThreadLocalRandom.current().nextInt(0, 999999 + 1);
 		String token = temp.toString();
 		for (int i = token.length(); i < 6; i++) {
@@ -87,30 +100,30 @@ public class MailController extends BaseController {
 		user.setId(Long.parseLong(id));
 		user.setToken(token);
 		user.setTokenTime(System.currentTimeMillis());
-		
-		//thread who delete token - dont work
-//		Runnable execution = () -> {
-//			try {
-//				Thread.sleep(60000 * time);
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			cleanToken();
-//		};
-//
-//		new Thread(execution).start();
+
+		// thread who delete token - dont work
+		// Runnable execution = () -> {
+		// try {
+		// Thread.sleep(60000 * time);
+		// } catch (InterruptedException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+		// cleanToken();
+		// };
+		//
+		// new Thread(execution).start();
 
 		// forwards to the view named "Result"
 		return mv;
 	}
-	
-	@RequestMapping(value = "/token",method = RequestMethod.GET)
+
+	@RequestMapping(value = "/token", method = RequestMethod.GET)
 	public String getFormToken(HttpServletRequest request) {
 		return "tokenForm";
 	}
-	
-	@RequestMapping(value = "/token",method = RequestMethod.POST)
+
+	@RequestMapping(value = "/token", method = RequestMethod.POST)
 	public ModelAndView doResetPassword(HttpServletRequest request) throws DaoException {
 		ModelAndView mv = new ModelAndView("index");
 		String token = request.getParameter("token");
@@ -118,35 +131,41 @@ public class MailController extends BaseController {
 		String password2 = request.getParameter("password2");
 		logger.info(user.getToken());
 		logger.info(token);
-		if(!password1.equals(password2)){
+		if(password1.isEmpty() || password2.isEmpty()){
 			mv = new ModelAndView("tokenForm");
-			mv.addObject("error", "les mots de passe sont differents");
-		}
-		else if((System.currentTimeMillis() - user.getTokenTime()) > 60000 * time){
+			mv.addObject("error_token", "yes");
+			mv.addObject("notify_token", "Les mots de passe sont obligatoires");
+		} else if (!password1.equals(password2)) {
+			mv = new ModelAndView("tokenForm");
+			mv.addObject("error_token", "yes");
+			mv.addObject("notify_token", "Les mots de passe sont differents");
+		} else if ((System.currentTimeMillis() - user.getTokenTime()) > 60000 * time) {
 			user.setToken(null);
 			user.setTokenTime(0);
 			mv = new ModelAndView("index");
-			mv.addObject("error", "token expiré");
-		}
-		else if((user.getToken() == null)){
+			mv.addObject("error_token", "yes");
+			mv.addObject("notify_token", "Code expiré");
+		} else if ((user.getToken() == null)) {
 			mv = new ModelAndView("index");
-			mv.addObject("error", "token expiré");
-		}
-		else if(!(user.getToken().equals(token))){
+			mv.addObject("error_token", "yes");
+			mv.addObject("notify_token", "Code expiré");
+		} else if (!(user.getToken().equals(token))) {
 			mv = new ModelAndView("tokenForm");
-			mv.addObject("error", "mauvais token");
+			mv.addObject("error_token", "yes");
+			mv.addObject("notify_token", "Mauvais Code");
 		} else {
 			user.setToken(null);
 			user.setTokenTime(0);
 			Person personToEdit = manager.findPerson(mailWorker, user.getId());
 			mailWorker.setPassword(password1);
 			manager.savePerson(mailWorker, personToEdit);
-			mv.addObject("error", "mot de passe modifier");
+			mv.addObject("error_token", "yes");
+			mv.addObject("notify_token", "mot de passe modifier");
 		}
 		return mv;
-	}	
-	
-	private void cleanToken(){
+	}
+
+	private void cleanToken() {
 		user.setToken(null);
 	}
 }

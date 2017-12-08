@@ -2,7 +2,7 @@
 
 <c:url var="login" value="/actions/directory/login" />
 <c:url var="logout" value="/actions/directory/logout" />
-<c:url var="groupList" value="/actions/directory/group/list" />
+<c:url var="groupList" value="/actions/directory/group/list/1" />
 <c:url var="passwordLost" value="/actions/directory/password/sendMail" />
 
 

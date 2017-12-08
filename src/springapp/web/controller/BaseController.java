@@ -148,13 +148,13 @@ public class BaseController {
 					mv.addObject("id", groupList.get(0).getId());
 				} else if (groupList.isEmpty()) {
 					mv = new ModelAndView("index");
-					mv.addObject("type_erreur", "danger");
-					mv.addObject("erreur", "Aucun Groupe trouvé.");
+					mv.addObject("type_notify", "danger");
+					mv.addObject("notify", "Aucun Groupe trouvé.");
 				} else {
 					mv = new ModelAndView("searchResultList");
 					mv.addObject("groups", groupList);
-					mv.addObject("type_erreur", "success");
-					mv.addObject("erreur", "Recherche réussite");
+					mv.addObject("type_notify", "success");
+					mv.addObject("notify", "Recherche réussite");
 				}
 			}
 		} else if (type.equals("Person")) {
@@ -168,13 +168,13 @@ public class BaseController {
 					mv.addObject("id", personList.get(0).getId());
 				} else if (personList.isEmpty()) {
 					mv = new ModelAndView("index");
-					mv.addObject("type_erreur", "danger");
-					mv.addObject("erreur", "Aucune Personne trouvée.");
+					mv.addObject("type_notify", "danger");
+					mv.addObject("notify", "Aucune Personne trouvée.");
 				} else {
 					mv = new ModelAndView("searchResultList");
 					mv.addObject("persons", personList);
-					mv.addObject("type_erreur", "success");
-					mv.addObject("erreur", "Recherche réussite");
+					mv.addObject("type_notify", "success");
+					mv.addObject("notify", "Recherche réussite");
 				}
 			}
 		}

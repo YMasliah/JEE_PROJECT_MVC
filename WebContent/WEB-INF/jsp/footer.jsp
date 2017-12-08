@@ -30,11 +30,6 @@
 
 			</form:form>
 		</div>
-		<div>
-			<div class="alert alert-<c:out value="${type_erreur}"></c:out>">
-				<c:out value="${erreur}"></c:out>
-			</div>
-		</div>
 	</c:if>
 </aside>
 
@@ -52,5 +47,5 @@
 			</div>
 		</div>
 	</div>
-	<c:out value="${error}"></c:out>
+<%-- 	<c:out value="${error}"></c:out> --%>
 </footer>

@@ -17,11 +17,18 @@
 	</c:import>
 
 	<section style="float: left; width: 60%; margin: 0 1.5% 24px 1.5%;">
-	<%= request.getParameter("key") %>
-	<%= request.getParameter("type") %>
-		<h1>
-			resultat de la recherche
-		</h1>
+
+		<div>
+			<c:if test="${type_notify == 'success'}">
+				<div class="alert alert-<c:out value="${type_notify}"></c:out>">
+					<c:out value="${notify}"></c:out>
+				</div>
+			</c:if>
+		</div>
+
+		<%=request.getParameter("key")%>
+		<%=request.getParameter("type")%>
+		<h1>resultat de la recherche</h1>
 		<table class="table table-hover">
 			<c:forEach items="${persons}" var="personList">
 				<tr>
@@ -34,7 +41,7 @@
 				</tr>
 			</c:forEach>
 		</table>
-		
+
 		<table class="table table-hover">
 			<c:forEach items="${groups}" var="groupList">
 				<tr>
@@ -47,8 +54,25 @@
 				</tr>
 			</c:forEach>
 		</table>
-		
-		<p></p>
+		<ul class="pager">
+			<c:choose>
+				<c:when test="${page >= 2}">
+					<li><a href="#">Previous</a></li>
+				</c:when>
+				<c:otherwise>
+					<li class="disabled"><a>Previous</a></li>
+				</c:otherwise>
+			</c:choose>
+			<li>Page <c:out value="${page}"></c:out></li>
+			<c:choose>
+				<c:when test="${persons.size() == 50}">
+					<li><a href="#">Next</a></li>
+				</c:when>
+				<c:otherwise>
+					<li class="disabled"><a>Next</a></li>
+				</c:otherwise>
+			</c:choose>
+		</ul>
 	</section>
 
 	<c:import url="/WEB-INF/jsp/footer.jsp">

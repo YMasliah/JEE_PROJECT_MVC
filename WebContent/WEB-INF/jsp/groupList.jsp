@@ -16,29 +16,50 @@
 
 
 	<section style="float: left; width: 60%; margin: 0 1.5% 24px 1.5%;">
-			<h2>Liste des groupes</h2>
-			<p>
-				bug de modification si un groupe a le meme id qu'un nouveau groupe.<br>
-				surement resolu lors de l'implementation de la base de donnée
-			</p>
-			<table class="table table-condensed">
-				<thead>
+		<h2>Liste des groupes</h2>
+		<p>
+			bug de modification si un groupe a le meme id qu'un nouveau groupe.<br>
+			surement resolu lors de l'implementation de la base de donnée
+		</p>
+		<table class="table table-condensed">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Groupe Name</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${groups}" var="groupList">
 					<tr>
-						<th>Id</th>
-						<th>Groupe Name</th>
-						<th></th>
+						<td><c:out value="${groupList.id}" /></td>
+						<td><c:out value="${groupList.name}" /></td>
+						<td><a href="${view}/1?id=${groupList.id}"
+							class="btn btn-info" role="button">Voir</a></td>
 					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${groups}" var="groupList">
-						<tr>
-							<td><c:out value="${groupList.id}" /></td>
-							<td><c:out value="${groupList.name}" /></td>
-							<td><a href="${view}/1?id=${groupList.id}" class="btn btn-info" role="button">Voir</a></td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
+				</c:forEach>
+			</tbody>
+		</table>
+
+		<ul class="pager">
+			<c:choose>
+				<c:when test="${page >= 2}">
+					<li><a href="#">Previous</a></li>
+				</c:when>
+				<c:otherwise>
+					<li class="disabled"><a>Previous</a></li>
+				</c:otherwise>
+			</c:choose>
+			<li>Page <c:out value="${page}"></c:out></li>
+			<c:choose>
+				<c:when test="${persons.size() == 50}">
+					<li><a href="#">Next</a></li>
+				</c:when>
+				<c:otherwise>
+					<li class="disabled"><a>Next</a></li>
+				</c:otherwise>
+			</c:choose>
+		</ul>
 	</section>
 
 	<c:import url="/WEB-INF/jsp/footer.jsp">

@@ -32,26 +32,6 @@
 					nouvel utilisateur
 				</p>
 
-				<ul class="pager">
-					<c:choose>
-						<c:when test="${page >= 2}">
-							<li><a href="${viewGroup}/${page-1}?id=${group.id}">Previous</a></li>
-						</c:when>
-						<c:otherwise>
-							<li class="disabled"><a>Previous</a></li>
-						</c:otherwise>
-					</c:choose>
-					<li>Page <c:out value="${page}"></c:out></li>
-					<c:choose>
-						<c:when test="${persons.size() == 50}">
-							<li><a href="${viewGroup}/${page+1}?id=${group.id}">Next</a></li>
-						</c:when>
-						<c:otherwise>
-							<li class="disabled"><a>Next</a></li>
-						</c:otherwise>
-					</c:choose>
-				</ul>
-
 				<table class="table table-condensed">
 					<thead>
 						<tr>
