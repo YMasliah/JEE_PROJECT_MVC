@@ -11,6 +11,8 @@ import directory.manager.exception.managerException;
 /**
  * Master 2 ISL 2017/2018
  * 
+ * Couche qui interargie avec la Dao
+ * 
  * @author MASLIAH Yann
  * @author TIGRARA Redouane
  */
