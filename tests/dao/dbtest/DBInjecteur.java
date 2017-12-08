@@ -20,9 +20,9 @@ public class DBInjecteur extends DBTestCase {
 	private static String fileName = "ressources/xml/testDataset.xml";
 	
 	private final static String driverName = "com.mysql.jdbc.Driver";
-	private final static String connexionURL = "jdbc:mysql://dbs-perso.luminy.univmed.fr/m21002022";
-	private final static String identifier = "m21002022";
-	private final static String password = "ispbm.";
+	private final static String connexionURL = "jdbc:mysql://dbs-perso.luminy.univmed.fr/t16020692";
+	private final static String identifier = "t16020692";
+	private final static String password = "Sgs-4xPr";
 	
 	/**
 	 * 
@@ -43,7 +43,7 @@ public class DBInjecteur extends DBTestCase {
 
 		connexionDataBase = DriverManager.getConnection(url, user, passwd);
 
-		connexionDataBaseDBunit = new DatabaseConnection(connexionDataBase, "m21002022");
+		connexionDataBaseDBunit = new DatabaseConnection(connexionDataBase, "t16020692");
 		connexionDataBaseDBunit.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MySqlDataTypeFactory());
 		connexionDataBaseDBunit.getConfig().setProperty(DatabaseConfig.PROPERTY_METADATA_HANDLER, new MySqlMetadataHandler());
 		connexionDataBaseDBunit.getConfig().setProperty(DatabaseConfig.FEATURE_ALLOW_EMPTY_FIELDS, true);

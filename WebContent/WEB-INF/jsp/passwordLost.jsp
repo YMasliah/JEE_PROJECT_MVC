@@ -13,7 +13,7 @@
 		<c:param name="page" value="1" />
 	</c:import>
 
-	<section style="float: left; width: 60%; margin: 0 1.5% 24px 1.5%;">
+	<section style="float: left; width: 100%; margin: 0 1.5% 24px 1.5%;">
 	<div class="form-gap" style="padding-top: 50px;"></div>
 	<div class="container">
 		<div class="row">
@@ -70,8 +70,6 @@
 		</div>
 	</div>
 	</section>
-	<c:import url="/WEB-INF/jsp/footer.jsp">
-		<c:param name="page" value="1" />
-	</c:import>
+
 </body>
 </html>

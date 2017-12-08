@@ -23,7 +23,7 @@
 				<c:when test="${user.name =='No User'}">
 					<li><form:form method="POST" commandName="user"
 							class="navbar-form navbar-right" action="${login}">
-							
+
 							<div class="input-group col-md-4">
 								<span class="input-group-addon"><i
 									class="glyphicon glyphicon-user"></i></span>
@@ -42,7 +42,7 @@
 								<button type="submit" class="btn btn-primary">Submit</button>
 							</div>
 							<a href="${passwordLost}">mot de passe perdu ?</a>
-							
+
 							<form:errors path="*" cssClass="alert alert-danger" element="div" />
 						</form:form></li>
 				</c:when>
@@ -57,3 +57,19 @@
 		</ul>
 	</div>
 </nav>
+
+<div>
+	<c:if test="${type_notify == 'danger'}">
+		<div class="alert alert-<c:out value="${type_notify}"></c:out>">
+			<c:out value="${notify}"></c:out>
+		</div>
+	</c:if>
+</div>
+<div class="form-group">
+	<c:if test="${error_pwd == 'OK'}">
+		<div class="alert alert-danger">
+			<c:out value="${notify_pwd}"></c:out>
+
+		</div>
+	</c:if>
+</div>

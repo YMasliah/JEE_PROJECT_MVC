@@ -16,6 +16,14 @@
 	</c:import>
 
 	<section style="float: left; width: 60%; margin: 0 1.5% 24px 1.5%;">
+		<div>
+			<c:if test="${type_notify == 'success'}">
+				<div class="alert alert-<c:out value="${type_notify}"></c:out>">
+					<c:out value="${notify}"></c:out>
+				</div>
+			</c:if>
+		</div>
+
 		<c:choose>
 			<c:when test="${persons.size() == 0 }">
 				<h1>OUPS ! Aucune peronne dans ce groupe.</h1>
@@ -56,7 +64,7 @@
 				<ul class="pager">
 					<c:choose>
 						<c:when test="${page >= 2}">
-							<li><a href="#">Previous</a></li>
+							<li><a href="${viewGroup}/${page-1}?id=${group.id}">Previous</a></li>
 						</c:when>
 						<c:otherwise>
 							<li class="disabled"><a>Previous</a></li>
@@ -65,7 +73,7 @@
 					<li>Page <c:out value="${page}"></c:out></li>
 					<c:choose>
 						<c:when test="${persons.size() == 50}">
-							<li><a href="#">Next</a></li>
+							<li><a href="${viewGroup}/${page+1}?id=${group.id}">Next</a></li>
 						</c:when>
 						<c:otherwise>
 							<li class="disabled"><a>Next</a></li>

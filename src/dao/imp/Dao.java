@@ -64,7 +64,7 @@ public class Dao implements IDao {
 		jdbcTemplate.update("REPLACE INTO `Group` (`Id`,`Name`) VALUES (?,?)", 1, "No group");
 		jdbcTemplate.update("REPLACE INTO `Group` (`Id`,`Name`) VALUES (?,?)", 0, "Bonjour");
 		jdbcTemplate.update("REPLACE INTO `Person` (`Id`,`LastName`,`Password`,`Email`) VALUES (?,?,?,?)", 10, "toto",
-				"1d2f4cd378a95534effdfc51acfc48a5", "y.masliah@gmail.com");
+				"1d2f4cd378a95534effdfc51acfc48a5", "redouane.tigrara@gmail.com");
 		jdbcTemplate.update("REPLACE INTO `Person` (`Id`,`LastName`,`Password`) VALUES (?,?,?)", 11, "tota",
 				"1d2f4cd378a95534effdfc51acfc48a5");
 	}

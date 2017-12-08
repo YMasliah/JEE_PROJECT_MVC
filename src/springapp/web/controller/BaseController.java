@@ -55,8 +55,8 @@ public class BaseController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String show() throws managerException, DaoException {
 		logger.info("show user " + user);
-		if(user.getName() != "No User"){}
-		else if (user.getId() == null || user.getPassword() == null) {
+		if (user.getName() != "No User") {
+		} else if (user.getId() == null || user.getPassword() == null) {
 			user = manager.newUser(user);
 		} else {
 			user = manager.login(user);
@@ -81,7 +81,7 @@ public class BaseController {
 		}
 		logger.info("pre-login user " + user);
 		user = manager.login(u);
-		if(user.getName().equals("No User")){
+		if (user.getName().equals("No User")) {
 			ObjectError error = new ObjectError("error", "Mot de passe incorrect !!");
 			result.addError(error);
 			return "index";
@@ -94,7 +94,7 @@ public class BaseController {
 	public String passwordLost() {
 		return "passwordLost";
 	}
-	
+
 	/**
 	 * <c:out value="${error }"></c:out>
 	 * 
@@ -131,9 +131,9 @@ public class BaseController {
 	 * @return
 	 * @throws DaoException
 	 */
-	@RequestMapping(value = "/search/{page}", method = {RequestMethod.POST, RequestMethod.GET} )
-	public ModelAndView search(@RequestParam(value = "key") String key, @RequestParam(value = "type") String type, @PathVariable("page") Integer page)
-			throws DaoException {
+	@RequestMapping(value = "/search/{page}", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView search(@RequestParam(value = "key") String key, @RequestParam(value = "type") String type,
+			@PathVariable("page") Integer page) throws DaoException {
 		logger.info("clé recherchée :" + key);
 		ModelAndView mv = new ModelAndView("index");
 		Long id = null;

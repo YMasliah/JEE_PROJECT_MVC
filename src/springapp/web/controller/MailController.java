@@ -131,36 +131,40 @@ public class MailController extends BaseController {
 		String password2 = request.getParameter("password2");
 		logger.info(user.getToken());
 		logger.info(token);
-		if(password1.isEmpty() || password2.isEmpty()){
+		if(token.isEmpty()){
 			mv = new ModelAndView("tokenForm");
 			mv.addObject("error_token", "yes");
-			mv.addObject("notify_token", "Les mots de passe sont obligatoires");
+			mv.addObject("notify_token", "Veuillez vérifier votre boite mail. Un code de récupération vous a été envoyer.");
+		} else if(password1.isEmpty() || password2.isEmpty()){
+			mv = new ModelAndView("tokenForm");
+			mv.addObject("error_token", "yes");
+			mv.addObject("notify_token", "Les mots de passe sont obligatoires.");
 		} else if (!password1.equals(password2)) {
 			mv = new ModelAndView("tokenForm");
 			mv.addObject("error_token", "yes");
-			mv.addObject("notify_token", "Les mots de passe sont differents");
+			mv.addObject("notify_token", "Les mots de passe sont differents.");
 		} else if ((System.currentTimeMillis() - user.getTokenTime()) > 60000 * time) {
 			user.setToken(null);
 			user.setTokenTime(0);
 			mv = new ModelAndView("index");
-			mv.addObject("error_token", "yes");
-			mv.addObject("notify_token", "Code expiré");
+			mv.addObject("error_token", "OK");
+			mv.addObject("notify_token", "Code expiré.");
 		} else if ((user.getToken() == null)) {
 			mv = new ModelAndView("index");
-			mv.addObject("error_token", "yes");
-			mv.addObject("notify_token", "Code expiré");
+			mv.addObject("error_token", "OK");
+			mv.addObject("notify_token", "Code expiré.");
 		} else if (!(user.getToken().equals(token))) {
 			mv = new ModelAndView("tokenForm");
 			mv.addObject("error_token", "yes");
-			mv.addObject("notify_token", "Mauvais Code");
+			mv.addObject("notify_token", "Mauvais Code.");
 		} else {
 			user.setToken(null);
 			user.setTokenTime(0);
 			Person personToEdit = manager.findPerson(mailWorker, user.getId());
 			mailWorker.setPassword(password1);
 			manager.savePerson(mailWorker, personToEdit);
-			mv.addObject("error_token", "yes");
-			mv.addObject("notify_token", "mot de passe modifier");
+			mv.addObject("error_token", "OK");
+			mv.addObject("notify_token", "BRAVO, votre mot de passe ma été modifier avec succes");
 		}
 		return mv;
 	}

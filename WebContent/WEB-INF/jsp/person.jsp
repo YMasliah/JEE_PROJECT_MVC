@@ -15,6 +15,15 @@
 	</c:import>
 
 	<section style="float: left; width: 60%; margin: 0 1.5% 24px 1.5%;">
+
+		<div>
+			<c:if test="${type_notify == 'success'}">
+				<div class="alert alert-<c:out value="${type_notify}"></c:out>">
+					<c:out value="${notify}"></c:out>
+				</div>
+			</c:if>
+		</div>
+		
 		<h2>
 			Informations :
 			<c:out value="${person.lastName}"></c:out>

@@ -44,7 +44,7 @@
 		<ul class="pager">
 			<c:choose>
 				<c:when test="${page >= 2}">
-					<li><a href="#">Previous</a></li>
+					<li><a href="${page-1}">Previous</a></li>
 				</c:when>
 				<c:otherwise>
 					<li class="disabled"><a>Previous</a></li>
@@ -52,8 +52,8 @@
 			</c:choose>
 			<li>Page <c:out value="${page}"></c:out></li>
 			<c:choose>
-				<c:when test="${persons.size() == 50}">
-					<li><a href="#">Next</a></li>
+				<c:when test="${groups.size() == 50}">
+					<li><a href="${page+1}">Next</a></li>
 				</c:when>
 				<c:otherwise>
 					<li class="disabled"><a>Next</a></li>

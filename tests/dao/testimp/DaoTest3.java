@@ -49,19 +49,19 @@ public class DaoTest3 {
 	@BeforeClass
 	public static void setUpClass() throws Exception {
 		DBExtracteur.launchExtraction("tests/ressources/xml/currentDataset.xml");
-		DBExtracteur.launchExtraction("tests/ressources/xml/testDataset.xml");
+		DBExtracteur.launchExtraction("tests/ressources/xml/testData.xml");
 	}
 
 	@AfterClass
 	public static void tearDownClass() throws Exception {
-		DBInjecteur.launchInjection("tests/ressources/xml/bigDataset.xml");
+		DBInjecteur.launchInjection("tests/ressources/xml/bigData.xml");
 		System.out.println("injecter");
 	}
 
 	@Before
 	public void setUp() throws Exception {
 		System.out.println("debut du test");
-		DBInjecteur.launchInjection("tests/ressources/xml/bigDataset.xml");
+		DBInjecteur.launchInjection("tests/ressources/xml/bigData.xml");
 	}
 
 	@After

@@ -1,4 +1,9 @@
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 
 <c:url var="search" value="/actions/directory/search/1" />
 
@@ -10,9 +15,10 @@
 				<form:errors path="*" cssClass="alert alert-danger" element="div" />
 
 				<div class="form-group">
-					<select class="custom-select" id="type" name="type">
+					<select class="selectpicker" id="type" name="type"
+						data-width="100%">
 						<c:forEach items="${dataTypes}" var="dataType">
-							<option value="${dataType.key}" size="20">
+							<option value="${dataType.key}">
 								<c:out value="${dataType.value}"></c:out>
 							</option>
 						</c:forEach>
@@ -33,7 +39,6 @@
 	</c:if>
 </aside>
 
-
 <footer style="clear: both; margin-bottom: 0; margin: 0 1.5% 24px 1.5%;">
 	<div class="row">
 		<hr>
@@ -47,5 +52,4 @@
 			</div>
 		</div>
 	</div>
-<%-- 	<c:out value="${error}"></c:out> --%>
 </footer>
