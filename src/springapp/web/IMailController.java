@@ -6,6 +6,17 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dao.exception.DaoException;
 
+/**
+ * Master 2 ISL 2017/2018
+ * 
+ * Couche qui interargie avec l'utilisateur
+ * 
+ * Controlleur spring qui fournis toute les fonctionnalitée disponibles qui
+ * concernent l'object la recuperation de mot de passe
+ * 
+ * @author MASLIAH Yann
+ * @author TIGRARA Redouane
+ */
 public interface IMailController {
 
 	/**

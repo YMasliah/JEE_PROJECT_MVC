@@ -35,7 +35,7 @@ public class MailController extends BaseController implements IMailController {
 
 	private final String subject = "JEE : Reset password token";
 	private final User mailWorker = new User();
-	
+
 	// minutes before token to be deleted
 	private final int time = 5;
 
@@ -77,7 +77,8 @@ public class MailController extends BaseController implements IMailController {
 				if (databaseMail == null || !databaseMail.equals(mailAddress)) {
 					mv = new ModelAndView("passwordLost");
 					mv.addObject("error_pwd", "yes");
-					mv.addObject("notify_pwd", "ID et/ou EMAIL non valid ou bien ne correspendent pas à un utilisateur.");
+					mv.addObject("notify_pwd",
+							"ID et/ou EMAIL non valid ou bien ne correspendent pas à un utilisateur.");
 					return mv;
 				}
 			} else {
@@ -141,7 +142,7 @@ public class MailController extends BaseController implements IMailController {
 		String password2 = request.getParameter("password2");
 		logger.info(user.getToken());
 		logger.info(token);
-		if(password1.isEmpty() || password2.isEmpty()){
+		if (password1.isEmpty() || password2.isEmpty()) {
 			mv = new ModelAndView("tokenForm");
 			mv.addObject("error_token", "yes");
 			mv.addObject("notify_token", "Les mots de passe sont obligatoires");

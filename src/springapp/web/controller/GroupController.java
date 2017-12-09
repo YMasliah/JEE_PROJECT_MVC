@@ -25,7 +25,7 @@ import springapp.web.IGroupController;
 @Controller()
 @RequestMapping("/directory/group")
 public class GroupController extends BaseController implements IGroupController {
-	
+
 	/**
 	 * @see springapp.web.controller.IGroupController#groupListRequestPage(java.lang.Integer)
 	 */
@@ -38,7 +38,8 @@ public class GroupController extends BaseController implements IGroupController 
 	}
 
 	/**
-	 * @see springapp.web.controller.IGroupController#groupViewRequestPage(java.lang.Long, java.lang.Integer)
+	 * @see springapp.web.controller.IGroupController#groupViewRequestPage(java.lang.Long,
+	 *      java.lang.Integer)
 	 */
 	@Override
 	@RequestMapping(value = "/view/{page}", method = RequestMethod.GET)

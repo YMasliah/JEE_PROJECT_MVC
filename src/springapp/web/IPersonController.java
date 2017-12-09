@@ -6,6 +6,17 @@ import org.springframework.web.servlet.ModelAndView;
 import dao.exception.DaoException;
 import directory.beans.Person;
 
+/**
+ * Master 2 ISL 2017/2018
+ * 
+ * Couche qui interargie avec l'utilisateur
+ * 
+ * Controlleur spring qui fournis toute les fonctionnalitée disponibles qui
+ * concernent l'object Person
+ * 
+ * @author MASLIAH Yann
+ * @author TIGRARA Redouane
+ */
 public interface IPersonController {
 
 	/**

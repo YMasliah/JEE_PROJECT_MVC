@@ -4,34 +4,33 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-
 /**
  * Master 2 ISL 2017/2018
  * 
- * Java Bean de la table group de la base de donnée
+ * Java Bean de la table group de la base de donnee
  * 
  * @author MASLIAH Yann
  * @author TIGRARA Redouane
  */
 public class Group {
 
-    @NotNull(message = "Un identifiant est obligatoire")
-    @Min(value = 1, message = "Le prix est trop bas")
+	@NotNull(message = "Un identifiant est obligatoire")
+	@Min(value = 1, message = "Le prix est trop bas")
 	private Long id;
-    
-    @NotNull(message = "Un nom est obligatoire")
-    @Size(min = 1, max = 100, message = "Entre 1 et 200 caract�res")
+
+	@NotNull(message = "Un nom est obligatoire")
+	@Size(min = 1, max = 100, message = "Entre 1 et 200 caract�res")
 	private String name;
-	
+
 	public Group() {
-		
+
 	}
-	
+
 	public Group(long id, String name) {
 		this.id = id;
 		this.name = name;
 	}
-	
+
 	public void init() {
 		id = -1L;
 		name = "";
@@ -88,5 +87,5 @@ public class Group {
 			return false;
 		return true;
 	}
-    
+
 }

@@ -10,6 +10,17 @@ import dao.exception.DaoException;
 import directory.manager.beans.User;
 import directory.manager.exception.managerException;
 
+/**
+ * Master 2 ISL 2017/2018
+ * 
+ * Couche qui interargie avec l'utilisateur
+ * 
+ * Controlleur spring qui fournis toute les fonctionnalitée disponibles dans
+ * toute les pages.
+ * 
+ * @author MASLIAH Yann
+ * @author TIGRARA Redouane
+ */
 public interface IBaseController {
 
 	/**
