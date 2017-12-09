@@ -13,11 +13,14 @@
 
 	<mvc:annotation-driven enable-matrix-variables="true" />
 
+	<!-- dossier a scanner la ou il y as les classes controller et les classes 
+		autowired -->
 	<context:component-scan base-package="dao" />
 	<context:component-scan base-package="springapp.web" />
 	<context:component-scan base-package="directory.manager.imp" />
 	<context:component-scan base-package="directory.manager.beans" />
 
+	<!-- où se trouvent les fichier jsp dans ton projet -->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass"
@@ -25,7 +28,8 @@
 		<property name="prefix" value="/WEB-INF/jsp/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
-	
+
+	<!-- les infos de ta base de donnée -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />

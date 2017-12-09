@@ -19,11 +19,15 @@ import directory.manager.beans.User;
 import springapp.web.IMailController;
 
 /**
+ * Master 2 ISL 2017/2018
  * 
- * @author m21002022
- *
- *         comment c ignoble le code de cette methode a coder
- *
+ * Couche qui interargie avec l'utilisateur
+ * 
+ * Controlleur spring qui fournis toute les fonctionnalitée disponibles qui
+ * concernent l'object la recuperation de mot de passe
+ * 
+ * @author MASLIAH Yann
+ * @author TIGRARA Redouane
  */
 @Controller
 @RequestMapping("/directory/password")
@@ -31,13 +35,14 @@ public class MailController extends BaseController implements IMailController {
 
 	private final String subject = "JEE : Reset password token";
 	private final User mailWorker = new User();
+	
 	// minutes before token to be deleted
 	private final int time = 5;
 
 	@Autowired
 	private JavaMailSender mailSender;
 
-	/* (non-Javadoc)
+	/**
 	 * @see springapp.web.controller.IMailController#init()
 	 */
 	@Override
@@ -46,16 +51,16 @@ public class MailController extends BaseController implements IMailController {
 		mailWorker.setName("mailWorker");
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see springapp.web.controller.IMailController#getFormEmail(javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
 	@RequestMapping(value = "/sendMail", method = RequestMethod.GET)
-	public String getFormEmail(HttpServletRequest request) {
+	public String getFormEmail() {
 		return "passwordLost";
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see springapp.web.controller.IMailController#doSendEmail(javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
@@ -65,7 +70,6 @@ public class MailController extends BaseController implements IMailController {
 		ModelAndView mv = new ModelAndView("tokenForm");
 		String mailAddress = request.getParameter("email");
 		String id = request.getParameter("id");
-		String lastName = request.getParameter("lastName");
 
 		if (!id.isEmpty() && !id.equals("")) {
 			if (!mailAddress.isEmpty() && !mailAddress.equals("")) {
@@ -113,25 +117,10 @@ public class MailController extends BaseController implements IMailController {
 		user.setId(Long.parseLong(id));
 		user.setToken(token);
 		user.setTokenTime(System.currentTimeMillis());
-
-		// thread who delete token - dont work
-		// Runnable execution = () -> {
-		// try {
-		// Thread.sleep(60000 * time);
-		// } catch (InterruptedException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		// cleanToken();
-		// };
-		//
-		// new Thread(execution).start();
-
-		// forwards to the view named "Result"
 		return mv;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see springapp.web.controller.IMailController#getFormToken(javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
@@ -140,7 +129,7 @@ public class MailController extends BaseController implements IMailController {
 		return "tokenForm";
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see springapp.web.controller.IMailController#doResetPassword(javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
@@ -184,9 +173,5 @@ public class MailController extends BaseController implements IMailController {
 			mv.addObject("notify_token", "mot de passe modifier");
 		}
 		return mv;
-	}
-
-	private void cleanToken() {
-		user.setToken(null);
 	}
 }

@@ -75,19 +75,19 @@ public class BaseControllerTest {
 	/**
 	 * test le renvoi de valeur de la methode
 	 * 
-	 * Test method for {@link springapp.web.controller.BaseController#newUser()}.
+	 * Test method for {@link springapp.web.controller.BaseController#getUser()}.
 	 */
 	@Test
 	public void testNewUser() {
 		User expected = baseController.user;
-		User actual = baseController.newUser();
+		User actual = baseController.getUser();
 		Assert.assertEquals(expected, actual);
 	}
 
 	/**
 	 * renvoi la page d'index si la personne est un utilisateur deja connecter.
 	 * 
-	 * Test method for {@link springapp.web.controller.BaseController#show()}.
+	 * Test method for {@link springapp.web.controller.BaseController#getShow()}.
 	 * @throws DaoException 
 	 * @throws managerException 
 	 */
@@ -96,14 +96,14 @@ public class BaseControllerTest {
 		String expected = "index";
 		String actual ;
 		baseController.user.setName("toto");
-		actual = baseController.show();
+		actual = baseController.getShow();
 		Assert.assertEquals(expected, actual);
 	}
 
 	/**
 	 * renvoi la page d'index si la personne a rentrer un identifiant vide ou incorrect.
 	 * 
-	 * Test method for {@link springapp.web.controller.BaseController#show()}.
+	 * Test method for {@link springapp.web.controller.BaseController#getShow()}.
 	 * @throws DaoException 
 	 * @throws managerException 
 	 */
@@ -112,14 +112,14 @@ public class BaseControllerTest {
 		String expected = "index";
 		String actual ;
 		baseController.user.setId(null);
-		actual = baseController.show();
+		actual = baseController.getShow();
 		Assert.assertEquals(expected, actual);
 	}
 	
 	/**
 	 * renvoi la page d'index si la personne a rentrer un mot de passe vide ou incorrecte.
 	 * 
-	 * Test method for {@link springapp.web.controller.BaseController#show()}.
+	 * Test method for {@link springapp.web.controller.BaseController#getShow()}.
 	 * @throws DaoException 
 	 * @throws managerException 
 	 */
@@ -128,14 +128,14 @@ public class BaseControllerTest {
 		String expected = "index";
 		String actual ;
 		baseController.user.setPassword(null);
-		actual = baseController.show();
+		actual = baseController.getShow();
 		Assert.assertEquals(expected, actual);
 	}
 	
 	/**
 	 * authentifie l'user si les informations sont correcte
 	 * 
-	 * Test method for {@link springapp.web.controller.BaseController#show()}.
+	 * Test method for {@link springapp.web.controller.BaseController#getShow()}.
 	 * @throws DaoException 
 	 * @throws managerException 
 	 */
@@ -146,14 +146,14 @@ public class BaseControllerTest {
 		expected2.setName("toto");
 		baseController.user.setId(10L);
 		baseController.user.setPassword("vasavoirbis");
-		Assert.assertEquals(expected, baseController.show());
+		Assert.assertEquals(expected, baseController.getShow());
 		Assert.assertEquals(expected2.toString(), baseController.user.toString());
 	}
 	
 	/**
 	 * login reussi
 	 * 
-	 * Test method for {@link springapp.web.controller.BaseController#login(directory.manager.beans.User, org.springframework.validation.BindingResult)}.
+	 * Test method for {@link springapp.web.controller.BaseController#postLogin(directory.manager.beans.User, org.springframework.validation.BindingResult)}.
 	 * @throws managerException 
 	 * @throws DaoException 
 	 */
@@ -163,14 +163,14 @@ public class BaseControllerTest {
 		User expected2 = new User(10,"vasavoirbis");
 		baseController.user.setId(10L);
 		baseController.user.setPassword("vasavoirbis");
-		Assert.assertEquals(expected, baseController.login(expected2, new BindException(expected2, "user")));
+		Assert.assertEquals(expected, baseController.postLogin(expected2, new BindException(expected2, "user")));
 		Assert.assertEquals(expected2.toString(), baseController.user.toString());
 	}
 
 	/**
 	 * mot de passe incorrect
 	 * 
-	 * Test method for {@link springapp.web.controller.BaseController#login(directory.manager.beans.User, org.springframework.validation.BindingResult)}.
+	 * Test method for {@link springapp.web.controller.BaseController#postLogin(directory.manager.beans.User, org.springframework.validation.BindingResult)}.
 	 * @throws managerException 
 	 * @throws DaoException 
 	 */
@@ -181,13 +181,13 @@ public class BaseControllerTest {
 		expected2.setName("No User");
 		baseController.user.setId(10L);
 		baseController.user.setPassword("aze");
-		Assert.assertEquals(expected, baseController.login(expected2, new BindException(expected2, "user")));
+		Assert.assertEquals(expected, baseController.postLogin(expected2, new BindException(expected2, "user")));
 	}
 	
 	/**
 	 * identifiant incorrect
 	 * 
-	 * Test method for {@link springapp.web.controller.BaseController#login(directory.manager.beans.User, org.springframework.validation.BindingResult)}.
+	 * Test method for {@link springapp.web.controller.BaseController#postLogin(directory.manager.beans.User, org.springframework.validation.BindingResult)}.
 	 * @throws managerException 
 	 * @throws DaoException 
 	 */
@@ -198,13 +198,13 @@ public class BaseControllerTest {
 		expected2.setName("No User");
 		baseController.user.setId(1L);
 		baseController.user.setPassword("vasavoirbis");
-		Assert.assertEquals(expected, baseController.login(expected2, new BindException(expected2, "user")));
+		Assert.assertEquals(expected, baseController.postLogin(expected2, new BindException(expected2, "user")));
 	}
 	
 	/**
 	 * identifiant vide
 	 * 
-	 * Test method for {@link springapp.web.controller.BaseController#login(directory.manager.beans.User, org.springframework.validation.BindingResult)}.
+	 * Test method for {@link springapp.web.controller.BaseController#postLogin(directory.manager.beans.User, org.springframework.validation.BindingResult)}.
 	 * @throws managerException 
 	 * @throws DaoException 
 	 */
@@ -213,13 +213,13 @@ public class BaseControllerTest {
 		String expected = "index";
 		baseController.user.setId(null);
 		baseController.user.setPassword("vasavoirbis");
-		Assert.assertEquals(expected, baseController.login(baseController.user, new BindException(baseController.user, "user")));
+		Assert.assertEquals(expected, baseController.postLogin(baseController.user, new BindException(baseController.user, "user")));
 	}
 	
 	/**
 	 * identifiant vide
 	 * 
-	 * Test method for {@link springapp.web.controller.BaseController#login(directory.manager.beans.User, org.springframework.validation.BindingResult)}.
+	 * Test method for {@link springapp.web.controller.BaseController#postLogin(directory.manager.beans.User, org.springframework.validation.BindingResult)}.
 	 * @throws managerException 
 	 * @throws DaoException 
 	 */
@@ -228,7 +228,7 @@ public class BaseControllerTest {
 		String expected = "index";
 		baseController.user.setId(10L);
 		baseController.user.setPassword(null);
-		Assert.assertEquals(expected, baseController.login(baseController.user, new BindException(baseController.user, "user")));
+		Assert.assertEquals(expected, baseController.postLogin(baseController.user, new BindException(baseController.user, "user")));
 	}
 	
 	/**
@@ -237,11 +237,11 @@ public class BaseControllerTest {
 	@Test
 	public void testPasswordLost() {
 		String expected = "passwordLost";
-		Assert.assertEquals(expected, baseController.passwordLost());
+		Assert.assertEquals(expected, baseController.getPasswordLost());
 	}
 
 	/**
-	 * Test method for {@link springapp.web.controller.BaseController#logout(org.springframework.web.servlet.mvc.support.RedirectAttributes)}.
+	 * Test method for {@link springapp.web.controller.BaseController#getLogout(org.springframework.web.servlet.mvc.support.RedirectAttributes)}.
 	 * @throws managerException 
 	 */
 	@Test
