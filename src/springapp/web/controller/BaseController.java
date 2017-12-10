@@ -59,7 +59,10 @@ public class BaseController implements IBaseController {
 	@Override
 	@ModelAttribute("user")
 	public User getUser() {
-		return user;
+		User temp = new User();
+		temp.setId(user.getId());
+		temp.setName(user.getName());
+		return temp;
 	}
 
 	@InitBinder
