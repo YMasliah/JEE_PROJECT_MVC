@@ -144,14 +144,7 @@ public class BaseController implements IBaseController {
 		return types;
 	}
 
-	/**
-	 * @see springapp.web.controller.IBaseController#search(java.lang.String,
-	 *      java.lang.String, java.lang.Integer)
-	 */
-
-	@RequestMapping(value = "/search/{page}", method = { RequestMethod.POST, RequestMethod.GET })
-	public ModelAndView search(@RequestParam(value = "key") String key, @RequestParam(value = "type") String type,
-			@PathVariable("page") Integer page, RedirectAttributes redirectAttributes) throws DaoException {
+	public ModelAndView search(String key, String type, Integer page, RedirectAttributes redirectAttributes) throws DaoException {
 		logger.info("clé recherchée :" + key);
 		ModelAndView mv = new ModelAndView("index");
 		Long id = null;
@@ -203,57 +196,25 @@ public class BaseController implements IBaseController {
 		return mv;
 	}
 	
+	/**
+	 * @see springapp.web.controller.IBaseController#search(java.lang.String,
+	 *      java.lang.String, java.lang.Integer)
+	 */
+	@RequestMapping(value = "/search/{page}", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView search1(@RequestParam(value = "key") String key, @RequestParam(value = "type") String type,
+			@PathVariable("page") Integer page, RedirectAttributes redirectAttributes) throws DaoException {
+		return search(key, type, page, redirectAttributes);
+	}
+	
 	@RequestMapping(value = "/search/{page}/{key}/{type}", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView search2(@PathVariable("key") String key, @PathVariable("type") String type,
 			@PathVariable("page") Integer page, RedirectAttributes redirectAttributes) throws DaoException {
-		logger.info("clé recherchée :" + key);
-		ModelAndView mv = new ModelAndView("index");
-		Long id = null;
-		if (type.equals("Group")) {
-			mv = new ModelAndView("redirect:/actions/directory/group/view/1");
-			try {
-				id = Long.parseLong(key);
-				mv.addObject("id", id);
-			} catch (NumberFormatException e) {
-				List<Group> groupList = (List<Group>) manager.findGroup(user, key, page);
-				if (groupList.size() == 1) {
-					mv.addObject("id", groupList.get(0).getId());
-				} else if (groupList.isEmpty()) {
-					mv = new ModelAndView("index");
-					mv.addObject("type_notify", "danger");
-					mv.addObject("notify", "Aucun Groupe trouvé.");
-				} else {
-					mv = new ModelAndView("searchResultList");
-					mv.addObject("groups", groupList);
-					mv.addObject("key", key);
-					mv.addObject("type", type);
-					mv.addObject("type_notify", "success");
-					mv.addObject("notify", "Recherche réussite");
-				}
-			}
-		} else if (type.equals("Person")) {
-			try {
-				mv = new ModelAndView("redirect:/actions/directory/person/view");
-				id = Long.parseLong(key);
-				mv.addObject("id", id);
-			} catch (NumberFormatException e) {
-				List<Person> personList = (List<Person>) manager.findPerson(user, key, page);
-				if (personList.size() == 1) {
-					mv.addObject("id", personList.get(0).getId());
-				} else if (personList.isEmpty()) {
-					mv = new ModelAndView("index");
-					mv.addObject("type_notify", "danger");
-					mv.addObject("notify", "Aucune Personne trouvée.");
-				} else {
-					mv = new ModelAndView("searchResultList");
-					mv.addObject("persons", personList);
-					mv.addObject("key", key);
-					mv.addObject("type", type);
-					mv.addObject("type_notify", "success");
-					mv.addObject("notify", "Recherche réussite");
-				}
-			}
-		}
-		return mv;
+		return search(key, type, page, redirectAttributes);
+	}
+	
+	@RequestMapping(value = "/search/{page}/{type}", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView search3(@PathVariable("type") String type,
+			@PathVariable("page") Integer page, RedirectAttributes redirectAttributes) throws DaoException {
+		return search("", type, page, redirectAttributes);
 	}
 }

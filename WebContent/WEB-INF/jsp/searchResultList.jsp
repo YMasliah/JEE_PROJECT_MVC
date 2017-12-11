@@ -63,7 +63,7 @@ ${flashAttr}
 		</table>
 
 		<ul class="pager">
-			<li><a href="${search}/${page}/${key}/${type}">Previous</a></li>
+			<li><a href="${search}/${page}/``/${type}">Previous</a></li>
 		</ul>
 	</section>
 
