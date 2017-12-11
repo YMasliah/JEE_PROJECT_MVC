@@ -26,15 +26,20 @@
 
 		<c:choose>
 			<c:when test="${persons.size() == 0 }">
-				<h1>OUPS ! Aucune peronne dans ce groupe.</h1>
+				<h1>
+					Groupe :
+					<c:out value="${group.name}"></c:out>
+				</h1>
+
+				<h1>OUPS ! Aucune peronne dans cette page.</h1>
 			</c:when>
 			<c:otherwise>
 				<h1>
-					Groupe : <c:out value="${group.name}"></c:out></h1>
-				
-				<p>
-					Voici la liste des personnes du groupe.
-				</p>
+					Groupe :
+					<c:out value="${group.name}"></c:out>
+				</h1>
+
+				<p>Voici la liste des personnes du groupe.</p>
 
 				<table class="table table-condensed">
 					<thead>
@@ -66,7 +71,8 @@
 							<li class="disabled"><a>Précédent</a></li>
 						</c:otherwise>
 					</c:choose>
-					&emsp;&emsp;<li>Page<c:out value="${page}"></c:out></li>&emsp;&emsp;
+					&emsp;&emsp;
+					<li>Page<c:out value="${page}"></c:out></li>&emsp;&emsp;
 					<c:choose>
 						<c:when test="${persons.size() == 50}">
 							<li><a href="${viewGroup}/${page+1}?id=${group.id}">Suivant</a></li>

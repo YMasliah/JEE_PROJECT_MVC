@@ -160,6 +160,7 @@ public class BaseController implements IBaseController {
 				List<Group> groupList = (List<Group>) manager.findGroup(user, key, page);
 				if (groupList.size() == 1) {
 					mv.addObject("id", groupList.get(0).getId());
+					redirectAttributes.addFlashAttribute("type_notify", "success");
 				} else if (groupList.isEmpty()) {
 					mv = new ModelAndView("index");
 					mv.addObject("type_notify", "danger");
@@ -183,6 +184,7 @@ public class BaseController implements IBaseController {
 				List<Person> personList = (List<Person>) manager.findPerson(user, key, page);
 				if (personList.size() == 1) {
 					mv.addObject("id", personList.get(0).getId());
+					redirectAttributes.addFlashAttribute("type_notify", "success");
 				} else if (personList.isEmpty()) {
 					mv = new ModelAndView("index");
 					mv.addObject("type_notify", "danger");
