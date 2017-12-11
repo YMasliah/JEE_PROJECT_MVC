@@ -17,7 +17,7 @@
 	</c:import>
 
 	<section style="float: left; width: 60%; margin: 0 1.5% 24px 1.5%;">
-${flashAttr}
+		${flashAttr}
 
 		<div>
 			<c:if test="${type_notify == 'success'}">
@@ -27,8 +27,15 @@ ${flashAttr}
 			</c:if>
 		</div>
 
-		<%-- 		<%=request.getParameter("key")%> --%>
-		<%-- 		<%=request.getParameter("type")%> --%>
+		<%-- 				<%=request.getParameter("key")%> --%>
+		<%-- 				<%=request.getParameter("type")%> --%>
+		key =
+		<c:out value="${key}"></c:out>
+		type =
+		<c:out value="${type}"></c:out>
+		page =
+		<c:out value="${page}"></c:out>
+
 
 		<h1>resultat de la recherche</h1>
 
@@ -41,15 +48,15 @@ ${flashAttr}
 				</tr>
 			</thead>
 			<tbody>
-<%-- 				<c:forEach items="${persons}" var="persona"> --%>
-<!-- 					<tr> -->
-<%-- 						<td><c:out value="${persona.id}" /></td> --%>
-<%-- 						<td><c:out value="${persona.lastName}" /></td> --%>
-<%-- 						<td><a href="${viewPerson}?id=${persona.id}" --%>
-<!-- 							class="btn btn-info" role="button">Voir</a></td> -->
-<!-- 					</tr> -->
+				<c:forEach items="${persons}" var="persona">
+					<tr>
+						<td><c:out value="${persona.id}" /></td>
+						<td><c:out value="${persona.lastName}" /></td>
+						<td><a href="${viewPerson}?id=${persona.id}"
+							class="btn btn-info" role="button">Voir</a></td>
+					</tr>
 
-<%-- 				</c:forEach> --%>
+				</c:forEach>
 				<c:forEach items="${groups}" var="groupList">
 					<tr>
 						<td><c:out value="${groupList.id}" /></td>
@@ -71,14 +78,26 @@ ${flashAttr}
 				</c:otherwise>
 			</c:choose>
 			<li>Page <c:out value="${page}"></c:out></li>
-			<c:choose>
-				<c:when test="${groups.size() == 50}">
-					<li><a href="/actions/directory/group/list/${page+1}">Next</a></li>
-				</c:when>
-				<c:otherwise>
-					<li class="disabled"><a>Next</a></li>
-				</c:otherwise>
-			</c:choose>
+			<%-- 			<c:choose> --%>
+			<%-- 				<c:when test="${groups.size() == 50}"> --%>
+			<%-- 					<li><a href="/actions/directory/search/${page+1}">Next</a></li> --%>
+			<%-- 				</c:when> --%>
+			<%-- 				<c:otherwise> --%>
+			<!-- 					<li class="disabled"><a>Next</a></li> -->
+			<%-- 				</c:otherwise> --%>
+			<%-- 			</c:choose> --%>
+			<form:form method="POST" action="${page+1}">
+				<div class="form-group">
+				<input id="key" name="key" type="hidden" value="${key}">
+				</div>
+				<div class="form-group">
+					<input id="type" name="type" type="hidden" value="group">
+				</div>
+				<div class="form-group">
+					<input type="submit" value="suivant"
+						class="form-control btn btn-info" />
+				</div>
+			</form:form>
 		</ul>
 	</section>
 

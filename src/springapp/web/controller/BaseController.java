@@ -150,7 +150,7 @@ public class BaseController implements IBaseController {
 	 */
 
 	@RequestMapping(value = "/search/{page}", method = { RequestMethod.POST, RequestMethod.GET })
-	public ModelAndView search(@RequestParam(value = "key") String key, @RequestParam(value = "type") String type,
+	public ModelAndView search(@RequestParam(value = "key", required = true) String key, @RequestParam(value = "type", required = true) String type,
 			@PathVariable("page") Integer page, RedirectAttributes redirectAttributes) throws DaoException {
 		logger.info("clé recherchée :" + key);
 		ModelAndView mv = new ModelAndView("index");
