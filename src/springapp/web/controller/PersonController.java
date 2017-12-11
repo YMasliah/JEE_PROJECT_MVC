@@ -44,12 +44,8 @@ public class PersonController extends BaseController implements IPersonControlle
 			mv = new ModelAndView("person");
 			mv.addObject("person", person);
 			mv.addObject("group", manager.findGroup(user, person.getGroupId()).getName());
-			mv.addObject("type_notify", "success");
-			mv.addObject("notify", "Recherche réussit");
 		} else {
 			mv = new ModelAndView("index");
-			mv.addObject("type_notify", "danger");
-			mv.addObject("notify", "Aucune Personne trouvée.");
 		}
 		return mv;
 	}

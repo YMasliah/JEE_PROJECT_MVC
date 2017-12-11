@@ -2,7 +2,7 @@
 <dataset>
   <BB_COUNTER/>
   <Group Id="1" Name="No group"/>
-  <Group Id="103" Name="Bonjour"/>
+  <Group Id="122" Name="Bonjour"/>
   <MSG TEXTE="Hello"/>
   <MSG TEXTE="Salut"/>
   <MSG TEXTE="Hello"/>

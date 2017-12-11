@@ -155,6 +155,7 @@ public class BaseController implements IBaseController {
 			try {
 				id = Long.parseLong(key);
 				mv.addObject("id", id);
+				redirectAttributes.addFlashAttribute("type_notify", "success");
 			} catch (NumberFormatException e) {
 				List<Group> groupList = (List<Group>) manager.findGroup(user, key, page);
 				if (groupList.size() == 1) {
@@ -177,6 +178,7 @@ public class BaseController implements IBaseController {
 				mv = new ModelAndView("redirect:/actions/directory/person/view");
 				id = Long.parseLong(key);
 				mv.addObject("id", id);
+				redirectAttributes.addFlashAttribute("type_notify", "success");
 			} catch (NumberFormatException e) {
 				List<Person> personList = (List<Person>) manager.findPerson(user, key, page);
 				if (personList.size() == 1) {

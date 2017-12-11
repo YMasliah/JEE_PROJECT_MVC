@@ -62,33 +62,33 @@
 			<c:choose>
 				<c:when test="${page >= 2}">
 					<li><c:if test="${key == ''}">
-							<a href="${search}/${page-1}/${type}">Previous</a>
+							<a href="${search}/${page-1}/${type}">Précédent</a>
 						</c:if> <c:if test="${key != ''}">
-							<a href="${search}/${page-1}/${key}/${type}">Previous</a>
+							<a href="${search}/${page-1}/${key}/${type}">Précédent</a>
 						</c:if></li>
 				</c:when>
 				<c:otherwise>
-					<li class="disabled"><a>Previous</a></li>
+					<li class="disabled"><a>Précédent</a></li>
 				</c:otherwise>
 			</c:choose>
-			<li>Page <c:out value="${page}"></c:out></li>
+			&emsp;&emsp;<li>Page<c:out value="${page}"></c:out></li>&emsp;&emsp;
 			<c:choose>
 				<c:when test="${groups.size() == 50}">
 					<li><c:if test="${key == ''}">
-							<a href="${search}/${page+1}/${type}">Next</a>
+							<a href="${search}/${page+1}/${type}">Suivant</a>
 						</c:if> <c:if test="${key != ''}">
-							<a href="${search}/${page+1}/${key}/${type}">Next</a>
+							<a href="${search}/${page+1}/${key}/${type}">Suivant</a>
 						</c:if></li>
 				</c:when>
 				<c:when test="${persons.size() == 50}">
 					<li><c:if test="${key == ''}">
-							<a href="${search}/${page+1}/${type}">Next</a>
+							<a href="${search}/${page+1}/${type}">Suivant</a>
 						</c:if> <c:if test="${key != ''}">
-							<a href="${search}/${page+1}/${key}/${type}">Next</a>
+							<a href="${search}/${page+1}/${key}/${type}">Suivant</a>
 						</c:if></li>
 				</c:when>
 				<c:otherwise>
-					<li class="disabled"><a>Next</a></li>
+					<li class="disabled"><a>Suivant</a></li>
 				</c:otherwise>
 			</c:choose>
 		</ul>
