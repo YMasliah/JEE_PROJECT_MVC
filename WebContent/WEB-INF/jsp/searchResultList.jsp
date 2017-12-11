@@ -59,7 +59,6 @@
 		</table>
 
 		<ul class="pager">
-
 			<c:choose>
 				<c:when test="${page >= 2}">
 					<li><c:if test="${key == ''}">
