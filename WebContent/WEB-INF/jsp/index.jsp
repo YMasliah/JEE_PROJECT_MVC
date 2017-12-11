@@ -16,6 +16,15 @@
 	</c:import>
 
 	<section style="float: left; width: 60%; margin: 0 1.5% 24px 1.5%;">
+
+		<div>
+			<c:if test="${not empty error_token}">
+				<div class="alert alert-<c:out value="${error_token}"></c:out>">
+					<c:out value="${notify_token}"></c:out>
+				</div>
+			</c:if>
+		</div>
+		
 		<article>
 			<h1>Accueil</h1>
 			<h2>bonjour bienvenue au portail web de l'annuaire de Yann MASLIAH et redouane TIGRARA.</h2>

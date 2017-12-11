@@ -159,11 +159,11 @@ public class MailController extends BaseController implements IMailController {
 			user.setToken(null);
 			user.setTokenTime(0);
 			mv = new ModelAndView("index");
-			mv.addObject("error_token", "OK");
-			mv.addObject("notify_token", "Code expiré.");
+			mv.addObject("error_token", "danger");
+			mv.addObject("notify_token", "Code expiré. Veuillez réessayer à nouveau.");
 		} else if ((user.getToken() == null)) {
 			mv = new ModelAndView("index");
-			mv.addObject("error_token", "OK");
+			mv.addObject("error_token", "danger");
 			mv.addObject("notify_token", "Code expiré.");
 		} else if (!(user.getToken().equals(token))) {
 			mv = new ModelAndView("tokenForm");
@@ -175,8 +175,8 @@ public class MailController extends BaseController implements IMailController {
 			Person personToEdit = manager.findPerson(mailWorker, user.getId());
 			mailWorker.setPassword(password1);
 			manager.savePerson(mailWorker, personToEdit);
-//			mv.addObject("error_token", "OK");
-//			mv.addObject("notify_token", "BRAVO, votre mot de passe ma été modifier avec succes");
+			mv.addObject("error_token", "success");
+			mv.addObject("notify_token", "BRAVO, votre mot de passe ma été modifier avec succes");
 			redirectAttributes.addFlashAttribute("flashAttr", "pwd changed");
 		}
 		return mv;

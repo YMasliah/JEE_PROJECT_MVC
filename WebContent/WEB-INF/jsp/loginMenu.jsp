@@ -52,7 +52,6 @@
 							class="glyphicon glyphicon-off"></span> Logout</a></li>
 				</c:otherwise>
 			</c:choose>
-
 		</ul>
 	</div>
 </nav>
