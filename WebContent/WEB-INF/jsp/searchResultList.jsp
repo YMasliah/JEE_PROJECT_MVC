@@ -5,6 +5,7 @@
 <head>
 <meta charset="utf-8">
 <title>Liste des groupes</title>
+<c:url var="search" value="/actions/directory/search" />
 <c:url var="edit" value="/actions/directory/group/edit" />
 <c:url var="view" value="/actions/directory/group/view" />
 <c:url var="editPerson" value="/actions/directory/person/edit" />
@@ -41,15 +42,15 @@ ${flashAttr}
 				</tr>
 			</thead>
 			<tbody>
-<%-- 				<c:forEach items="${persons}" var="persona"> --%>
-<!-- 					<tr> -->
-<%-- 						<td><c:out value="${persona.id}" /></td> --%>
-<%-- 						<td><c:out value="${persona.lastName}" /></td> --%>
-<%-- 						<td><a href="${viewPerson}?id=${persona.id}" --%>
-<!-- 							class="btn btn-info" role="button">Voir</a></td> -->
-<!-- 					</tr> -->
+				<c:forEach items="${persons}" var="persona">
+					<tr>
+						<td><c:out value="${persona.id}" /></td>
+						<td><c:out value="${persona.lastName}" /></td>
+						<td><a href="${viewPerson}?id=${persona.id}"
+							class="btn btn-info" role="button">Voir</a></td>
+					</tr>
 
-<%-- 				</c:forEach> --%>
+				</c:forEach>
 				<c:forEach items="${groups}" var="groupList">
 					<tr>
 						<td><c:out value="${groupList.id}" /></td>
@@ -62,25 +63,10 @@ ${flashAttr}
 		</table>
 
 		<ul class="pager">
-			<c:choose>
-				<c:when test="${page >= 2}">
-					<li><a href="${groupList}/${page-1}">Previous</a></li>
-				</c:when>
-				<c:otherwise>
-					<li class="disabled"><a>Previous</a></li>
-				</c:otherwise>
-			</c:choose>
-			<li>Page <c:out value="${page}"></c:out></li>
-			<c:choose>
-				<c:when test="${groups.size() == 50}">
-					<li><a href="/actions/directory/group/list/${page+1}">Next</a></li>
-				</c:when>
-				<c:otherwise>
-					<li class="disabled"><a>Next</a></li>
-				</c:otherwise>
-			</c:choose>
+			<li><a href="${search}/${page}/${key}/${type}">Previous</a></li>
 		</ul>
 	</section>
+
 
 	<c:import url="/WEB-INF/jsp/footer.jsp">
 		<c:param name="page" value="1" />
