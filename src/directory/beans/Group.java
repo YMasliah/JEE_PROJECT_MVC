@@ -6,18 +6,12 @@ import javax.validation.constraints.Size;
 
 
 /**
- * faut lire ca (7 ->7.3) 
- * http://docs.spring.io/spring/docs/4.3.11.RELEASE/spring-framework-reference/html/beans.html
+ * Master 2 ISL 2017/2018
  * 
- * https://docs.spring.io/spring/docs/4.3.11.RELEASE/spring-framework-reference/html/beans.html#beans-autowired-annotation-qualifiers
- * https://docs.spring.io/spring/docs/4.3.11.RELEASE/spring-framework-reference/html/beans.html#beans-annotation-config
+ * Java Bean de la table group de la base de donnée
  * 
- * demander a massat si c'est mieu de modifier ici
- * ou directement dans le fichier XML
- * persso je ne vois pas reelement la difference. 
- * peut etre le fichier xml ne necessite pas de recompiler ?
- * exemple : tp1 avant les callback
- * Edit : avec la classe @config et les @value sa doit etre la vrai methode
+ * @author MASLIAH Yann
+ * @author TIGRARA Redouane
  */
 public class Group {
 

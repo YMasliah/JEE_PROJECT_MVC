@@ -17,6 +17,7 @@
 	</c:import>
 
 	<section style="float: left; width: 60%; margin: 0 1.5% 24px 1.5%;">
+${flashAttr}
 
 		<div>
 			<c:if test="${type_notify == 'success'}">
@@ -40,15 +41,15 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${persons}" var="persona">
-					<tr>
-						<td><c:out value="${persona.id}" /></td>
-						<td><c:out value="${persona.lastName}" /></td>
-						<td><a href="${viewPerson}?id=${persona.id}"
-							class="btn btn-info" role="button">Voir</a></td>
-					</tr>
+<%-- 				<c:forEach items="${persons}" var="persona"> --%>
+<!-- 					<tr> -->
+<%-- 						<td><c:out value="${persona.id}" /></td> --%>
+<%-- 						<td><c:out value="${persona.lastName}" /></td> --%>
+<%-- 						<td><a href="${viewPerson}?id=${persona.id}" --%>
+<!-- 							class="btn btn-info" role="button">Voir</a></td> -->
+<!-- 					</tr> -->
 
-				</c:forEach>
+<%-- 				</c:forEach> --%>
 				<c:forEach items="${groups}" var="groupList">
 					<tr>
 						<td><c:out value="${groupList.id}" /></td>

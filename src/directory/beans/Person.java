@@ -9,17 +9,18 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import springapp.web.Mail;
-//import springapp.web.Group;
+import springapp.web.annotation.Mail;
 
 /**
- * @author masliah yann
+ * Master 2 ISL 2017/2018
  * 
- *         il faut faire la verif du groupid et id dans le validator le
- *         validateur d'url marche pas, flemme de check
+ * Java Bean de la table Person de la base de donnée.
  * 
- *         bon la date elle me fait chier, j'ai presque reussi a faire marcher.
- *         le mieu c de faire en String je crois ou pas
+ * Utilise les annotation hibernate pour la verification des formulaires
+ * Certains champs sont inutiliser. tel que le password et l'id du groupe.
+ * 
+ * @author MASLIAH Yann
+ * @author TIGRARA Redouane
  */
 public class Person {
 
@@ -37,23 +38,14 @@ public class Person {
 	@Mail(message = "** l'adresse mail n'est pas valide")
 	private String email;
 
-	// @URL
 	private String webSite;
 
-	// un string pour debuter mais apres faut changer
-	// faut definir un format, soit yyyy-MM-dd soit l'autre
-	// par default sur la base de donnée c'est yyyy-MM-dd
 	@Past (message="** Only the past is valid")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birthDate;
 
-
 	private String password;
-	// un int ou un Group ?
 
-
-//	@Group
-//	@NotNull(message = "Un nom VALIDE du group est obligatoire")
 	private Long groupId;
 
 	public Person() {

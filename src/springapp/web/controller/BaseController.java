@@ -29,10 +29,22 @@ import directory.beans.Person;
 import directory.manager.beans.User;
 import directory.manager.exception.managerException;
 import directory.manager.imp.Manager;
+import springapp.web.IBaseController;
 
+/**
+ * Master 2 ISL 2017/2018
+ * 
+ * Couche qui interargie avec l'utilisateur
+ * 
+ * Controlleur spring qui fournis toute les fonctionnalitée disponibles dans
+ * toute les pages.
+ * 
+ * @author MASLIAH Yann
+ * @author TIGRARA Redouane
+ */
 @Controller()
 @RequestMapping("/directory")
-public class BaseController {
+public class BaseController implements IBaseController {
 	protected final Log logger = LogFactory.getLog(getClass());
 
 	@Autowired
@@ -41,6 +53,10 @@ public class BaseController {
 	@Autowired()
 	User user;
 
+	/**
+	 * @see springapp.web.controller.IBaseController#newUser()
+	 */
+	@Override
 	@ModelAttribute("user")
 	public User newUser() {
 		return user;
@@ -52,6 +68,10 @@ public class BaseController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 
+	/**
+	 * @see springapp.web.controller.IBaseController#show()
+	 */
+	@Override
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String show() throws managerException, DaoException {
 		logger.info("show user " + user);
@@ -66,12 +86,10 @@ public class BaseController {
 	}
 
 	/**
-	 * plein de truc a faire ici
-	 * 
-	 * @return
-	 * @throws managerException
-	 * @throws DaoException
+	 * @see springapp.web.controller.IBaseController#login(directory.manager.beans.User,
+	 *      org.springframework.validation.BindingResult)
 	 */
+	@Override
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@ModelAttribute User u, BindingResult result) throws DaoException, managerException {
 		if (u.getId() == null || u.getPassword() == null || u.getPassword().isEmpty()) {
@@ -90,29 +108,31 @@ public class BaseController {
 		return "redirect:login";
 	}
 
+	/**
+	 * @see springapp.web.controller.IBaseController#passwordLost()
+	 */
+	@Override
 	@RequestMapping(value = "/passwordLost", method = RequestMethod.GET)
 	public String passwordLost() {
 		return "passwordLost";
 	}
 
 	/**
-	 * <c:out value="${error }"></c:out>
-	 * 
-	 * @param redirectAttributes
-	 * @return
-	 * @throws managerException
+	 * @see springapp.web.controller.IBaseController#logout(org.springframework.web.servlet.mvc.support.RedirectAttributes)
 	 */
+	@Override
 	@RequestMapping(value = "/logout")
 	public String logout(RedirectAttributes redirectAttributes) throws managerException {
-		redirectAttributes.addFlashAttribute("error", "vous vous etes deco");
+		redirectAttributes.addFlashAttribute("flashAttr", "vous vous etes deco");
 		logger.info("logout user " + user);
 		user = manager.newUser(user);
 		return "redirect:login";
 	}
 
 	/**
-	 * recherche Controller
+	 * @see springapp.web.controller.IBaseController#productTypes()
 	 */
+	@Override
 	@ModelAttribute("dataTypes")
 	public Map<String, String> productTypes() {
 		Map<String, String> types = new LinkedHashMap<>();
@@ -122,20 +142,17 @@ public class BaseController {
 	}
 
 	/**
-	 * Recherche par nom une perssonne non implementer, Pour implementer la
-	 * recherche il faut crée une page liste de personne. page non requise dans
-	 * le cahier des charges.
-	 * 
-	 * @param key
-	 * @param type
-	 * @return
-	 * @throws DaoException
+	 * @see springapp.web.controller.IBaseController#search(java.lang.String,
+	 *      java.lang.String, java.lang.Integer)
 	 */
+
 	@RequestMapping(value = "/search/{page}", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView search(@RequestParam(value = "key") String key, @RequestParam(value = "type") String type,
-			@PathVariable("page") Integer page) throws DaoException {
+			@PathVariable("page") Integer page, RedirectAttributes redirectAttributes) throws DaoException {
 		logger.info("clé recherchée :" + key);
 		ModelAndView mv = new ModelAndView("index");
+//		mv.addObject("key", key);
+//		mv.addObject("type", type);
 		Long id = null;
 		if (type.equals("Group")) {
 			mv = new ModelAndView("redirect:/actions/directory/group/view/1");
@@ -152,7 +169,7 @@ public class BaseController {
 					mv.addObject("notify", "Aucun Groupe trouvé.");
 				} else {
 					mv = new ModelAndView("searchResultList");
-					mv.addObject("groups", groupList);
+					mv.addObject("groups", groupList); 
 					mv.addObject("type_notify", "success");
 					mv.addObject("notify", "Recherche réussite");
 				}

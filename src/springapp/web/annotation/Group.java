@@ -1,5 +1,4 @@
-package springapp.web;
-
+package springapp.web.annotation;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -11,11 +10,11 @@ import javax.validation.Payload;
 
 @Target({ ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = MailConstraintValidator.class)
+@Constraint(validatedBy = GroupConstraintValidator.class)
 @Documented
-public @interface Mail {
+public @interface Group {
 
-    String message() default "Adresse mail incorrecte";
+    String message() default "Aucun groupe";
 
     Class<?>[] groups() default {};
 

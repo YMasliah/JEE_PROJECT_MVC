@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import dao.exception.DaoException;
 import directory.beans.Person;
 import directory.manager.beans.User;
+import springapp.web.IMailController;
 
 /**
  * 
@@ -26,7 +27,7 @@ import directory.manager.beans.User;
  */
 @Controller
 @RequestMapping("/directory/password")
-public class MailController extends BaseController {
+public class MailController extends BaseController implements IMailController {
 
 	private final String subject = "JEE : Reset password token";
 	private final User mailWorker = new User();
@@ -36,16 +37,28 @@ public class MailController extends BaseController {
 	@Autowired
 	private JavaMailSender mailSender;
 
+	/* (non-Javadoc)
+	 * @see springapp.web.controller.IMailController#init()
+	 */
+	@Override
 	@PostConstruct
 	public void init() {
 		mailWorker.setName("mailWorker");
 	}
 
+	/* (non-Javadoc)
+	 * @see springapp.web.controller.IMailController#getFormEmail(javax.servlet.http.HttpServletRequest)
+	 */
+	@Override
 	@RequestMapping(value = "/sendMail", method = RequestMethod.GET)
 	public String getFormEmail(HttpServletRequest request) {
 		return "passwordLost";
 	}
 
+	/* (non-Javadoc)
+	 * @see springapp.web.controller.IMailController#doSendEmail(javax.servlet.http.HttpServletRequest)
+	 */
+	@Override
 	@RequestMapping(value = "/sendMail", method = RequestMethod.POST)
 	public ModelAndView doSendEmail(HttpServletRequest request)
 			throws NumberFormatException, DaoException, InterruptedException {
@@ -118,11 +131,19 @@ public class MailController extends BaseController {
 		return mv;
 	}
 
+	/* (non-Javadoc)
+	 * @see springapp.web.controller.IMailController#getFormToken(javax.servlet.http.HttpServletRequest)
+	 */
+	@Override
 	@RequestMapping(value = "/token", method = RequestMethod.GET)
 	public String getFormToken(HttpServletRequest request) {
 		return "tokenForm";
 	}
 
+	/* (non-Javadoc)
+	 * @see springapp.web.controller.IMailController#doResetPassword(javax.servlet.http.HttpServletRequest)
+	 */
+	@Override
 	@RequestMapping(value = "/token", method = RequestMethod.POST)
 	public ModelAndView doResetPassword(HttpServletRequest request) throws DaoException {
 		ModelAndView mv = new ModelAndView("index");

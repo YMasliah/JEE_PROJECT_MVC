@@ -24,6 +24,8 @@ import directory.beans.Person;
 /**
  * Master 2 ISL 2017/2018
  * 
+ * Couche qui interargie avec la base de donnée
+ * 
  * @author MASLIAH Yann
  * @author TIGRARA Redouane
  */

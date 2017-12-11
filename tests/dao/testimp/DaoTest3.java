@@ -54,8 +54,8 @@ public class DaoTest3 {
 
 	@AfterClass
 	public static void tearDownClass() throws Exception {
-		DBInjecteur.launchInjection("tests/ressources/xml/bigData.xml");
-		System.out.println("injecter");
+		DBExtracteur.launchExtraction("tests/ressources/xml/testDataset.xml");
+		DBInjecteur.launchInjection("tests/ressources/xml/bigDataset.xml");
 	}
 
 	@Before

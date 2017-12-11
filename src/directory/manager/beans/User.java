@@ -7,12 +7,12 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 /**
+ * Master 2 ISL 2017/2018
  * 
- * @author masliah yann
- *
- *         on pourra peut etre utiliser les annotation ici aussi, sachant que
- *         l'user fait partie du manager, il peut acceder aux donn�es de la base
- *         de donn�e avec hybernate. A voir.
+ * Contient toute les donnée de session d'un utilisateur connecter au site.
+ * 
+ * @author MASLIAH Yann
+ * @author TIGRARA Redouane
  */
 @Component()
 @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
