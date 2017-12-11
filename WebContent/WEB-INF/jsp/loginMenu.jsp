@@ -14,7 +14,6 @@
 		</div>
 
 		<ul class="nav navbar-nav navbar-right">
-
 			<c:choose>
 				<c:when test="${empty user.name}">
 					<li><a href="${login}"><span
