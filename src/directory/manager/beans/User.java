@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 /**
  * Master 2 ISL 2017/2018
  * 
- * Contient toute les donnée de session d'un utilisateur connecter au site.
+ * Contient toute les donnee de session d'un utilisateur connecter au site.
  * 
  * @author MASLIAH Yann
  * @author TIGRARA Redouane
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private Long id;
 	private String password;
 	private String name;

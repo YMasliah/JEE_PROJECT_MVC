@@ -3,7 +3,6 @@ package directory.manager.imp;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
-import java.util.Collections;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import dao.IDao;
 import dao.exception.DaoException;
-import dao.imp.Dao;
 import directory.IDirectoryManager;
 import directory.beans.Group;
 import directory.beans.Person;
@@ -36,7 +34,6 @@ public class Manager implements IDirectoryManager {
 	private IDao dao;
 
 	public Manager() {
-
 	}
 
 	/**
@@ -52,7 +49,8 @@ public class Manager implements IDirectoryManager {
 	}
 
 	/**
-	 * @see directory.IDirectoryManager#findPerson(directory.manager.beans.User, long)
+	 * @see directory.IDirectoryManager#findPerson(directory.manager.beans.User,
+	 *      long)
 	 */
 	@Override
 	public Person findPerson(User user, long personId) throws DaoException {
@@ -65,9 +63,9 @@ public class Manager implements IDirectoryManager {
 		return returnValue;
 	}
 
-	
 	/**
-	 * @see directory.IDirectoryManager#findGroup(directory.manager.beans.User, long)
+	 * @see directory.IDirectoryManager#findGroup(directory.manager.beans.User,
+	 *      long)
 	 */
 	@Override
 	public Group findGroup(User user, long groupId) throws DaoException {
@@ -75,7 +73,8 @@ public class Manager implements IDirectoryManager {
 	}
 
 	/**
-	 * @see directory.IDirectoryManager#findPerson(directory.manager.beans.User, java.lang.String, int)
+	 * @see directory.IDirectoryManager#findPerson(directory.manager.beans.User,
+	 *      java.lang.String, int)
 	 */
 	@Override
 	public Collection<Person> findPerson(User user, String lastName, int page) throws DaoException {
@@ -83,7 +82,8 @@ public class Manager implements IDirectoryManager {
 	}
 
 	/**
-	 * @see directory.IDirectoryManager#findGroup(directory.manager.beans.User, java.lang.String, int)
+	 * @see directory.IDirectoryManager#findGroup(directory.manager.beans.User,
+	 *      java.lang.String, int)
 	 */
 	@Override
 	public Collection<Group> findGroup(User user, String name, int page) throws DaoException {
@@ -91,7 +91,8 @@ public class Manager implements IDirectoryManager {
 	}
 
 	/**
-	 * @see directory.IDirectoryManager#findAll(directory.manager.beans.User, long, int)
+	 * @see directory.IDirectoryManager#findAll(directory.manager.beans.User, long,
+	 *      int)
 	 */
 	@Override
 	public Collection<Person> findAll(User user, long groupId, int page) throws DaoException {
@@ -110,7 +111,7 @@ public class Manager implements IDirectoryManager {
 	 * @see directory.IDirectoryManager#login(directory.manager.beans.User)
 	 */
 	@Override
-	public User login(User user) throws DaoException, managerException{
+	public User login(User user) throws DaoException, managerException {
 		User returnValue = user;
 		if (!user.getPassword().isEmpty()) {
 			Person person = dao.findPerson(user.getId());
@@ -123,17 +124,17 @@ public class Manager implements IDirectoryManager {
 		return returnValue;
 	}
 
-
 	/**
 	 * @see directory.IDirectoryManager#logout(directory.manager.beans.User)
 	 */
 	@Override
 	public void logout(User user) throws managerException {
-			user = newUser(user);
+		user = newUser(user);
 	}
 
 	/**
-	 * @see directory.IDirectoryManager#savePerson(directory.manager.beans.User, directory.beans.Person)
+	 * @see directory.IDirectoryManager#savePerson(directory.manager.beans.User,
+	 *      directory.beans.Person)
 	 */
 	@Override
 	public void savePerson(User user, Person p) throws DaoException {
@@ -141,50 +142,47 @@ public class Manager implements IDirectoryManager {
 		if (user.getName().equals(p.getLastName()) && user.getId().equals(p.getId())) {
 			p.setPassword(crypt(user.getPassword()));
 			dao.saveBean(p);
-		}else if(user.getName().equals("mailWorker")){
+		} else if (user.getName().equals("mailWorker")) {
 			p.setPassword(crypt(user.getPassword()));
 			dao.saveBean(p);
 		}
 	}
-	
+
 	/**
-	 * @see directory.IDirectoryManager#findGroup(directory.manager.beans.User, java.lang.String)
+	 * @see directory.IDirectoryManager#findGroup(directory.manager.beans.User,
+	 *      java.lang.String)
 	 */
 	public Group findGroup(User user, String groupName) throws DaoException {
 		return dao.findGroup(groupName);
 	}
-	
-	
+
 	/**
 	 * fonction de cryptage des mot de passe
 	 * 
-	 * @param password mot de passe a encrypter
+	 * @param password
+	 *            mot de passe a encrypter
 	 * @return resultat de l'encryption
 	 */
-	private String crypt(String password)
-    {
-        String generatedPassword = null;
-        try {
-            // Create MessageDigest instance for MD5
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            //Add password bytes to digest
-            md.update(password.getBytes());
-            //Get the hash's bytes
-            byte[] bytes = md.digest();
-            //This bytes[] has bytes in decimal format;
-            //Convert it to hexadecimal format
-            StringBuilder sb = new StringBuilder();
-            for(int i=0; i< bytes.length ;i++)
-            {
-                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-            }
-            //Get complete hashed password in hex format
-            generatedPassword = sb.toString();
-        }
-        catch (NoSuchAlgorithmException e)
-        {
-            e.printStackTrace();
-        }
-        return generatedPassword;
-    }
+	private String crypt(String password) {
+		String generatedPassword = null;
+		try {
+			// Create MessageDigest instance for MD5
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			// Add password bytes to digest
+			md.update(password.getBytes());
+			// Get the hash's bytes
+			byte[] bytes = md.digest();
+			// This bytes[] has bytes in decimal format;
+			// Convert it to hexadecimal format
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < bytes.length; i++) {
+				sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+			}
+			// Get complete hashed password in hex format
+			generatedPassword = sb.toString();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		return generatedPassword;
+	}
 }

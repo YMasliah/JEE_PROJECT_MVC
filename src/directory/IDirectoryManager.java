@@ -24,7 +24,7 @@ public interface IDirectoryManager {
 	 * 
 	 * @param user
 	 *            utilisateur subissant la modification de droit
-	 * @return utilisateur modifi�
+	 * @return utilisateur modifiee
 	 * @throws managerException
 	 */
 	User newUser(User user) throws managerException;
@@ -43,8 +43,8 @@ public interface IDirectoryManager {
 	Person findPerson(User user, long personId) throws DaoException;
 
 	/**
-	 * chercher une liste de personnes contenant une chaine de caractere dans
-	 * leur nom
+	 * chercher une liste de personnes contenant une chaine de caractere dans leur
+	 * nom
 	 * 
 	 * @param user
 	 *            les informations de l'utilisateur lancant la requete

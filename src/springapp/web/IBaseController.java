@@ -3,11 +3,6 @@ package springapp.web;
 import java.util.Map;
 
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -15,13 +10,25 @@ import dao.exception.DaoException;
 import directory.manager.beans.User;
 import directory.manager.exception.managerException;
 
+/**
+ * Master 2 ISL 2017/2018
+ * 
+ * Couche qui interargie avec l'utilisateur
+ * 
+ * Controlleur spring qui fournis toute les fonctionnalitée disponibles dans
+ * toute les pages.
+ * 
+ * @author MASLIAH Yann
+ * @author TIGRARA Redouane
+ */
 public interface IBaseController {
 
 	/**
 	 * renvoi les informations de sessions de l'utilisateur
-	 * @return
+	 * 
+	 * @return informations de session de l'utilisateur
 	 */
-	public User newUser();
+	public User getUser();
 
 	/**
 	 * affiche la page d'acceuil et genere le contexte
@@ -31,32 +38,32 @@ public interface IBaseController {
 	 * @throws managerException
 	 * @throws DaoException
 	 */
-	public String show() throws managerException, DaoException;
+	public String getShow() throws managerException, DaoException;
 
 	/**
-	 * authentifie l'utilisateur
+	 * authentifie l'utilisateur et retourne la page d'index
 	 * 
 	 * @return la page d'index avec les informations de connexion
 	 * @throws managerException
 	 * @throws DaoException
 	 */
-	public String login(User u, BindingResult result) throws DaoException, managerException;
+	public String postLogin(User u, BindingResult result) throws DaoException, managerException;
 
 	/**
 	 * ouvre la page de recuperation de mot de passe
 	 * 
 	 * @return l'adresse de la page recuperation de mot de passe
 	 */
-	public String passwordLost();
+	public String getPasswordLost();
 
 	/**
 	 * supprime les informations d'authentification et deconnecte l'utilisateur
 	 * 
-	 * @param redirectAttributes
+	 * @param redirectAttributes informations pour l'utilisateur
 	 * @return la page d'index
 	 * @throws managerException
 	 */
-	public String logout(RedirectAttributes redirectAttributes) throws managerException;
+	public String getLogout(RedirectAttributes redirectAttributes) throws managerException;
 
 	/**
 	 * fournis la liste des types de recherche disponible

@@ -24,7 +24,7 @@ import directory.beans.Person;
 /**
  * Master 2 ISL 2017/2018
  * 
- * Couche qui interargie avec la base de donnée
+ * Couche qui interargie avec la base de donnee
  * 
  * @author MASLIAH Yann
  * @author TIGRARA Redouane
@@ -300,7 +300,7 @@ public class Dao implements IDao {
 	public void removePerson(long id) throws DaoException {
 		this.jdbcTemplate.update("DELETE FROM Person WHERE id = ?", id);
 	}
-	
+
 	@Override
 	public void removeGroup(long id) throws DaoException {
 		this.jdbcTemplate.update("DELETE FROM `Group` WHERE id = ?", id);

@@ -54,12 +54,15 @@ public class BaseController implements IBaseController {
 	User user;
 
 	/**
-	 * @see springapp.web.controller.IBaseController#newUser()
+	 * @see springapp.web.controller.IBaseController#getUser()
 	 */
 	@Override
 	@ModelAttribute("user")
-	public User newUser() {
-		return user;
+	public User getUser() {
+		User temp = new User();
+		temp.setId(user.getId());
+		temp.setName(user.getName());
+		return temp;
 	}
 
 	@InitBinder
@@ -69,11 +72,11 @@ public class BaseController implements IBaseController {
 	}
 
 	/**
-	 * @see springapp.web.controller.IBaseController#show()
+	 * @see springapp.web.controller.IBaseController#getShow()
 	 */
 	@Override
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String show() throws managerException, DaoException {
+	public String getShow() throws managerException, DaoException {
 		logger.info("show user " + user);
 		if (user.getName() != "No User") {
 		} else if (user.getId() == null || user.getPassword() == null) {
@@ -86,12 +89,12 @@ public class BaseController implements IBaseController {
 	}
 
 	/**
-	 * @see springapp.web.controller.IBaseController#login(directory.manager.beans.User,
+	 * @see springapp.web.controller.IBaseController#postLogin(directory.manager.beans.User,
 	 *      org.springframework.validation.BindingResult)
 	 */
 	@Override
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(@ModelAttribute User u, BindingResult result) throws DaoException, managerException {
+	public String postLogin(@ModelAttribute User u, BindingResult result) throws DaoException, managerException {
 		if (u.getId() == null || u.getPassword() == null || u.getPassword().isEmpty()) {
 			ObjectError error = new ObjectError("error", "  **  Id et/ou Mot de passe  non valide !!");
 			result.addError(error);
@@ -109,20 +112,20 @@ public class BaseController implements IBaseController {
 	}
 
 	/**
-	 * @see springapp.web.controller.IBaseController#passwordLost()
+	 * @see springapp.web.controller.IBaseController#getPasswordLost()
 	 */
 	@Override
 	@RequestMapping(value = "/passwordLost", method = RequestMethod.GET)
-	public String passwordLost() {
+	public String getPasswordLost() {
 		return "passwordLost";
 	}
 
 	/**
-	 * @see springapp.web.controller.IBaseController#logout(org.springframework.web.servlet.mvc.support.RedirectAttributes)
+	 * @see springapp.web.controller.IBaseController#getLogout(org.springframework.web.servlet.mvc.support.RedirectAttributes)
 	 */
 	@Override
 	@RequestMapping(value = "/logout")
-	public String logout(RedirectAttributes redirectAttributes) throws managerException {
+	public String getLogout(RedirectAttributes redirectAttributes) throws managerException {
 		redirectAttributes.addFlashAttribute("flashAttr", "vous vous etes deco");
 		logger.info("logout user " + user);
 		user = manager.newUser(user);
@@ -151,8 +154,8 @@ public class BaseController implements IBaseController {
 			@PathVariable("page") Integer page, RedirectAttributes redirectAttributes) throws DaoException {
 		logger.info("clé recherchée :" + key);
 		ModelAndView mv = new ModelAndView("index");
-//		mv.addObject("key", key);
-//		mv.addObject("type", type);
+		// mv.addObject("key", key);
+		// mv.addObject("type", type);
 		Long id = null;
 		if (type.equals("Group")) {
 			mv = new ModelAndView("redirect:/actions/directory/group/view/1");
@@ -169,7 +172,7 @@ public class BaseController implements IBaseController {
 					mv.addObject("notify", "Aucun Groupe trouvé.");
 				} else {
 					mv = new ModelAndView("searchResultList");
-					mv.addObject("groups", groupList); 
+					mv.addObject("groups", groupList);
 					mv.addObject("type_notify", "success");
 					mv.addObject("notify", "Recherche réussite");
 				}
