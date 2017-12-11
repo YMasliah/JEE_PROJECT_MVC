@@ -18,7 +18,6 @@
 	</c:import>
 
 	<section style="float: left; width: 60%; margin: 0 1.5% 24px 1.5%;">
-		${flashAttr}
 
 		<div>
 			<c:if test="${type_notify == 'success'}">
@@ -27,16 +26,6 @@
 				</div>
 			</c:if>
 		</div>
-
-		<%-- 				<%=request.getParameter("key")%> --%>
-		<%-- 				<%=request.getParameter("type")%> --%>
-		key =
-		<c:out value="${key}"></c:out>
-		type =
-		<c:out value="${type}"></c:out>
-		page =
-		<c:out value="${page}"></c:out>
-
 
 		<h1>resultat de la recherche</h1>
 
@@ -70,26 +59,39 @@
 		</table>
 
 		<ul class="pager">
+
 			<c:choose>
 				<c:when test="${page >= 2}">
-					<li><a href="${groupList}/${page-1}">Previous</a></li>
+					<li><c:if test="${key == ''}">
+							<a href="${search}/${page-1}/${type}">Previous</a>
+						</c:if> <c:if test="${key != ''}">
+							<a href="${search}/${page-1}/${key}/${type}">Previous</a>
+						</c:if></li>
 				</c:when>
 				<c:otherwise>
 					<li class="disabled"><a>Previous</a></li>
 				</c:otherwise>
 			</c:choose>
 			<li>Page <c:out value="${page}"></c:out></li>
-						<c:choose>
-							<c:when test="${groups.size() == 50}">
-								<li><a href="/actions/directory/search/${page+1}">Next</a></li>
-							</c:when>
-							<c:otherwise>
-								<li class="disabled"><a>Next</a></li>
-							</c:otherwise>
-						</c:choose>
-
-			<li><a href="${search}/${page+1}/${key}/${type}">test1</a></li>
-			<li><a href="${search}/${page+1}/${type}">test2</a></li>
+			<c:choose>
+				<c:when test="${groups.size() == 50}">
+					<li><c:if test="${key == ''}">
+							<a href="${search}/${page+1}/${type}">Next</a>
+						</c:if> <c:if test="${key != ''}">
+							<a href="${search}/${page+1}/${key}/${type}">Next</a>
+						</c:if></li>
+				</c:when>
+				<c:when test="${persons.size() == 50}">
+					<li><c:if test="${key == ''}">
+							<a href="${search}/${page+1}/${type}">Next</a>
+						</c:if> <c:if test="${key != ''}">
+							<a href="${search}/${page+1}/${key}/${type}">Next</a>
+						</c:if></li>
+				</c:when>
+				<c:otherwise>
+					<li class="disabled"><a>Next</a></li>
+				</c:otherwise>
+			</c:choose>
 		</ul>
 	</section>
 

@@ -9,7 +9,7 @@
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="${login}">Acceuil</a> <a
+			<a class="navbar-brand" href="${login}">Accueil</a> <a
 				class="navbar-text" href="${groupList}">liste des groupes</a>
 		</div>
 

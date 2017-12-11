@@ -121,7 +121,7 @@ public class Dao implements IDao {
 		if (page > 0) {
 			try {
 				logger.info("Requete executer");
-				returnValue = this.jdbcTemplate.query("SELECT * FROM `Group` limit ?,?", Dao::resultSetToGroup,
+				returnValue = this.jdbcTemplate.query("SELECT * FROM `Group` ORDER BY Id limit ?,?", Dao::resultSetToGroup,
 						(page - 1) * itemPerPage, itemPerPage);
 			} catch (EmptyResultDataAccessException e) {
 				e.printStackTrace();
@@ -159,7 +159,7 @@ public class Dao implements IDao {
 		if (page > 0) {
 			try {
 				logger.info("Requete executer");
-				returnValue = this.jdbcTemplate.query("SELECT Id,LastName FROM `Person` WHERE GroupId = ? limit ?,?",
+				returnValue = this.jdbcTemplate.query("SELECT Id,LastName FROM `Person` WHERE GroupId = ? ORDER BY Id limit ?,?",
 						new BeanPropertyRowMapper<Person>(Person.class), groupId, (page - 1) * itemPerPage,
 						itemPerPage);
 			} catch (EmptyResultDataAccessException e) {
@@ -263,7 +263,7 @@ public class Dao implements IDao {
 		if (page > 0) {
 			try {
 				logger.info("Requete executer");
-				returnValue = this.jdbcTemplate.query("SELECT * FROM `Group` WHERE Name LIKE ? limit ?,?",
+				returnValue = this.jdbcTemplate.query("SELECT * FROM `Group` WHERE Name LIKE ? ORDER BY Id limit ?,?",
 						Dao::resultSetToGroup, "%" + name + "%", (page - 1) * itemPerPage, itemPerPage);
 			} catch (EmptyResultDataAccessException e) {
 				e.printStackTrace();
@@ -286,7 +286,7 @@ public class Dao implements IDao {
 			try {
 				logger.info("Requete executer");
 				returnValue = this.jdbcTemplate.query(
-						"SELECT Id,LastName FROM `Person` WHERE LastName like ? limit ?,?",
+						"SELECT Id,LastName FROM `Person` WHERE LastName like ? ORDER BY Id limit ?,?",
 						new BeanPropertyRowMapper<Person>(Person.class), "%" + lastName + "%", (page - 1) * itemPerPage,
 						itemPerPage);
 			} catch (EmptyResultDataAccessException e) {

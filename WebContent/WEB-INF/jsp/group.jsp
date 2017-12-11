@@ -29,15 +29,11 @@
 				<h1>OUPS ! Aucune peronne dans ce groupe.</h1>
 			</c:when>
 			<c:otherwise>
-				<h2>
-					Groupe :
-					<c:out value="${group.name}"></c:out>
-				</h2>
+				<h1>
+					Groupe : <c:out value="${group.name}"></c:out></h1>
+				
 				<p>
-					group : bon ici. si l'user est identique a l'etudiant on peut
-					modifier <br> sinon on peu juste afficher les valeurs des
-					etudiants (4 valeurs) <br> et pour finir on peu rajouter un
-					nouvel utilisateur
+					Voici la liste des personnes du groupe.
 				</p>
 
 				<table class="table table-condensed">

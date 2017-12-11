@@ -24,11 +24,11 @@
 <%-- 			</c:if> --%>
 <!-- 		</div> -->
 		
-		<h2>
-			Informations :
+		<h1>
+			Informations de :
 			<c:out value="${person.lastName}"></c:out>
-		</h2>
-		<p>faut rajouter des if et un lien de l'id du groupe.</p>
+		</h1>
+		<p>Voici les informations personnelles.</p>
 
 		<table class="table table-condensed">
 			<tbody>

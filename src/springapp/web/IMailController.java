@@ -3,6 +3,7 @@ package springapp.web;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import dao.exception.DaoException;
 
@@ -20,7 +21,7 @@ import dao.exception.DaoException;
 public interface IMailController {
 
 	/**
-	 * crée un utilisateur factice pour verifier les données entrer par l'utilisateur
+	 * crï¿½e un utilisateur factice pour verifier les donnï¿½es entrer par l'utilisateur
 	 */
 	void init();
 
@@ -51,6 +52,6 @@ public interface IMailController {
 	 */
 	String getFormToken(HttpServletRequest request);
 
-	ModelAndView doResetPassword(HttpServletRequest request) throws DaoException;
+	ModelAndView doResetPassword(HttpServletRequest request, RedirectAttributes redirectAttributes) throws DaoException;
 
 }

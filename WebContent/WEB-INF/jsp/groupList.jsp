@@ -16,10 +16,9 @@
 
 
 	<section style="float: left; width: 60%; margin: 0 1.5% 24px 1.5%;">
-		<h2>Liste des groupes</h2>
+		<h1>Liste des groupes dans l'annuaire</h1>
 		<p>
-			bug de modification si un groupe a le meme id qu'un nouveau groupe.<br>
-			surement resolu lors de l'implementation de la base de donnée
+			Voici tous les groupes de l'annuaire.
 		</p>
 		<table class="table table-condensed">
 			<thead>

@@ -15,13 +15,10 @@
 	<section style="float: left; width: 60%; margin: 0 1.5% 24px 1.5%;">
 
 		<h1>
-			Edit :
+			Modification :
 			<c:out value="${person.lastName}"></c:out>
 		</h1>
-		, il faut rajouter une verification metier sur l'id et surement
-		d'autre truc tel que recuperer le nom du groupe <br> injecter
-		l'id du groupe aussi si on crée une nouvelle personne a partir d'un
-		groupe
+		<p>Dans cette page, vous pouvez modifiez vos informations personnelles.</p>
 		<form:form method="POST" commandName="person">
 
 			<form:errors path="*" cssClass="alert alert-danger" element="div" />

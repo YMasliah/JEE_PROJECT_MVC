@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import dao.exception.DaoException;
 import directory.beans.Person;
@@ -135,7 +136,7 @@ public class MailController extends BaseController implements IMailController {
 	 */
 	@Override
 	@RequestMapping(value = "/token", method = RequestMethod.POST)
-	public ModelAndView doResetPassword(HttpServletRequest request) throws DaoException {
+	public ModelAndView doResetPassword(HttpServletRequest request, RedirectAttributes redirectAttributes) throws DaoException {
 		ModelAndView mv = new ModelAndView("index");
 		String token = request.getParameter("token");
 		String password1 = request.getParameter("password1");
@@ -174,8 +175,9 @@ public class MailController extends BaseController implements IMailController {
 			Person personToEdit = manager.findPerson(mailWorker, user.getId());
 			mailWorker.setPassword(password1);
 			manager.savePerson(mailWorker, personToEdit);
-			mv.addObject("error_token", "OK");
-			mv.addObject("notify_token", "BRAVO, votre mot de passe ma été modifier avec succes");
+//			mv.addObject("error_token", "OK");
+//			mv.addObject("notify_token", "BRAVO, votre mot de passe ma été modifier avec succes");
+			redirectAttributes.addFlashAttribute("flashAttr", "pwd changed");
 		}
 		return mv;
 	}
