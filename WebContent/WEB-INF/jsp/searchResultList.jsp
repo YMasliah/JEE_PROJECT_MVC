@@ -5,6 +5,7 @@
 <head>
 <meta charset="utf-8">
 <title>Liste des groupes</title>
+<c:url var="search" value="/actions/directory/search" />
 <c:url var="edit" value="/actions/directory/group/edit" />
 <c:url var="view" value="/actions/directory/group/view" />
 <c:url var="editPerson" value="/actions/directory/person/edit" />
@@ -78,28 +79,20 @@
 				</c:otherwise>
 			</c:choose>
 			<li>Page <c:out value="${page}"></c:out></li>
-			<%-- 			<c:choose> --%>
-			<%-- 				<c:when test="${groups.size() == 50}"> --%>
-			<%-- 					<li><a href="/actions/directory/search/${page+1}">Next</a></li> --%>
-			<%-- 				</c:when> --%>
-			<%-- 				<c:otherwise> --%>
-			<!-- 					<li class="disabled"><a>Next</a></li> -->
-			<%-- 				</c:otherwise> --%>
-			<%-- 			</c:choose> --%>
-			<form:form method="POST" action="${page+1}">
-				<div class="form-group">
-				<input id="key" name="key" type="hidden" value="${key}">
-				</div>
-				<div class="form-group">
-					<input id="type" name="type" type="hidden" value="group">
-				</div>
-				<div class="form-group">
-					<input type="submit" value="suivant"
-						class="form-control btn btn-info" />
-				</div>
-			</form:form>
+						<c:choose>
+							<c:when test="${groups.size() == 50}">
+								<li><a href="/actions/directory/search/${page+1}">Next</a></li>
+							</c:when>
+							<c:otherwise>
+								<li class="disabled"><a>Next</a></li>
+							</c:otherwise>
+						</c:choose>
+
+			<li><a href="${search}/${page+1}/${key}/${type}">test1</a></li>
+			<li><a href="${search}/${page+1}/${type}">test2</a></li>
 		</ul>
 	</section>
+
 
 	<c:import url="/WEB-INF/jsp/footer.jsp">
 		<c:param name="page" value="1" />
