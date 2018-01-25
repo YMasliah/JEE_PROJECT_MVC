@@ -66,7 +66,7 @@ public class Dao implements IDao {
 		jdbcTemplate.update("REPLACE INTO `Group` (`Id`,`Name`) VALUES (?,?)", 1, "No group");
 		jdbcTemplate.update("REPLACE INTO `Group` (`Id`,`Name`) VALUES (?,?)", 0, "Bonjour");
 		jdbcTemplate.update("REPLACE INTO `Person` (`Id`,`LastName`,`Password`,`Email`) VALUES (?,?,?,?)", 10, "toto",
-				"1d2f4cd378a95534effdfc51acfc48a5", "y.masliah@gmail.com");
+				"1d2f4cd378a95534effdfc51acfc48a5", "redouane.tigrara@gmail.com");
 		jdbcTemplate.update("REPLACE INTO `Person` (`Id`,`LastName`,`Password`) VALUES (?,?,?)", 11, "tota",
 				"1d2f4cd378a95534effdfc51acfc48a5");
 	}
@@ -121,7 +121,7 @@ public class Dao implements IDao {
 		if (page > 0) {
 			try {
 				logger.info("Requete executer");
-				returnValue = this.jdbcTemplate.query("SELECT * FROM `Group` limit ?,?", Dao::resultSetToGroup,
+				returnValue = this.jdbcTemplate.query("SELECT * FROM `Group` ORDER BY Id limit ?,?", Dao::resultSetToGroup,
 						(page - 1) * itemPerPage, itemPerPage);
 			} catch (EmptyResultDataAccessException e) {
 				e.printStackTrace();
@@ -142,7 +142,6 @@ public class Dao implements IDao {
 			logger.info("Requete executer");
 			returnValue = this.jdbcTemplate.query("SELECT * FROM `Group` limit ?,?", Dao::resultSetToGroup);
 		} catch (EmptyResultDataAccessException e) {
-			e.printStackTrace();
 		}
 		return returnValue;
 	}
@@ -159,11 +158,10 @@ public class Dao implements IDao {
 		if (page > 0) {
 			try {
 				logger.info("Requete executer");
-				returnValue = this.jdbcTemplate.query("SELECT Id,LastName FROM `Person` WHERE GroupId = ? limit ?,?",
+				returnValue = this.jdbcTemplate.query("SELECT Id,LastName FROM `Person` WHERE GroupId = ? ORDER BY Id limit ?,?",
 						new BeanPropertyRowMapper<Person>(Person.class), groupId, (page - 1) * itemPerPage,
 						itemPerPage);
 			} catch (EmptyResultDataAccessException e) {
-				e.printStackTrace();
 			}
 		}
 		return returnValue;
@@ -210,7 +208,6 @@ public class Dao implements IDao {
 			returnValue = this.jdbcTemplate.queryForObject("Select * FROM `Person` WHERE id = ?",
 					new BeanPropertyRowMapper<Person>(Person.class), id);
 		} catch (EmptyResultDataAccessException e) {
-			e.printStackTrace();
 		}
 		return returnValue;
 	}
@@ -228,7 +225,6 @@ public class Dao implements IDao {
 			returnValue = this.jdbcTemplate.queryForObject("Select * FROM `Group` WHERE id = ?",
 					new BeanPropertyRowMapper<Group>(Group.class), id);
 		} catch (EmptyResultDataAccessException e) {
-			e.printStackTrace();
 		}
 		return returnValue;
 	}
@@ -245,7 +241,6 @@ public class Dao implements IDao {
 			returnValue = this.jdbcTemplate.queryForObject("Select * FROM `Group` WHERE Name = ?",
 					new BeanPropertyRowMapper<Group>(Group.class), name);
 		} catch (EmptyResultDataAccessException e) {
-			e.printStackTrace();
 		}
 		return returnValue;
 	}
@@ -263,10 +258,9 @@ public class Dao implements IDao {
 		if (page > 0) {
 			try {
 				logger.info("Requete executer");
-				returnValue = this.jdbcTemplate.query("SELECT * FROM `Group` WHERE Name LIKE ? limit ?,?",
+				returnValue = this.jdbcTemplate.query("SELECT * FROM `Group` WHERE Name LIKE ? ORDER BY Id limit ?,?",
 						Dao::resultSetToGroup, "%" + name + "%", (page - 1) * itemPerPage, itemPerPage);
 			} catch (EmptyResultDataAccessException e) {
-				e.printStackTrace();
 			}
 		}
 		return returnValue;
@@ -286,11 +280,10 @@ public class Dao implements IDao {
 			try {
 				logger.info("Requete executer");
 				returnValue = this.jdbcTemplate.query(
-						"SELECT Id,LastName FROM `Person` WHERE LastName like ? limit ?,?",
+						"SELECT Id,LastName FROM `Person` WHERE LastName like ? ORDER BY Id limit ?,?",
 						new BeanPropertyRowMapper<Person>(Person.class), "%" + lastName + "%", (page - 1) * itemPerPage,
 						itemPerPage);
 			} catch (EmptyResultDataAccessException e) {
-				e.printStackTrace();
 			}
 		}
 		return returnValue;

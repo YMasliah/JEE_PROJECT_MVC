@@ -16,21 +16,30 @@
 	</c:import>
 
 	<section style="float: left; width: 60%; margin: 0 1.5% 24px 1.5%;">
+
+		<div>
+			<c:if test="${type_notify == 'success'}">
+				<div class="alert alert-<c:out value="${type_notify}"></c:out>">
+					Recherche réussit</div>
+			</c:if>
+		</div>
+
 		<c:choose>
 			<c:when test="${persons.size() == 0 }">
-				<h1>OUPS ! Aucune peronne dans ce groupe.</h1>
-			</c:when>
-			<c:otherwise>
-				<h2>
+				<h1>
 					Groupe :
 					<c:out value="${group.name}"></c:out>
-				</h2>
-				<p>
-					group : bon ici. si l'user est identique a l'etudiant on peut
-					modifier <br> sinon on peu juste afficher les valeurs des
-					etudiants (4 valeurs) <br> et pour finir on peu rajouter un
-					nouvel utilisateur
-				</p>
+				</h1>
+
+				<h1>OUPS ! Aucune peronne dans cette page.</h1>
+			</c:when>
+			<c:otherwise>
+				<h1>
+					Groupe :
+					<c:out value="${group.name}"></c:out>
+				</h1>
+
+				<p>Voici la liste des personnes du groupe.</p>
 
 				<table class="table table-condensed">
 					<thead>
@@ -56,19 +65,20 @@
 				<ul class="pager">
 					<c:choose>
 						<c:when test="${page >= 2}">
-							<li><a href="#">Previous</a></li>
+							<li><a href="${viewGroup}/${page-1}?id=${group.id}">Précédent</a></li>
 						</c:when>
 						<c:otherwise>
-							<li class="disabled"><a>Previous</a></li>
+							<li class="disabled"><a>Précédent</a></li>
 						</c:otherwise>
 					</c:choose>
-					<li>Page <c:out value="${page}"></c:out></li>
+					&emsp;&emsp;
+					<li>Page<c:out value="${page}"></c:out></li>&emsp;&emsp;
 					<c:choose>
 						<c:when test="${persons.size() == 50}">
-							<li><a href="#">Next</a></li>
+							<li><a href="${viewGroup}/${page+1}?id=${group.id}">Suivant</a></li>
 						</c:when>
 						<c:otherwise>
-							<li class="disabled"><a>Next</a></li>
+							<li class="disabled"><a>Suivant</a></li>
 						</c:otherwise>
 					</c:choose>
 				</ul>

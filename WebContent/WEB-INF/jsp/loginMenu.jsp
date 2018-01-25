@@ -9,12 +9,11 @@
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="${login}">Acceuil</a> <a
+			<a class="navbar-brand" href="${login}">Accueil</a> <a
 				class="navbar-text" href="${groupList}">liste des groupes</a>
 		</div>
 
 		<ul class="nav navbar-nav navbar-right">
-
 			<c:choose>
 				<c:when test="${empty user.name}">
 					<li><a href="${login}"><span
@@ -23,7 +22,7 @@
 				<c:when test="${user.name =='No User'}">
 					<li><form:form method="POST" commandName="user"
 							class="navbar-form navbar-right" action="${login}">
-							
+
 							<div class="input-group col-md-4">
 								<span class="input-group-addon"><i
 									class="glyphicon glyphicon-user"></i></span>
@@ -42,7 +41,7 @@
 								<button type="submit" class="btn btn-primary">Submit</button>
 							</div>
 							<a href="${passwordLost}">mot de passe perdu ?</a>
-							
+
 							<form:errors path="*" cssClass="alert alert-danger" element="div" />
 						</form:form></li>
 				</c:when>
@@ -53,7 +52,22 @@
 							class="glyphicon glyphicon-off"></span> Logout</a></li>
 				</c:otherwise>
 			</c:choose>
-
 		</ul>
 	</div>
 </nav>
+
+<div>
+	<c:if test="${type_notify == 'danger'}">
+		<div class="alert alert-<c:out value="${type_notify}"></c:out>">
+			<c:out value="${notify}"></c:out>
+		</div>
+	</c:if>
+</div>
+<div class="form-group">
+	<c:if test="${error_pwd == 'OK'}">
+		<div class="alert alert-danger">
+			<c:out value="${notify_pwd}"></c:out>
+
+		</div>
+	</c:if>
+</div>

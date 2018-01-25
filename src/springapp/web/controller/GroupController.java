@@ -52,14 +52,11 @@ public class GroupController extends BaseController implements IGroupController 
 			mv = new ModelAndView("group");
 			mv.addObject("group", manager.findGroup(user, groupId));
 			mv.addObject("persons", manager.findAll(user, groupId, page));
-			mv.addObject("type_notify", "success");
-			mv.addObject("notify", "Recherche réussite");
 		} else {
 			mv = new ModelAndView("index");
-			mv.addObject("type_notify", "danger");
-			mv.addObject("notify", "Aucun Groupe trouvé.");
 		}
 		return mv;
 	}
 
 }
+ 

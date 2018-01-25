@@ -15,11 +15,19 @@
 	</c:import>
 
 	<section style="float: left; width: 60%; margin: 0 1.5% 24px 1.5%;">
-		<h2>
-			Informations :
+
+		<div>
+			<c:if test="${type_notify == 'success'}">
+				<div class="alert alert-<c:out value="${type_notify}"></c:out>">
+					Recherche réussit</div>
+			</c:if>
+		</div>
+
+		<h1>
+			Informations de :
 			<c:out value="${person.lastName}"></c:out>
-		</h2>
-		<p>faut rajouter des if et un lien de l'id du groupe.</p>
+		</h1>
+		<p>Voici les informations personnelles.</p>
 
 		<table class="table table-condensed">
 			<tbody>

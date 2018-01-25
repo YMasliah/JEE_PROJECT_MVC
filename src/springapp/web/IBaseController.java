@@ -80,6 +80,6 @@ public interface IBaseController {
 	 * @return la page correspodante a la recherche
 	 * @throws DaoException
 	 */
-	public ModelAndView search(String key, String type, Integer page) throws DaoException;
+	public ModelAndView search(String key, String type, Integer page, RedirectAttributes redirectAttributes) throws DaoException;
 
 }

@@ -44,12 +44,8 @@ public class PersonController extends BaseController implements IPersonControlle
 			mv = new ModelAndView("person");
 			mv.addObject("person", person);
 			mv.addObject("group", manager.findGroup(user, person.getGroupId()).getName());
-			mv.addObject("type_notify", "success");
-			mv.addObject("notify", "Recherche réussite");
 		} else {
 			mv = new ModelAndView("index");
-			mv.addObject("type_notify", "danger");
-			mv.addObject("notify", "Aucune Personne trouvée.");
 		}
 		return mv;
 	}
@@ -86,13 +82,13 @@ public class PersonController extends BaseController implements IPersonControlle
 			returnValue = new ModelAndView("personEdit");
 			returnValue.addObject("group", groupName);
 			if (groupId == null) {
-				ObjectError error = new ObjectError("group", "** Le nom de groupe n'est pas valide.");
+				ObjectError error = new ObjectError("group", "** Le nom du groupe n'est pas valide.");
 				result.addError(error);
 			}
 		} else if (groupId == null) {
 			returnValue = new ModelAndView("personEdit");
 			returnValue.addObject("group", groupName);
-			ObjectError error = new ObjectError("group", "** Le nom de groupe n'est valide.");
+			ObjectError error = new ObjectError("group", "** Le nom du groupe n'est pas valide.");
 			result.addError(error);
 		} else {
 			p.setGroupId(groupId);
